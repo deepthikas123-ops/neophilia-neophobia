@@ -197,9 +197,17 @@ if(gen){
 
 // Download responses as CSV
 function downloadMyData(){
-  const data = JSON.parse(localStorage.getItem('nn_survey_submitted') || localStorage.getItem('nn_survey') || '{}');
+  // Try submitted copy first, then in-progress backup
+  const raw = localStorage.getItem('nn_survey_submitted')
+            || localStorage.getItem('nn_survey');
+  if(!raw){
+    alert('No response data found.\n\nThis can happen if:\n• You opened this page directly without completing the survey\n• You are using a different browser or device\n• Your browser is in private/incognito mode\n\nPlease complete the survey first.');
+    return;
+  }
+  const data = JSON.parse(raw);
   if(!data || Object.keys(data).length === 0){
-    alert('No response data found in this browser.'); return;
+    alert('Response data appears empty. Please complete the survey first.');
+    return;
   }
 
   const rows = [['Field','Value']];
@@ -230,10 +238,9 @@ function copyLink(){
     });
 }
 
-// Clear stored survey data after a delay (keep submitted copy)
-setTimeout(()=>{
-  localStorage.removeItem('nn_survey');
-}, 3000);
+// Note: nn_survey_submitted is kept until user navigates away
+// nn_survey (in-progress) was already cleared by survey.html on submit
+// We do NOT auto-clear here so the download button always works
 </script>
 </body>
 </html>

@@ -1049,27 +1049,29 @@ function submitSurvey(){
   responses.closing.c5 = document.getElementById('c5input')?.value || '';
   responses.submitted_at = new Date().toISOString();
 
-  // Submit to Web3Forms (replace ACCESS_KEY with real key)
+  // ── ALWAYS save completed response FIRST so thank-you page can read it ──
+  localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
+  localStorage.removeItem('nn_survey');
+
+  // ── Attempt Web3Forms submission (replace key below) ───────────────────
+  // Get your free key at: https://web3forms.com
   const payload = {
     access_key: 'ee7f8623-c2f9-46cc-9f21-9e7e86c63748',
-    subject: 'N&N Study Response — '+new Date().toLocaleDateString(),
+    subject: 'N&N Study Response — ' + new Date().toLocaleDateString(),
     from_name: 'Neophilia-Neophobia Survey',
     message: JSON.stringify(responses, null, 2),
   };
 
   fetch('https://api.web3forms.com/submit', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
-  .then(r=>r.json())
-  .then(data=>{
-    localStorage.removeItem('nn_survey');
-    window.location.href = 'thank-you.html';
+  .catch(() => {
+    // API failed — data already saved locally, redirect anyway
+    console.warn('Web3Forms submission failed. Response saved locally.');
   })
-  .catch(()=>{
-    // Still redirect — responses are in localStorage as backup
-    localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
+  .finally(() => {
     window.location.href = 'thank-you.html';
   });
 }
