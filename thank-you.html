@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Thank You | Neophilia–Neophobia Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e1c2f;--navy:#1a3a5c;--teal:#0d8a7a;
+  --gold:#c8922a;--off:#faf8f5;--muted:#6b7c8d;
+  --light:#e8eff7;--border:#d0dce8;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--off);color:var(--ink);
+  min-height:100vh;display:flex;flex-direction:column;
+}
+nav{
+  background:rgba(14,28,47,0.96);padding:1rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;}
+.nav-brand span{color:var(--gold)}
+.nav-home{font-size:0.8rem;color:rgba(255,255,255,0.5);text-decoration:none;
+  transition:color 0.2s;}
+.nav-home:hover{color:#fff}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem;}
+.card{
+  background:#fff;border:1px solid var(--border);border-radius:1.25rem;
+  padding:3.5rem 3rem;max-width:680px;width:100%;text-align:center;
+  box-shadow:0 8px 40px rgba(0,0,0,0.06);
+  animation:pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes pop{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+
+.check-circle{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(13,138,122,0.1);border:2px solid var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;font-size:2rem;
+  animation:checkPop 0.6s 0.3s ease both;
+}
+@keyframes checkPop{from{transform:scale(0)}to{transform:scale(1)}}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;font-weight:300;color:var(--ink);margin-bottom:0.5rem;
+}
+h1 em{font-style:italic;color:var(--teal)}
+.sub{font-size:0.95rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;max-width:48ch;margin-left:auto;margin-right:auto;}
+
+.stats-row{
+  display:flex;justify-content:center;gap:2.5rem;
+  padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  margin-bottom:2rem;
+}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--navy);}
+.stat-lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-top:0.1rem;}
+
+.debrief{
+  background:var(--light);border-radius:0.75rem;
+  padding:1.5rem;text-align:left;margin-bottom:1.8rem;
+}
+.debrief-title{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.9rem;}
+.debrief-text{font-size:0.85rem;color:var(--muted);line-height:1.7;}
+
+.actions{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--navy);color:#fff;padding:0.85rem 1.8rem;
+  border-radius:0.5rem;font-size:0.88rem;font-weight:500;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+}
+.btn-primary:hover{background:#1e5fa8;transform:translateY(-1px)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:transparent;color:var(--muted);padding:0.85rem 1.8rem;
+  border-radius:0.5rem;font-size:0.88rem;
+  border:1.5px solid var(--border);cursor:pointer;
+  transition:all 0.2s;text-decoration:none;
+}
+.btn-secondary:hover{border-color:var(--navy);color:var(--navy)}
+
+.share-section{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.share-label{font-size:0.78rem;color:var(--muted);margin-bottom:0.8rem;text-transform:uppercase;letter-spacing:0.08em;}
+.share-url{
+  display:flex;gap:0.5rem;align-items:center;
+  background:var(--off);border:1px solid var(--border);border-radius:0.45rem;
+  padding:0.6rem 0.8rem;font-size:0.8rem;color:var(--navy);font-family:monospace;
+  overflow:hidden;
+}
+.share-url span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.copy-btn{
+  flex-shrink:0;padding:0.35rem 0.75rem;background:var(--navy);color:#fff;
+  border:none;border-radius:0.3rem;font-size:0.75rem;cursor:pointer;
+  transition:background 0.2s;
+}
+.copy-btn:hover{background:#1e5fa8}
+
+footer{
+  text-align:center;padding:1.5rem;
+  font-size:0.75rem;color:var(--muted);
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:600px){
+  .card{padding:2rem 1.25rem}
+  .stats-row{gap:1.5rem}
+  h1{font-size:1.9rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">N<span>&</span>N Study</div>
+  <a href="index.html" class="nav-home">← Back to home</a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="check-circle">✓</div>
+
+    <h1>Thank you,<br><em>your response matters.</em></h1>
+    <p class="sub" id="genGreeting">
+      Your submission has been recorded. You have just contributed to one of the first
+      AI-assisted generational studies on product design preference in India.
+    </p>
+
+    <div class="stats-row">
+      <div>
+        <div class="stat-val" id="statSections">9</div>
+        <div class="stat-lbl">Sections completed</div>
+      </div>
+      <div>
+        <div class="stat-val" id="statProducts">6</div>
+        <div class="stat-lbl">Products evaluated</div>
+      </div>
+      <div>
+        <div class="stat-val" id="statGen">—</div>
+        <div class="stat-lbl">Your generation</div>
+      </div>
+    </div>
+
+    <div class="debrief">
+      <div class="debrief-title">📋 What this study is really about</div>
+      <div class="debrief-text">
+        This study examines <strong>neophilia</strong> (attraction to novelty) and <strong>neophobia</strong>
+        (aversion to novelty) in product design across generational groups — Gen X, Gen Y, Gen Z, and Gen Alpha.
+        The products you evaluated were pre-classified using an AI pipeline developed at IISc Bangalore
+        that scores each design on a scale from 0.00 (most conventional) to 1.00 (most unconventional).
+        Your choices will help us understand where the "Neophilia-to-Neophobia shift point" lies
+        across different generations, genders, and income groups.
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" onclick="downloadMyData()">
+        ⬇ Download My Responses
+      </button>
+      <a href="index.html" class="btn-secondary">
+        ← Back to Home
+      </a>
+    </div>
+
+    <div class="share-section">
+      <div class="share-label">Help us reach more participants — share this study</div>
+      <div class="share-url">
+        <span id="shareUrl">https://deepthikas123-ops.github.io/neophilia-neophobia/</span>
+        <button class="copy-btn" onclick="copyLink()">Copy</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Neophilia–Neophobia Design Preference Study &nbsp;·&nbsp;
+  Department of Design &amp; Mechanical Engineering, IISc Bangalore &nbsp;·&nbsp;
+  © 2025
+</footer>
+
+<script>
+// Show generation and personalise greeting
+const saved = JSON.parse(localStorage.getItem('nn_survey_submitted') || localStorage.getItem('nn_survey') || '{}');
+const gen = saved?.demographics?.generation;
+if(gen){
+  document.getElementById('statGen').textContent = gen.replace('Gen ','G');
+  document.getElementById('genGreeting').textContent =
+    `Your response as a ${gen} participant has been recorded. You have just contributed to one of the first AI-assisted generational studies on product design preference in India.`;
+}
+
+// Download responses as CSV
+function downloadMyData(){
+  const data = JSON.parse(localStorage.getItem('nn_survey_submitted') || localStorage.getItem('nn_survey') || '{}');
+  if(!data || Object.keys(data).length === 0){
+    alert('No response data found in this browser.'); return;
+  }
+
+  const rows = [['Field','Value']];
+  const flatten = (obj, prefix='') => {
+    Object.entries(obj).forEach(([k,v])=>{
+      const key = prefix ? `${prefix}.${k}` : k;
+      if(v && typeof v === 'object' && !Array.isArray(v)) flatten(v, key);
+      else rows.push([key, Array.isArray(v) ? v.join(' | ') : String(v ?? '')]);
+    });
+  };
+  flatten(data);
+
+  const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'my_nn_study_responses.csv';
+  a.click();
+}
+
+// Copy share link
+function copyLink(){
+  navigator.clipboard.writeText(document.getElementById('shareUrl').textContent)
+    .then(()=>{
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✓ Copied';
+      setTimeout(()=>btn.textContent='Copy', 2000);
+    });
+}
+
+// Clear stored survey data after a delay (keep submitted copy)
+setTimeout(()=>{
+  localStorage.removeItem('nn_survey');
+}, 3000);
+</script>
+</body>
+</html>
