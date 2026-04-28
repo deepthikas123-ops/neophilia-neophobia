@@ -407,52 +407,58 @@ footer{
 </footer>
 
 <script>
-// ── PLACEHOLDER DATA (replace with real data from your CSV) ──────────────
-// When you have real responses, update the numbers in RESULTS_DATA below.
-const RESULTS_DATA = {
-  totalResponses: 0,
-  countries: 0,
-  avgTime: '—',
-  avgDesignAwareness: '—',
+// ── APPS SCRIPT URL — paste your deployment URL here ────────────────────
+// Same URL you put in survey.html
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
 
-  // Overall preference by generation [Conventional%, Hybrid%, Unconventional%]
+// ── FALLBACK DATA shown while loading or if fetch fails ──────────────────
+const FALLBACK_DATA = {
+  totalResponses: 0, countries: 0, avgTime: '—', avgDesignAwareness: '—',
   overallByGen: {
-    'Gen X':    [45, 35, 20],
-    'Gen Y':    [30, 40, 30],
-    'Gen Z':    [20, 38, 42],
-    'Gen Alpha':[25, 32, 43],
+    'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]
   },
-
-  // Per-product preference [Conv%, Hybrid%, Unconv%]
   byProduct: {
-    cup:     { 'Gen X':[55,30,15], 'Gen Y':[35,38,27], 'Gen Z':[22,36,42], 'Gen Alpha':[28,34,38] },
-    watch:   { 'Gen X':[48,32,20], 'Gen Y':[28,42,30], 'Gen Z':[18,35,47], 'Gen Alpha':[22,30,48] },
-    perfume: { 'Gen X':[42,36,22], 'Gen Y':[32,38,30], 'Gen Z':[20,40,40], 'Gen Alpha':[24,36,40] },
-    clock:   { 'Gen X':[50,33,17], 'Gen Y':[33,40,27], 'Gen Z':[25,38,37], 'Gen Alpha':[30,35,35] },
-    lamp:    { 'Gen X':[44,34,22], 'Gen Y':[30,42,28], 'Gen Z':[18,40,42], 'Gen Alpha':[20,38,42] },
-    bottle:  { 'Gen X':[40,38,22], 'Gen Y':[28,40,32], 'Gen Z':[20,36,44], 'Gen Alpha':[22,34,44] },
+    cup:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
+    watch:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
+    perfume:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
+    clock:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
+    lamp:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
+    bottle:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
   },
-
-  // Neophobia threshold by generation (mean, 1–10 scale)
-  thresholdByGen: { 'Gen X':5.8, 'Gen Y':6.4, 'Gen Z':7.2, 'Gen Alpha':7.5 },
-
-  // Trait score by generation (composite neophilia index, 1–5)
-  traitByGen: { 'Gen X':2.8, 'Gen Y':3.2, 'Gen Z':3.7, 'Gen Alpha':3.9 },
-
-  // Purchase intention by archetype × generation [Conv, Hybrid, Unconv]
-  purchaseByGen: {
-    'Gen X':    [3.8, 3.2, 2.4],
-    'Gen Y':    [3.4, 3.6, 3.0],
-    'Gen Z':    [2.9, 3.5, 3.5],
-    'Gen Alpha':[3.0, 3.4, 3.6],
-  },
+  thresholdByGen:{'Gen X':5,'Gen Y':5,'Gen Z':5,'Gen Alpha':5},
+  traitByGen:{'Gen X':3,'Gen Y':3,'Gen Z':3,'Gen Alpha':3},
+  purchaseByGen:{'Gen X':[3,3,3],'Gen Y':[3,3,3],'Gen Z':[3,3,3],'Gen Alpha':[3,3,3]},
 };
+
+let RESULTS_DATA = FALLBACK_DATA;
 
 const GENS   = ['Gen X','Gen Y','Gen Z','Gen Alpha'];
 const COLORS = { conv:'#6b7c8d', hybrid:'#0d8a7a', unconv:'#c8922a' };
 const GEN_COLORS = ['#6366f1','#0d8a7a','#c8922a','#e54d4d'];
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.color = '#6b7c8d';
+
+// ── FETCH LIVE DATA FROM APPS SCRIPT THEN RENDER ──────────────────────
+async function loadAndRender() {
+  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
+    try {
+      const res  = await fetch(APPS_SCRIPT_URL + '?action=stats');
+      const live = await res.json();
+      if (live && live.totalResponses !== undefined) {
+        RESULTS_DATA = { ...FALLBACK_DATA, ...live };
+      }
+    } catch(e) {
+      console.warn('Could not fetch live data, using fallback.', e);
+    }
+  }
+  renderAll();
+}
+
+let chartInstances = [];
+function destroyCharts() { chartInstances.forEach(ch => ch.destroy()); chartInstances = []; }
+
+function renderAll() {
+  destroyCharts();
 
 // ── UPDATE STAT CARDS ──────────────────────────────────────────────────
 const d = RESULTS_DATA;
@@ -463,7 +469,7 @@ document.getElementById('sc3').textContent = d.avgTime;
 document.getElementById('sc4').textContent = d.avgDesignAwareness;
 
 // ── CHART: OVERALL PREFERENCE BY GENERATION (grouped bar) ─────────────
-new Chart(document.getElementById('chartOverall'), {
+chartInstances.push(new Chart(document.getElementById('chartOverall'), {
   type: 'bar',
   data: {
     labels: GENS,
@@ -481,7 +487,7 @@ new Chart(document.getElementById('chartOverall'), {
       y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
     }
   }
-});
+}));
 
 // ── CHARTS: PER PRODUCT (doughnut) ────────────────────────────────────
 const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
@@ -497,7 +503,7 @@ productIds.forEach((pid, i) => {
   const total = agg.reduce((a,b)=>a+b,0);
   const pcts  = agg.map(v => Math.round(v/total*100));
 
-  new Chart(document.getElementById(chartIds[i]), {
+  chartInstances.push(new Chart(document.getElementById(chartIds[i]), {
     type:'doughnut',
     data:{
       labels:['Conventional','Hybrid','Unconventional'],
@@ -515,11 +521,11 @@ productIds.forEach((pid, i) => {
         tooltip:{ callbacks:{ label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
       }
     }
-  });
+  }));
 });
 
 // ── CHART: THRESHOLD BY GENERATION (horizontal bar) ───────────────────
-new Chart(document.getElementById('chartThreshold'), {
+chartInstances.push(new Chart(document.getElementById('chartThreshold'), {
   type:'bar',
   data:{
     labels: GENS,
@@ -539,10 +545,10 @@ new Chart(document.getElementById('chartThreshold'), {
       y:{ grid:{ display:false } }
     }
   }
-});
+}));
 
 // ── CHART: TRAIT SCORE BY GENERATION (radar) ──────────────────────────
-new Chart(document.getElementById('chartTrait'), {
+chartInstances.push(new Chart(document.getElementById('chartTrait'), {
   type:'radar',
   data:{
     labels:['Gen X','Gen Y','Gen Z','Gen Alpha'],
@@ -567,10 +573,10 @@ new Chart(document.getElementById('chartTrait'), {
     },
     plugins:{ legend:{ display:false } }
   }
-});
+}));
 
 // ── CHART: PURCHASE INTENTION (grouped bar) ───────────────────────────
-new Chart(document.getElementById('chartPurchase'), {
+chartInstances.push(new Chart(document.getElementById('chartPurchase'), {
   type:'bar',
   data:{
     labels: GENS,
@@ -588,7 +594,10 @@ new Chart(document.getElementById('chartPurchase'), {
       y:{ min:1, max:5, ticks:{ stepSize:0.5 }, grid:{ color:'#e8eff7' } }
     }
   }
-});
+}));
+} // end renderAll
+
+loadAndRender();
 </script>
 </body>
 </html>

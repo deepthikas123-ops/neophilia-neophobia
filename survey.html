@@ -1049,31 +1049,35 @@ function submitSurvey(){
   responses.closing.c5 = document.getElementById('c5input')?.value || '';
   responses.submitted_at = new Date().toISOString();
 
-  // ── ALWAYS save completed response FIRST so thank-you page can read it ──
+  // ── ALWAYS save locally FIRST — thank-you page reads from here ──────────
   localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
   localStorage.removeItem('nn_survey');
 
-  // ── Attempt Web3Forms submission (replace key below) ───────────────────
-  // Get your free key at: https://web3forms.com
-  const payload = {
-    access_key: 'ee7f8623-c2f9-46cc-9f21-9e7e86c63748',
-    subject: 'N&N Study Response — ' + new Date().toLocaleDateString(),
-    from_name: 'Neophilia-Neophobia Survey',
-    message: JSON.stringify(responses, null, 2),
+  // ── Submit to Google Apps Script (paste your deployment URL below) ───────
+  // Instructions: see SETUP.md or the README for how to get this URL.
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
+
+  const submitAndRedirect = () => {
+    window.location.href = 'thank-you.html';
   };
 
-  fetch('https://api.web3forms.com/submit', {
+  if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec') {
+    // URL not yet configured — just redirect
+    console.warn('Apps Script URL not set. Response saved locally only.');
+    submitAndRedirect();
+    return;
+  }
+
+  fetch(APPS_SCRIPT_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    // Note: no Content-Type header — Apps Script requires no-cors or plain text
+    body: JSON.stringify(responses),
   })
-  .catch(() => {
-    // API failed — data already saved locally, redirect anyway
-    console.warn('Web3Forms submission failed. Response saved locally.');
+  .catch(err => {
+    // Network error — data is safe in localStorage, just redirect
+    console.warn('Apps Script POST failed:', err);
   })
-  .finally(() => {
-    window.location.href = 'thank-you.html';
-  });
+  .finally(submitAndRedirect);
 }
 
 function goBack(){
