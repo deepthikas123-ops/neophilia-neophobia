@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>404 — Page Not Found | N&N Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0e1c2f;--navy:#1a3a5c;--teal:#0d8a7a;--gold:#c8922a;--off:#faf8f5;--muted:#6b7c8d;--border:#d0dce8}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden;position:relative}
+
+/* background grid */
+body::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;
+}
+
+.error-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(7rem,20vw,14rem);font-weight:300;
+  line-height:1;color:rgba(255,255,255,0.06);
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-55%);
+  pointer-events:none;user-select:none;
+  letter-spacing:-0.04em;
+}
+
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:1.25rem;padding:3rem 3.5rem;
+  max-width:520px;width:100%;position:relative;z-index:1;
+  animation:fadeUp 0.5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.card-icon{font-size:2.5rem;margin-bottom:1.2rem}
+h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:0.5rem}
+h1 em{font-style:italic;color:rgba(255,255,255,0.4)}
+.sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:2rem;max-width:38ch;margin-left:auto;margin-right:auto}
+
+.nav-cards{display:flex;flex-direction:column;gap:0.6rem}
+.nav-link{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  border-radius:0.6rem;padding:0.8rem 1.2rem;
+  text-decoration:none;color:rgba(255,255,255,0.7);
+  font-size:0.88rem;transition:all 0.2s;
+}
+.nav-link:hover{background:rgba(255,255,255,0.09);color:#fff;border-color:rgba(255,255,255,0.15)}
+.nav-link-label{display:flex;align-items:center;gap:0.7rem}
+.nav-link-icon{font-size:1rem}
+.nav-link-arrow{font-size:0.7rem;color:rgba(255,255,255,0.3)}
+.nav-link.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.nav-link.primary:hover{background:#0a7a6c;border-color:#0a7a6c}
+
+.brand{
+  position:absolute;top:1.5rem;left:2rem;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.4);
+  text-decoration:none;
+}
+.brand span{color:var(--gold)}
+
+@media(max-width:500px){.card{padding:2rem 1.5rem}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="brand">N<span>&</span>N Study</a>
+<div class="error-num">404</div>
+
+<div class="card">
+  <div class="card-icon">🔍</div>
+  <h1>Page <em>not found</em></h1>
+  <p class="sub">The page you're looking for doesn't exist, or may have moved. Here's where you can go instead.</p>
+  <div class="nav-cards">
+    <a href="index.html" class="nav-link primary">
+      <div class="nav-link-label"><div class="nav-link-icon">🏠</div> Back to Home</div>
+      <div class="nav-link-arrow">→</div>
+    </a>
+    <a href="index.html#consent" class="nav-link">
+      <div class="nav-link-label"><div class="nav-link-icon">📝</div> Take the Survey</div>
+      <div class="nav-link-arrow">→</div>
+    </a>
+    <a href="results.html" class="nav-link">
+      <div class="nav-link-label"><div class="nav-link-icon">📊</div> View Results</div>
+      <div class="nav-link-arrow">→</div>
+    </a>
+    <a href="about.html" class="nav-link">
+      <div class="nav-link-label"><div class="nav-link-icon">🔬</div> About the Study</div>
+      <div class="nav-link-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

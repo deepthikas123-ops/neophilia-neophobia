@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>About | Neophilia–Neophobia Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e1c2f;--navy:#1a3a5c;--teal:#0d8a7a;
+  --gold:#c8922a;--off:#faf8f5;--muted:#6b7c8d;
+  --light:#e8eff7;--border:#d0dce8;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink)}
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
+  padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff}
+.nav-brand span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.78rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;
+  text-decoration:none;color:rgba(255,255,255,0.55);transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+
+/* HERO */
+.about-hero{
+  background:var(--ink);padding:5rem 6rem 4rem;
+}
+.hero-tag{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:1rem}
+.about-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#fff;line-height:1.1}
+.about-hero h1 em{font-style:italic;color:rgba(255,255,255,0.45)}
+.about-hero p{font-size:0.95rem;color:rgba(255,255,255,0.5);max-width:55ch;margin-top:1.2rem;line-height:1.8}
+
+/* LAYOUT */
+.page-body{max-width:1000px;margin:0 auto;padding:4rem 2rem 5rem}
+.divider{height:1px;background:var(--border);margin:3.5rem 0}
+
+/* SECTION */
+.sec-tag{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.5rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--ink);margin-bottom:1rem}
+.sec-title em{font-style:italic;color:var(--navy)}
+.body-text{font-size:0.92rem;color:var(--muted);line-height:1.85;max-width:68ch}
+.body-text p{margin-bottom:1rem}
+.body-text strong{color:var(--ink)}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+
+/* PIPELINE STEPS */
+.pipeline{display:flex;flex-direction:column;gap:0}
+.pipe-step{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  padding:1.2rem 0;border-bottom:1px solid var(--border);
+}
+.pipe-step:last-child{border-bottom:none}
+.pipe-num{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--navy);color:#fff;
+  font-size:0.78rem;font-weight:500;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.pipe-name{font-size:0.88rem;font-weight:500;color:var(--navy);margin-bottom:0.25rem}
+.pipe-desc{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.pipe-tag{
+  display:inline-block;font-size:0.65rem;letter-spacing:0.07em;
+  text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:0.25rem;
+  background:var(--light);color:var(--navy);margin-top:0.4rem;
+}
+
+/* FORMULA CARD */
+.formula-card{
+  background:var(--ink);border-radius:1rem;padding:2rem;
+  font-family:'Courier New',monospace;
+}
+.formula-line{font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:2;margin-bottom:0.2rem}
+.formula-line .var{color:#1ABC9C}
+.formula-line .op{color:rgba(255,255,255,0.4)}
+.formula-comment{font-size:0.72rem;color:rgba(255,255,255,0.3)}
+.formula-title{
+  font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1rem;
+}
+
+/* CLASSIFICATION TABLE */
+.class-table{width:100%;border-collapse:collapse;margin-top:1.2rem}
+.class-table th{
+  text-align:left;font-size:0.72rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--muted);
+  padding:0.5rem 0.8rem;border-bottom:2px solid var(--border);
+}
+.class-table td{padding:0.7rem 0.8rem;border-bottom:1px solid var(--border);font-size:0.85rem}
+.class-table tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:0.25rem;font-size:0.75rem;font-weight:500}
+.badge.c{background:rgba(107,124,141,0.12);color:#4a6070}
+.badge.h{background:rgba(13,138,122,0.1);color:var(--teal)}
+.badge.u{background:rgba(200,146,42,0.1);color:var(--gold)}
+
+/* ETHICS CARDS */
+.ethics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.5rem}
+.ethics-card{
+  background:#fff;border:1px solid var(--border);border-radius:0.75rem;
+  padding:1.4rem;display:flex;gap:0.9rem;
+}
+.ethics-icon{font-size:1.4rem;flex-shrink:0}
+.ethics-title{font-size:0.85rem;font-weight:500;color:var(--navy);margin-bottom:0.25rem}
+.ethics-text{font-size:0.8rem;color:var(--muted);line-height:1.55}
+
+/* CONTACT */
+.contact-card{
+  background:var(--ink);border-radius:1rem;padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  flex-wrap:wrap;margin-top:3rem;
+}
+.contact-card h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#fff;margin-bottom:0.4rem}
+.contact-card p{font-size:0.85rem;color:rgba(255,255,255,0.5);max-width:42ch}
+.btn-teal{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--teal);color:#fff;padding:0.85rem 1.8rem;
+  border-radius:0.5rem;font-size:0.88rem;font-weight:500;
+  text-decoration:none;transition:opacity 0.2s,transform 0.15s;white-space:nowrap;
+}
+.btn-teal:hover{opacity:0.9;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{
+  background:var(--ink);color:rgba(255,255,255,0.4);
+  padding:2.5rem 6rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.7)}
+.footer-brand span{color:var(--gold)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.75rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:rgba(255,255,255,0.8)}
+
+@media(max-width:860px){
+  .about-hero{padding:4rem 2rem 3rem}
+  .two-col{grid-template-columns:1fr}
+  .ethics-grid{grid-template-columns:1fr}
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  footer{padding:2rem;flex-direction:column;gap:1rem}
+  .contact-card{padding:2rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">N<span>&</span>N Study</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#consent">Participate</a></li>
+    <li><a href="results.html">Results</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+</nav>
+
+<div class="about-hero">
+  <span class="hero-tag">About the Research</span>
+  <h1>The science behind<br><em>novelty and aversion</em></h1>
+  <p>A multidisciplinary study combining consumer psychology, AI-assisted image classification, and generational analysis — conducted at the Indian Institute of Science, Bangalore.</p>
+</div>
+
+<div class="page-body">
+
+  <!-- BACKGROUND -->
+  <div class="two-col">
+    <div>
+      <span class="sec-tag">Background</span>
+      <div class="sec-title">Why <em>neophilia & neophobia?</em></div>
+      <div class="body-text">
+        <p><strong>Neophilia</strong> — the attraction to novelty — and <strong>neophobia</strong> — the aversion to unfamiliar stimuli — are well-documented psychological traits that influence consumer behaviour across domains. In product design, these tendencies determine which innovations succeed in the market and which fail despite technical merit.</p>
+        <p>As product design increasingly diverges from conventional forms — driven by AI-assisted generative design, 3D printing, and global trend convergence — understanding where different populations draw the line between fascination and rejection becomes commercially and academically critical.</p>
+        <p>This study is the first to examine this boundary systematically across four distinct generational cohorts using a hybrid AI + human evaluation methodology.</p>
+      </div>
+    </div>
+    <div>
+      <span class="sec-tag">Research Framework</span>
+      <div class="sec-title">EUPHORIA-RETINA <em>Framework</em></div>
+      <div class="body-text">
+        <p>The AI classification pipeline used in this study is built on the <strong>EUPHORIA-RETINA framework</strong> (Sankar & Sen, 2025), a gaze-derived preference signature system developed at IISc Bangalore.</p>
+        <p>We extend this framework with an image embedding pipeline using Google's Gemini Embedding API to compute visual dissimilarity scores for each product design against a reference dataset of 100 conventional products per category.</p>
+        <p>The final classification combines our pipeline score with LLM-based scoring (Gemini 3, ChatGPT, Claude) using a 50/50 weighted average — achieving 67% alignment with human ground-truth classification across tested product categories.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- AI PIPELINE -->
+  <span class="sec-tag">Methodology</span>
+  <div class="sec-title">The AI Classification <em>Pipeline</em></div>
+
+  <div class="two-col" style="margin-top:1.5rem">
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-num">A</div>
+        <div>
+          <div class="pipe-name">Image Scraping</div>
+          <div class="pipe-desc">Mass-market product images scraped from Bing using 12 targeted queries per product category. Focuses on everyday, affordable designs to represent the conventional design space.</div>
+          <div class="pipe-tag">icrawler · Bing Image Search</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">B</div>
+        <div>
+          <div class="pipe-name">CLIP-Based Filtering</div>
+          <div class="pipe-desc">Each image passes through 5 CLIP zero-shot classification gates — relevance, object count, background quality, viewpoint, and conventionality — to ensure only clean, product-focused images enter the reference dataset.</div>
+          <div class="pipe-tag">OpenAI CLIP · Zero-shot classification</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">C</div>
+        <div>
+          <div class="pipe-name">Preprocessing</div>
+          <div class="pipe-desc">All images are resized to 512×512 px with centre-crop aspect preservation, stripped of metadata, and saved as PNG for consistent embedding input.</div>
+          <div class="pipe-tag">Pillow · Centre-crop resize</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">D</div>
+        <div>
+          <div class="pipe-name">Image Embedding</div>
+          <div class="pipe-desc">Each image is embedded as a high-dimensional vector using Gemini's vision embedding model, capturing shape, colour, and texture as they appear — no text descriptions involved.</div>
+          <div class="pipe-tag">gemini-embedding-2-preview</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">E</div>
+        <div>
+          <div class="pipe-name">Calibration</div>
+          <div class="pipe-desc">Pairwise cosine dissimilarity between all 100 reference images establishes μ₀* (conventional baseline) and σ̄* (spread baseline), computed once and frozen for all subsequent scoring.</div>
+          <div class="pipe-tag">Cosine dissimilarity · P₂₀ baseline</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">F–G</div>
+        <div>
+          <div class="pipe-name">Scoring</div>
+          <div class="pipe-desc">Each test product is compared against all 100 reference images. The resulting μ and σ are passed through the v4 formula to produce a final unconventionality score U ∈ [0, 1].</div>
+          <div class="pipe-tag">Custom formula · Sigmoid activation</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="formula-card">
+        <div class="formula-title">Unconventionality Formula (v4)</div>
+        <div class="formula-line"><span class="var">raw</span>   <span class="op">=</span> α × (<span class="var">μ_img</span> <span class="op">−</span> <span class="var">μ₀*</span>)</div>
+        <div class="formula-line"><span class="var">boost</span> <span class="op">=</span> max(1 + β × (<span class="var">σ̄*</span> <span class="op">−</span> <span class="var">σ_img</span>) / <span class="var">σ̄*</span>, 0.1)</div>
+        <div class="formula-line"><span class="var">arg</span>   <span class="op">=</span> <span class="var">raw</span> × <span class="var">boost</span></div>
+        <div class="formula-line"><span class="var">U_img</span> <span class="op">=</span> sigmoid(<span class="var">arg</span>)</div>
+        <br>
+        <div class="formula-comment">// Parameters</div>
+        <div class="formula-line" style="font-size:0.78rem">α = 26.0  <span class="op">// mean sensitivity</span></div>
+        <div class="formula-line" style="font-size:0.78rem">β = 1.5   <span class="op">// boost sensitivity</span></div>
+        <div class="formula-line" style="font-size:0.78rem"><span class="var">μ₀*</span>   <span class="op">// frozen from reference dataset</span></div>
+        <div class="formula-line" style="font-size:0.78rem"><span class="var">σ̄*</span>    <span class="op">// frozen from reference dataset</span></div>
+      </div>
+
+      <table class="class-table" style="margin-top:1.5rem">
+        <tr><th>Score Range</th><th>Classification</th><th>Meaning</th></tr>
+        <tr><td>0.00 – 0.35</td><td><span class="badge c">Conventional</span></td><td>Standard, familiar design</td></tr>
+        <tr><td>0.35 – 0.65</td><td><span class="badge h">Hybrid</span></td><td>Creative yet recognisable</td></tr>
+        <tr><td>0.65 – 1.00</td><td><span class="badge u">Unconventional</span></td><td>Novel, atypical design</td></tr>
+      </table>
+
+      <div style="margin-top:1.5rem;background:#fff;border:1px solid var(--border);border-radius:0.75rem;padding:1.2rem">
+        <div style="font-size:0.8rem;font-weight:500;color:var(--navy);margin-bottom:0.6rem">Pipeline Accuracy (vs. human ground truth)</div>
+        <div style="display:flex;gap:1.2rem;flex-wrap:wrap">
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--teal)">67%</div><div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">50/50 Combined</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--muted)">53%</div><div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">Our Pipeline Alone</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--muted)">53%</div><div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em">LLM Pipeline Alone</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ETHICS -->
+  <span class="sec-tag">Ethics & Privacy</span>
+  <div class="sec-title">Your data is <em>safe with us</em></div>
+  <div class="body-text" style="margin-bottom:0"><p>This study adheres to standard academic research ethics principles. Participation is entirely voluntary and anonymous.</p></div>
+
+  <div class="ethics-grid">
+    <div class="ethics-card">
+      <div class="ethics-icon">🔒</div>
+      <div>
+        <div class="ethics-title">No personal tracking</div>
+        <div class="ethics-text">We do not collect IP addresses, browser fingerprints, cookies, or any device identifiers. The only personal information collected is what you voluntarily submit in the survey form.</div>
+      </div>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">🎭</div>
+      <div>
+        <div class="ethics-title">Full anonymisation</div>
+        <div class="ethics-text">Date of birth is used only to derive generational cohort (Gen X/Y/Z/Alpha) and is not stored in raw form in analysis datasets. Name is optional and excluded from all analysis.</div>
+      </div>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">📋</div>
+      <div>
+        <div class="ethics-title">Informed consent</div>
+        <div class="ethics-text">All participants read and acknowledge an informed consent form before starting the survey. Participation can be withdrawn at any time by closing the browser — no data is submitted until the final submit button is clicked.</div>
+      </div>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">🎓</div>
+      <div>
+        <div class="ethics-title">Academic use only</div>
+        <div class="ethics-text">Data will be used solely for academic research purposes — publication in peer-reviewed journals and presentation at design research conferences. No commercial use of any kind.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PRODUCTS -->
+  <span class="sec-tag">Study Design</span>
+  <div class="sec-title">Six products. <em>Three archetypes. Four generations.</em></div>
+  <div class="body-text" style="margin-top:0.8rem">
+    <p>Each product category was selected to represent a common everyday object with a well-established conventional form — making deviations from that form clearly detectable by both the AI pipeline and human evaluators. Within each category, three stimulus images represent the Conventional, Hybrid, and Unconventional archetypes as defined by the pipeline score.</p>
+    <p>Product image order is randomised per participant (A/B/C label assignment is random) to eliminate position bias. No archetype labels are shown to participants during the survey — they are shown only neutral letter labels (A, B, C).</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-card">
+    <div>
+      <h3>Questions about this research?</h3>
+      <p>Contact the research team at the Department of Design and Mechanical Engineering, Indian Institute of Science, Bangalore.</p>
+    </div>
+    <a href="index.html#consent" class="btn-teal">Take the Survey →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">N<span>&</span>N Study</div>
+    <div style="font-size:0.72rem;margin-top:0.2rem">IISc Bangalore · Dept. of Design & ME</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="results.html">Results</a>
+    <a href="index.html#consent">Participate</a>
+  </div>
+  <div style="font-size:0.72rem">© 2025 Academic Research · All data anonymised</div>
+</footer>
+
+</body>
+</html>

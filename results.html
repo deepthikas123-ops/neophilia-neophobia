@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Results | Neophilia–Neophobia Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e1c2f;--navy:#1a3a5c;--blue:#1e5fa8;
+  --teal:#0d8a7a;--gold:#c8922a;--off:#faf8f5;
+  --muted:#6b7c8d;--light:#e8eff7;--border:#d0dce8;
+  --conv:#6b7c8d;--hybrid:#0d8a7a;--unconv:#c8922a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink)}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
+  padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;}
+.nav-brand span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.78rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;
+  text-decoration:none;color:rgba(255,255,255,0.55);transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+
+/* HERO */
+.results-hero{
+  background:var(--ink);padding:5rem 6rem 4rem;
+  display:grid;grid-template-columns:1fr auto;align-items:end;gap:3rem;
+}
+.hero-tag{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:1rem;display:block;}
+.results-hero h1{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:300;color:#fff;line-height:1.1;
+}
+.results-hero h1 em{font-style:italic;color:rgba(255,255,255,0.45)}
+.results-hero p{font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:50ch;margin-top:1rem;line-height:1.7}
+.status-badge{
+  background:rgba(200,146,42,0.15);border:1px solid rgba(200,146,42,0.4);
+  border-radius:0.5rem;padding:1.2rem 1.8rem;text-align:center;white-space:nowrap;flex-shrink:0;
+}
+.status-badge-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem}
+.status-badge-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:#fff;line-height:1}
+.status-badge-sub{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem}
+
+/* COLLECTION NOTICE */
+.collection-notice{
+  background:#fff;border-bottom:3px solid var(--gold);
+  padding:1.2rem 6rem;display:flex;align-items:center;gap:1rem;
+}
+.notice-icon{font-size:1.3rem;flex-shrink:0}
+.notice-text{font-size:0.88rem;color:var(--muted);line-height:1.5}
+.notice-text strong{color:var(--ink)}
+
+/* LAYOUT */
+.page-body{max-width:1100px;margin:0 auto;padding:3rem 2rem 5rem}
+
+/* SECTION HEADING */
+.sec-head{margin-bottom:2rem}
+.sec-tag{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.5rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ink)}
+.sec-title em{font-style:italic;color:var(--navy)}
+.sec-sub{font-size:0.85rem;color:var(--muted);margin-top:0.4rem;line-height:1.6}
+.divider{height:1px;background:var(--border);margin:3.5rem 0}
+
+/* STAT CARDS ROW */
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:3rem}
+.stat-card{
+  background:#fff;border:1px solid var(--border);border-radius:0.75rem;
+  padding:1.5rem;position:relative;overflow:hidden;
+}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card.s1::before{background:var(--teal)}
+.stat-card.s2::before{background:var(--gold)}
+.stat-card.s3::before{background:var(--blue)}
+.stat-card.s4::before{background:#6366f1}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--navy);line-height:1}
+.stat-lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-top:0.3rem}
+.stat-sub{font-size:0.78rem;color:var(--muted);margin-top:0.4rem}
+
+/* CHART CARDS */
+.chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.chart-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.chart-card{
+  background:#fff;border:1px solid var(--border);border-radius:0.9rem;
+  padding:1.8rem;
+}
+.chart-card.wide{grid-column:1/-1}
+.chart-title{font-size:0.88rem;font-weight:500;color:var(--navy);margin-bottom:0.3rem}
+.chart-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.2rem}
+.chart-wrap{position:relative;width:100%}
+.chart-wrap canvas{width:100%!important}
+
+/* LEGEND */
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1rem}
+.legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* KEY FINDINGS */
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+.finding-card{
+  background:#fff;border:1px solid var(--border);border-radius:0.75rem;
+  padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;
+}
+.finding-icon{font-size:1.6rem;flex-shrink:0;margin-top:0.1rem}
+.finding-title{font-size:0.88rem;font-weight:500;color:var(--navy);margin-bottom:0.3rem}
+.finding-text{font-size:0.82rem;color:var(--muted);line-height:1.6}
+
+/* IN PROGRESS OVERLAY */
+.in-progress{
+  background:var(--light);border:1px dashed var(--border);
+  border-radius:0.75rem;padding:3rem;text-align:center;
+  margin-top:1.5rem;
+}
+.in-progress-icon{font-size:2.5rem;margin-bottom:0.8rem}
+.in-progress-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.4rem}
+.in-progress-text{font-size:0.85rem;color:var(--muted);max-width:45ch;margin:0 auto}
+
+/* CTA */
+.results-cta{
+  background:var(--ink);border-radius:1rem;padding:3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  margin-top:3.5rem;flex-wrap:wrap;
+}
+.cta-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#fff;margin-bottom:0.4rem}
+.cta-text p{font-size:0.88rem;color:rgba(255,255,255,0.5);max-width:45ch}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:var(--gold);color:#fff;padding:0.9rem 2rem;
+  border-radius:0.5rem;font-size:0.88rem;font-weight:500;
+  text-decoration:none;white-space:nowrap;transition:opacity 0.2s,transform 0.15s;
+}
+.btn-gold:hover{opacity:0.9;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{
+  background:var(--ink);color:rgba(255,255,255,0.4);
+  padding:2.5rem 6rem;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.7)}
+.footer-brand span{color:var(--gold)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.75rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:rgba(255,255,255,0.8)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .results-hero{grid-template-columns:1fr;padding:4rem 2rem 3rem}
+  .status-badge{display:none}
+  .collection-notice{padding:1rem 2rem}
+  .stat-cards{grid-template-columns:1fr 1fr}
+  .chart-grid-2,.chart-grid-3{grid-template-columns:1fr}
+  .findings-grid{grid-template-columns:1fr}
+  .results-cta{flex-direction:column}
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  footer{padding:2rem;flex-direction:column;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">N<span>&</span>N Study</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#consent">Participate</a></li>
+    <li><a href="results.html" class="active">Results</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="results-hero">
+  <div>
+    <span class="hero-tag">Study Results · Live Dashboard</span>
+    <h1>Generational Design<br>Preference <em>Findings</em></h1>
+    <p>Aggregated and anonymised responses from participants across Gen X, Gen Y, Gen Z, and Gen Alpha — updated as responses are collected.</p>
+  </div>
+  <div class="status-badge">
+    <div class="status-badge-label">Responses collected</div>
+    <div class="status-badge-val" id="totalResponses">—</div>
+    <div class="status-badge-sub">Data collection open</div>
+  </div>
+</div>
+
+<!-- COLLECTION NOTICE -->
+<div class="collection-notice">
+  <div class="notice-icon">📊</div>
+  <div class="notice-text">
+    <strong>Data collection is currently in progress.</strong>
+    The charts below show preliminary results and will update as more participants complete the survey.
+    Charts marked <em>"preliminary"</em> should be interpreted with caution until n ≥ 50 per generation is reached.
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- OVERVIEW STATS -->
+  <div class="stat-cards">
+    <div class="stat-card s1">
+      <div class="stat-val" id="sc1">—</div>
+      <div class="stat-lbl">Total Responses</div>
+      <div class="stat-sub">Across all generations</div>
+    </div>
+    <div class="stat-card s2">
+      <div class="stat-val" id="sc2">—</div>
+      <div class="stat-lbl">Countries Represented</div>
+      <div class="stat-sub">Global reach</div>
+    </div>
+    <div class="stat-card s3">
+      <div class="stat-val" id="sc3">—</div>
+      <div class="stat-lbl">Avg. Completion Time</div>
+      <div class="stat-sub">Minutes per participant</div>
+    </div>
+    <div class="stat-card s4">
+      <div class="stat-val" id="sc4">—</div>
+      <div class="stat-lbl">Design Awareness</div>
+      <div class="stat-sub">Mean self-rating (1–5)</div>
+    </div>
+  </div>
+
+  <!-- SECTION A: PRIMARY PREFERENCE -->
+  <div class="sec-head">
+    <span class="sec-tag">Section A</span>
+    <div class="sec-title">Overall Design Preference <em>by Generation</em></div>
+    <div class="sec-sub">First-choice selection across all 6 product categories, split by generational cohort.</div>
+  </div>
+
+  <div class="chart-card wide">
+    <div class="chart-title">Design Archetype Preference — All Products Combined</div>
+    <div class="chart-sub">% of first-choice selections per archetype, by generation (preliminary)</div>
+    <div class="chart-wrap" style="height:320px">
+      <canvas id="chartOverall"></canvas>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--unconv)"></div>Unconventional</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION B: PER PRODUCT -->
+  <div class="sec-head">
+    <span class="sec-tag">Section B</span>
+    <div class="sec-title">Preference <em>by Product Category</em></div>
+    <div class="sec-sub">How design archetype preference varies across the six product types.</div>
+  </div>
+
+  <div class="chart-grid-3">
+    <div class="chart-card">
+      <div class="chart-title">☕ Cup / Mug</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartCup"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">⌚ Wrist Watch</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartWatch"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">🧴 Perfume Bottle</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartPerfume"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">🕐 Desk Clock</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartClock"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">💡 Table Lamp</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartLamp"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">🫗 Water Bottle</div>
+      <div class="chart-sub">First-choice distribution</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="chartBottle"></canvas></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION C: NEOPHOBIA THRESHOLD -->
+  <div class="sec-head">
+    <span class="sec-tag">Section C</span>
+    <div class="sec-title">Neophobia Threshold <em>by Generation</em></div>
+    <div class="sec-sub">Average self-reported "too unconventional to buy" threshold (Q7 slider, 1–10 scale) per product and generation.</div>
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Mean Neophobia Threshold — All Products</div>
+      <div class="chart-sub">Higher score = tolerates more unconventionality before aversion</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="chartThreshold"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Neophilia–Neophobia Trait Score</div>
+      <div class="chart-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic)</div>
+      <div class="chart-wrap" style="height:280px"><canvas id="chartTrait"></canvas></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION D: PURCHASE INTENTION -->
+  <div class="sec-head">
+    <span class="sec-tag">Section D</span>
+    <div class="sec-title">Purchase Intention <em>by Archetype</em></div>
+    <div class="sec-sub">Mean likelihood-to-purchase rating (1–5 Likert) per design archetype, broken down by generation.</div>
+  </div>
+
+  <div class="chart-card wide">
+    <div class="chart-title">Mean Purchase Likelihood — Conventional vs Hybrid vs Unconventional</div>
+    <div class="chart-sub">By generational cohort · Scale: 1 (definitely not) to 5 (definitely yes)</div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartPurchase"></canvas></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--unconv)"></div>Unconventional</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION E: KEY FINDINGS -->
+  <div class="sec-head">
+    <span class="sec-tag">Section E</span>
+    <div class="sec-title">Preliminary <em>Key Findings</em></div>
+    <div class="sec-sub">Patterns emerging from early responses. Will be updated as sample size grows.</div>
+  </div>
+
+  <div class="findings-grid">
+    <div class="finding-card">
+      <div class="finding-icon">📉</div>
+      <div>
+        <div class="finding-title">Score compression in AI pipeline</div>
+        <div class="finding-text">Our pipeline scores cluster in 0.37–0.64, making Hybrid the dominant prediction. Combined with LLM scores (50/50 weighted average) improves classification accuracy to ~67%.</div>
+      </div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-icon">🔄</div>
+      <div>
+        <div class="finding-title">Complementary pipeline errors</div>
+        <div class="finding-text">Our pipeline underscores Unconventional items; the LLM overshoots Unconventional for Hybrid items. The errors are complementary — combining both signals outperforms either alone.</div>
+      </div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-icon">🎯</div>
+      <div>
+        <div class="finding-title">Hybrid class hardest to detect</div>
+        <div class="finding-text">The 50/50 combined model achieves 100% recall for Unconventional but only 18% for Hybrid — the H/U boundary is the primary classification challenge across all product types.</div>
+      </div>
+    </div>
+    <div class="finding-card">
+      <div class="finding-icon">⚖️</div>
+      <div>
+        <div class="finding-title">Optimal weighting: 50/50</div>
+        <div class="finding-text">Across tested product categories (table lamps, desk clocks), equal weighting of our pipeline and LLM scores achieves the highest combined accuracy at 67% against human ground truth.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="results-cta">
+    <div class="cta-text">
+      <h3>Haven't participated yet?</h3>
+      <p>Your response takes ~27 minutes and directly contributes to the findings shown on this page.</p>
+    </div>
+    <a href="index.html#consent" class="btn-gold">
+      Take the Survey →
+    </a>
+  </div>
+
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">N<span>&</span>N Study</div>
+    <div style="font-size:0.72rem;margin-top:0.2rem">IISc Bangalore · Dept. of Design & ME</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="index.html#consent">Participate</a>
+  </div>
+  <div style="font-size:0.72rem">© 2025 Academic Research · All data anonymised</div>
+</footer>
+
+<script>
+// ── PLACEHOLDER DATA (replace with real data from your CSV) ──────────────
+// When you have real responses, update the numbers in RESULTS_DATA below.
+const RESULTS_DATA = {
+  totalResponses: 0,
+  countries: 0,
+  avgTime: '—',
+  avgDesignAwareness: '—',
+
+  // Overall preference by generation [Conventional%, Hybrid%, Unconventional%]
+  overallByGen: {
+    'Gen X':    [45, 35, 20],
+    'Gen Y':    [30, 40, 30],
+    'Gen Z':    [20, 38, 42],
+    'Gen Alpha':[25, 32, 43],
+  },
+
+  // Per-product preference [Conv%, Hybrid%, Unconv%]
+  byProduct: {
+    cup:     { 'Gen X':[55,30,15], 'Gen Y':[35,38,27], 'Gen Z':[22,36,42], 'Gen Alpha':[28,34,38] },
+    watch:   { 'Gen X':[48,32,20], 'Gen Y':[28,42,30], 'Gen Z':[18,35,47], 'Gen Alpha':[22,30,48] },
+    perfume: { 'Gen X':[42,36,22], 'Gen Y':[32,38,30], 'Gen Z':[20,40,40], 'Gen Alpha':[24,36,40] },
+    clock:   { 'Gen X':[50,33,17], 'Gen Y':[33,40,27], 'Gen Z':[25,38,37], 'Gen Alpha':[30,35,35] },
+    lamp:    { 'Gen X':[44,34,22], 'Gen Y':[30,42,28], 'Gen Z':[18,40,42], 'Gen Alpha':[20,38,42] },
+    bottle:  { 'Gen X':[40,38,22], 'Gen Y':[28,40,32], 'Gen Z':[20,36,44], 'Gen Alpha':[22,34,44] },
+  },
+
+  // Neophobia threshold by generation (mean, 1–10 scale)
+  thresholdByGen: { 'Gen X':5.8, 'Gen Y':6.4, 'Gen Z':7.2, 'Gen Alpha':7.5 },
+
+  // Trait score by generation (composite neophilia index, 1–5)
+  traitByGen: { 'Gen X':2.8, 'Gen Y':3.2, 'Gen Z':3.7, 'Gen Alpha':3.9 },
+
+  // Purchase intention by archetype × generation [Conv, Hybrid, Unconv]
+  purchaseByGen: {
+    'Gen X':    [3.8, 3.2, 2.4],
+    'Gen Y':    [3.4, 3.6, 3.0],
+    'Gen Z':    [2.9, 3.5, 3.5],
+    'Gen Alpha':[3.0, 3.4, 3.6],
+  },
+};
+
+const GENS   = ['Gen X','Gen Y','Gen Z','Gen Alpha'];
+const COLORS = { conv:'#6b7c8d', hybrid:'#0d8a7a', unconv:'#c8922a' };
+const GEN_COLORS = ['#6366f1','#0d8a7a','#c8922a','#e54d4d'];
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#6b7c8d';
+
+// ── UPDATE STAT CARDS ──────────────────────────────────────────────────
+const d = RESULTS_DATA;
+document.getElementById('totalResponses').textContent = d.totalResponses || '—';
+document.getElementById('sc1').textContent = d.totalResponses || '—';
+document.getElementById('sc2').textContent = d.countries || '—';
+document.getElementById('sc3').textContent = d.avgTime;
+document.getElementById('sc4').textContent = d.avgDesignAwareness;
+
+// ── CHART: OVERALL PREFERENCE BY GENERATION (grouped bar) ─────────────
+new Chart(document.getElementById('chartOverall'), {
+  type: 'bar',
+  data: {
+    labels: GENS,
+    datasets: [
+      { label:'Conventional', data: GENS.map(g=>d.overallByGen[g][0]), backgroundColor: COLORS.conv+'cc', borderRadius:4 },
+      { label:'Hybrid',       data: GENS.map(g=>d.overallByGen[g][1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
+      { label:'Unconventional',data:GENS.map(g=>d.overallByGen[g][2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ grid:{ display:false } },
+      y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
+    }
+  }
+});
+
+// ── CHARTS: PER PRODUCT (doughnut) ────────────────────────────────────
+const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
+const chartIds   = ['chartCup','chartWatch','chartPerfume','chartClock','chartLamp','chartBottle'];
+
+productIds.forEach((pid, i) => {
+  // Aggregate across all generations
+  const agg = [0,0,0];
+  GENS.forEach(g => {
+    const row = d.byProduct[pid][g];
+    row.forEach((v,j) => agg[j] += v);
+  });
+  const total = agg.reduce((a,b)=>a+b,0);
+  const pcts  = agg.map(v => Math.round(v/total*100));
+
+  new Chart(document.getElementById(chartIds[i]), {
+    type:'doughnut',
+    data:{
+      labels:['Conventional','Hybrid','Unconventional'],
+      datasets:[{
+        data: pcts,
+        backgroundColor:[COLORS.conv+'dd',COLORS.hybrid+'dd',COLORS.unconv+'dd'],
+        borderWidth:2, borderColor:'#fff',
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      cutout:'65%',
+      plugins:{
+        legend:{ position:'bottom', labels:{ boxWidth:10, padding:10, font:{size:11} } },
+        tooltip:{ callbacks:{ label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+      }
+    }
+  });
+});
+
+// ── CHART: THRESHOLD BY GENERATION (horizontal bar) ───────────────────
+new Chart(document.getElementById('chartThreshold'), {
+  type:'bar',
+  data:{
+    labels: GENS,
+    datasets:[{
+      label:'Mean Threshold (1–10)',
+      data: GENS.map(g=>d.thresholdByGen[g]),
+      backgroundColor: GEN_COLORS.map(c=>c+'cc'),
+      borderRadius:6,
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ min:0, max:10, grid:{ color:'#e8eff7' } },
+      y:{ grid:{ display:false } }
+    }
+  }
+});
+
+// ── CHART: TRAIT SCORE BY GENERATION (radar) ──────────────────────────
+new Chart(document.getElementById('chartTrait'), {
+  type:'radar',
+  data:{
+    labels:['Gen X','Gen Y','Gen Z','Gen Alpha'],
+    datasets:[{
+      label:'Neophilia Trait Score',
+      data: GENS.map(g=>d.traitByGen[g]),
+      backgroundColor:'rgba(13,138,122,0.1)',
+      borderColor:'var(--teal)',
+      pointBackgroundColor:'var(--teal)',
+      pointRadius:4,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      r:{
+        min:1, max:5,
+        ticks:{ stepSize:1, font:{size:10} },
+        grid:{ color:'#e8eff7' },
+        pointLabels:{ font:{size:11} }
+      }
+    },
+    plugins:{ legend:{ display:false } }
+  }
+});
+
+// ── CHART: PURCHASE INTENTION (grouped bar) ───────────────────────────
+new Chart(document.getElementById('chartPurchase'), {
+  type:'bar',
+  data:{
+    labels: GENS,
+    datasets:[
+      { label:'Conventional', data:GENS.map(g=>d.purchaseByGen[g][0]), backgroundColor:COLORS.conv+'cc', borderRadius:4 },
+      { label:'Hybrid',       data:GENS.map(g=>d.purchaseByGen[g][1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4 },
+      { label:'Unconventional',data:GENS.map(g=>d.purchaseByGen[g][2]),backgroundColor:COLORS.unconv+'cc', borderRadius:4 },
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ grid:{ display:false } },
+      y:{ min:1, max:5, ticks:{ stepSize:0.5 }, grid:{ color:'#e8eff7' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
