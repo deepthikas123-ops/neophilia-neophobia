@@ -308,6 +308,63 @@ input[type=range]::-webkit-slider-thumb{
 
 /* ── HIDDEN ── */
 .hidden{display:none!important}
+
+/* ── 5-ITEM DISPLAY GRID ── */
+.five-item-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;
+  margin-bottom:0.5rem;
+}
+@media(max-width:640px){.five-item-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:400px){.five-item-grid{grid-template-columns:repeat(2,1fr)}}
+.item-display-card{
+  border:1.5px solid var(--border);border-radius:0.6rem;
+  background:#fff;text-align:center;padding:1rem 0.5rem;
+}
+.item-img-wrap{
+  height:90px;display:flex;align-items:center;justify-content:center;
+}
+.item-label{
+  font-size:0.78rem;font-weight:500;color:var(--navy);margin-top:0.5rem;
+}
+
+/* ── RATING GRID TABLE ── */
+.rating-grid-wrap{overflow-x:auto;margin-bottom:0.5rem}
+.rating-grid{
+  width:100%;border-collapse:collapse;min-width:360px;
+}
+.rating-grid th,.rating-grid td{
+  padding:0.55rem 0.5rem;text-align:center;
+}
+.rg-row-head{
+  text-align:left!important;font-size:0.85rem;font-weight:500;
+  color:var(--navy);padding-left:0.2rem!important;white-space:nowrap;
+}
+.rg-col-head{font-size:0.72rem;color:var(--muted)}
+.rg-col-num{font-size:1rem;font-weight:600;color:var(--navy)}
+.rg-col-lbl{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)}
+.rg-row{transition:background 0.15s}
+.rg-row:nth-child(odd){background:var(--off)}
+.rg-row.rg-rated{background:rgba(13,138,122,0.04)}
+.rg-row.rg-missing{background:rgba(192,57,43,0.05)}
+.rg-cell{padding:0.45rem!important}
+.rg-radio-wrap{
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  width:36px;height:36px;margin:0 auto;border-radius:50%;
+  transition:background 0.15s;
+}
+.rg-radio-wrap:hover{background:var(--light)}
+.rg-radio-wrap input{display:none}
+.rg-radio{
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid var(--border);transition:all 0.15s;
+  display:flex;align-items:center;justify-content:center;
+}
+.rg-radio-wrap input:checked + .rg-radio{
+  border-color:var(--teal);background:var(--teal);
+}
+.rg-radio-wrap input:checked + .rg-radio::after{
+  content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block;
+}
 </style>
 </head>
 <body>
@@ -367,16 +424,30 @@ const TRAIT_STATEMENTS = [
 ];
 
 const SECTIONS = [
-  'Demographics',
-  'Cup / Mug',
-  'Wrist Watch',
-  'Perfume Bottle',
-  'Desk Clock',
-  'Table Lamp',
-  'Water Bottle',
-  'Design Personality',
-  'Final Questions',
+  'Demographics',          // 0
+  'Cup — Category',        // 1
+  'Cup — Rating',          // 2
+  'Watch — Category',      // 3
+  'Watch — Rating',        // 4
+  'Perfume — Category',    // 5
+  'Perfume — Rating',      // 6
+  'Clock — Category',      // 7
+  'Clock — Rating',        // 8
+  'Lamp — Category',       // 9
+  'Lamp — Rating',         // 10
+  'Bottle — Category',     // 11
+  'Bottle — Rating',       // 12
+  'Design Personality',    // 13
+  'Final Questions',       // 14
 ];
+// Product index: 0=cup,1=watch,2=perfume,3=clock,4=lamp,5=bottle
+// Category page indices: 1,3,5,7,9,11
+// Rating page indices:   2,4,6,8,10,12
+function productIndexFromStep(step){
+  return Math.floor((step - 1) / 2);
+}
+function isCategoryPage(step){ return step >= 1 && step <= 12 && (step % 2 === 1); }
+function isRatingPage(step){   return step >= 2 && step <= 12 && (step % 2 === 0); }
 
 // ═══════════════════════════════════════════════════════════════════════
 // STATE
@@ -413,7 +484,7 @@ function updateHeader(){
   document.getElementById('progressFill').style.width = pct+'%';
   document.getElementById('sectionLabel').textContent = SECTIONS[current];
   document.getElementById('sectionOf').textContent = `Section ${current+1} of ${SECTIONS.length}`;
-  const mins = Math.max(1, Math.round(27*(1-(current/SECTIONS.length))));
+  const mins = Math.max(1, Math.round(30*(1-(current/SECTIONS.length))));
   document.getElementById('timeEst').textContent = `~${mins} min remaining`;
 }
 
@@ -423,10 +494,11 @@ function render(){
   body.innerHTML = '';
   body.scrollIntoView({behavior:'smooth', block:'start'});
 
-  if(current === 0)           renderDemographics(body);
-  else if(current >= 1 && current <= 6) renderProductBlock(body, PRODUCTS[current-1]);
-  else if(current === 7)      renderTraits(body);
-  else if(current === 8)      renderClosing(body);
+  if(current === 0)               renderDemographics(body);
+  else if(isCategoryPage(current)) renderCategoryPage(body, PRODUCTS[productIndexFromStep(current)]);
+  else if(isRatingPage(current))   renderRatingPage(body, PRODUCTS[productIndexFromStep(current)]);
+  else if(current === 13)          renderTraits(body);
+  else if(current === 14)          renderClosing(body);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -572,328 +644,284 @@ function saveDemographics(){
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-// SECTIONS 2–7 — PRODUCT BLOCKS
+// SECTIONS 2–12 — PRODUCT CATEGORY + RATING PAGES
 // ═══════════════════════════════════════════════════════════════════════
-function renderProductBlock(body, product){
-  const pid = product.id;
-  const order = productOrders[pid];   // [0,1,2] randomised
-  const pr = responses[pid] || {};
-  const pLabel = product.label;
-  const sNum = current+1;
+
+const PRODUCT_ITEMS = {
+  cup:     ['☕','🍵','🫙','🧋','🥤'],
+  watch:   ['⌚','🕐','⏱','⌚','🕰'],
+  perfume: ['🧴','💊','🫧','🧴','💐'],
+  clock:   ['🕐','⏰','⏲','⏰','🕰'],
+  lamp:    ['💡','🪔','🔦','💡','🪩'],
+  bottle:  ['🫗','🧃','🫙','🥤','🍶'],
+};
+
+const PRODUCT_QUESTIONS = {
+  cup:     'If you were buying a cup or mug today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  watch:   'If you were buying a wrist watch today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  perfume: 'If you were buying a perfume bottle today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  clock:   'If you were buying a desk clock today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  lamp:    'If you were buying a table lamp today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  bottle:  'If you were buying a water bottle today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+};
+
+const INFLUENCE_OPTIONS = [
+  'Shape / Form','Colour','Uniqueness',
+  'Familiar design','Trendy / modern',
+  'Classic / timeless','Overall appearance',
+];
+
+// ── PAGE 1: CATEGORY SELECTION ────────────────────────────────────────
+function renderCategoryPage(body, product){
+  const pid    = product.id;
+  const order  = productOrders[pid];   // randomised archetype order [0,1,2]
+  const pr     = responses[pid] || {};
+  const pNum   = productIndexFromStep(current) + 1;
+  const sNum   = current;
 
   body.innerHTML = `
   <div class="section-card">
-    <span class="section-tag">Section ${sNum} of 9 · Product ${current} of 6</span>
-    <h2 class="section-title">${pLabel}</h2>
-    <p class="section-subtitle">
-      Below are three design options for a <strong>${pLabel.toLowerCase()}</strong>.
-      Assume all options are identical in quality, material, and price.
-      Base your choices <strong>only on visual appearance</strong>.
-    </p>
+    <span class="section-tag">Product ${pNum} of 6 · Category Selection</span>
+    <h2 class="section-title">${product.label}</h2>
+    <p class="section-subtitle">${PRODUCT_QUESTIONS[pid]}</p>
 
-    <!-- IMAGE CHOICE GRID -->
-    <div class="q-block">
-      <div class="q-label"><span class="qnum">Q1</span> Which design would you choose first if purchasing a ${pLabel.toLowerCase()} today?</div>
-      <p class="product-block-note">Click to select your first choice.</p>
-      <div class="image-choice-grid" id="${pid}_imgGrid">
-        ${order.map((archIdx,slot)=>{
-          const letter = String.fromCharCode(65+slot);
-          const archLabel = ARCHETYPES[archIdx];
-          const icon = product.icons[archIdx];
-          const isSelected = pr.q1_letter === letter;
-          return `
-          <div class="img-card ${isSelected?'selected':''}" id="${pid}_card_${letter}"
-               onclick="selectImage('${pid}','${letter}',${archIdx})">
-            <div class="img-placeholder">
-              <span style="font-size:4rem">${icon}</span>
-              <span class="img-placeholder-label">${archLabel}</span>
-            </div>
-            <div class="img-card-footer">
-              <span class="img-card-letter">Option ${letter}</span>
-              <span class="img-card-rank" id="${pid}_rank_${letter}">${isSelected?'✓ Selected':''}</span>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-      <div class="field-error" id="${pid}_q1err">Please select your first choice.</div>
+    <div class="image-choice-grid" id="${pid}_catGrid">
+      ${order.map((archIdx, slot) => {
+        const letter    = String.fromCharCode(65 + slot);
+        const archLabel = ARCHETYPES[archIdx];
+        const icon      = product.icons[archIdx];
+        const sel       = pr.category_choice === archLabel;
+        return `
+        <div class="img-card ${sel ? 'selected' : ''}"
+             id="${pid}_cat_${letter}"
+             onclick="selectCategory('${pid}','${archLabel}','${letter}',${archIdx})">
+          <div class="img-placeholder" style="min-height:220px">
+            <span style="font-size:5rem">${icon}</span>
+            <span class="img-placeholder-label">${archLabel}</span>
+          </div>
+          <div class="img-card-footer">
+            <span class="img-card-letter">Option ${letter}</span>
+            <span class="img-card-rank" id="${pid}_cat_rank_${letter}">${sel ? '✓ Selected' : ''}</span>
+          </div>
+        </div>`;
+      }).join('')}
     </div>
 
-    <!-- RANK Q2 -->
-    <div class="q-block">
-      <div class="q-label"><span class="qnum">Q2</span> Rank all three options from most to least likely to purchase.</div>
-      <div class="rank-instruction">
-        💡 Click the options above in order of preference — 1st, 2nd, 3rd.
-        Your selected first choice counts as rank 1.
-      </div>
-      <div style="font-size:0.82rem;color:var(--muted)">
-        Rank: <strong id="${pid}_rankDisplay">—</strong>
-      </div>
-      <div class="field-error" id="${pid}_q2err">Please rank all three options.</div>
-    </div>
-
-    <!-- PURCHASE LIKELIHOOD Q3–Q5 -->
-    ${order.map((archIdx,slot)=>{
-      const letter = String.fromCharCode(65+slot);
-      const archLabel = ARCHETYPES[archIdx];
-      return `
-      <div class="q-block">
-        <div class="q-label"><span class="qnum">Q${3+slot}</span> How likely are you to purchase Option ${letter} (${archLabel})?</div>
-        <div class="likert-wrap">
-          ${[1,2,3,4,5].map(n=>`
-          <div class="likert-opt">
-            <input type="radio" name="${pid}_like_${letter}" id="${pid}_like_${letter}_${n}" value="${n}"
-              ${(pr[`q${3+slot}_letter`]===letter && pr[`q${3+slot}_score`]==n)?'checked':''}
-              ${(pr[`like_${letter}`]==n)?'checked':''}
-              onchange="saveField('${pid}','like_${letter}',${n})">
-            <label for="${pid}_like_${letter}_${n}">
-              <span class="likert-num">${n}</span>
-              <span style="font-size:0.65rem">${n===1?'Definitely not':n===3?'Neutral':n===5?'Definitely yes':''}</span>
-            </label>
-          </div>`).join('')}
-        </div>
-        <div class="field-error" id="${pid}_like_${letter}_err">Please rate this option.</div>
-      </div>`;
-    }).join('')}
-
-    <!-- MOTIVATION Q6 -->
-    <div class="q-block">
-      <div class="q-label"><span class="qnum">Q6</span> What is your primary reason for your first choice? <span style="color:var(--muted);font-size:0.8rem">(select up to 2)</span></div>
-      <div class="check-group" id="${pid}_motiveGroup">
-        ${MOTIVATION_OPTIONS.map((m,i)=>{
-          const checked = (pr.q6_motivation||[]).includes(m);
-          return `
-          <div class="check-opt">
-            <input type="checkbox" id="${pid}_motive_${i}" value="${m}" ${checked?'checked':''}
-              onchange="toggleMotivation('${pid}','${m}')">
-            <label for="${pid}_motive_${i}">
-              <div class="check-box"></div>${m}
-            </label>
-          </div>`;
-        }).join('')}
-      </div>
-      <div class="field-error" id="${pid}_q6err">Please select at least one reason.</div>
-    </div>
-
-    <!-- NEOPHOBIA THRESHOLD Q7 -->
-    <div class="q-block">
-      <div class="q-label"><span class="qnum">Q7</span> At what point does the design feel "too unusual" for you to consider buying?</div>
-      <div class="slider-wrap">
-        <div class="slider-labels"><span>← Familiar / Conventional</span><span>Highly Unconventional →</span></div>
-        <input type="range" id="${pid}_slider" min="1" max="10" value="${pr.q7_threshold||5}"
-          oninput="updateSlider('${pid}',this.value)" style="--pct:${((((pr.q7_threshold||5)-1)/9)*100)}%">
-        <div class="slider-value" id="${pid}_sliderVal">${pr.q7_threshold||5}</div>
-      </div>
-    </div>
-
-    <!-- CONTEXT Q8 -->
-    <div class="q-block">
-      <div class="q-label"><span class="qnum">Q8</span> Would your choice change based on the occasion or context?</div>
-      <div class="radio-group">
-        ${[
-          {val:'context_dependent',label:'Yes, it depends on context'},
-          {val:'always_same',label:'No, I always prefer the same style'},
-          {val:'unsure',label:'Unsure'},
-        ].map(opt=>`
-        <div class="radio-opt">
-          <input type="radio" name="${pid}_context" id="${pid}_ctx_${opt.val}" value="${opt.val}"
-            ${pr.q8_context===opt.val?'checked':''}
-            onchange="handleContextChange('${pid}','${opt.val}')">
-          <label for="${pid}_ctx_${opt.val}">
-            <div class="radio-dot"></div>${opt.label}
-          </label>
-        </div>`).join('')}
-      </div>
-      <div class="branch-reveal ${pr.q8_context==='context_dependent'?'show':''}" id="${pid}_ctxBranch">
-        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.6rem">In which contexts would you choose differently?</div>
-        <div class="check-group">
-          ${CONTEXT_OPTIONS.map((c,i)=>`
-          <div class="check-opt">
-            <input type="checkbox" id="${pid}_ctxopt_${i}" value="${c}"
-              ${(pr.q8_contexts||[]).includes(c)?'checked':''}
-              onchange="toggleContext('${pid}','${c}')">
-            <label for="${pid}_ctxopt_${i}"><div class="check-box"></div>${c}</label>
-          </div>`).join('')}
-        </div>
-      </div>
-      <div class="field-error" id="${pid}_q8err">Please answer this question.</div>
-    </div>
+    <div class="field-error" id="${pid}_caterr">Please select one category to continue.</div>
 
     <div class="nav-buttons">
       <button class="btn-back" onclick="goBack()">← Back</button>
-      <button class="btn-next" onclick="saveProductBlock('${pid}')">
-        ${current<6?'Next Product →':'Continue →'}
+      <button class="btn-next" onclick="saveCategoryAndAdvance('${pid}')">
+        View ${product.label} Designs →
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
     </div>
   </div>`;
+}
 
-  // Restore rank display
-  if(pr.q2_ranking){
-    pr.q2_ranking.forEach((letter,i)=>{
-      const card = document.getElementById(`${pid}_card_${letter}`);
-      if(card){
-        if(i===0)card.classList.add('selected');
-        else if(i===1)card.classList.add('ranked-2');
-        else card.classList.add('ranked-3');
-        document.getElementById(`${pid}_rank_${letter}`).textContent = `#${i+1}`;
-      }
-    });
-    updateRankDisplay(pid, pr.q2_ranking);
+function selectCategory(pid, archLabel, letter, archIdx){
+  if(!responses[pid]) responses[pid] = {};
+  responses[pid].category_choice      = archLabel;
+  responses[pid].category_letter      = letter;
+  responses[pid].category_arch_idx    = archIdx;
+
+  ['A','B','C'].forEach(l => {
+    const c = document.getElementById(`${pid}_cat_${l}`);
+    const r = document.getElementById(`${pid}_cat_rank_${l}`);
+    if(c){ c.classList.remove('selected'); }
+    if(r){ r.textContent = ''; }
+  });
+  const card = document.getElementById(`${pid}_cat_${letter}`);
+  const rank = document.getElementById(`${pid}_cat_rank_${letter}`);
+  if(card) card.classList.add('selected');
+  if(rank) rank.textContent = '✓ Selected';
+  document.getElementById(`${pid}_caterr`).classList.remove('show');
+}
+
+function saveCategoryAndAdvance(pid){
+  const pr = responses[pid] || {};
+  if(!pr.category_choice){
+    document.getElementById(`${pid}_caterr`).classList.add('show');
+    return;
   }
+  save();
+  current++;
+  render();
 }
 
-function selectImage(pid, letter, archIdx){
+// ── PAGE 2: RATING WITHIN SELECTED CATEGORY ───────────────────────────
+function renderRatingPage(body, product){
+  const pid   = product.id;
+  const pr    = responses[pid] || {};
+  const pNum  = productIndexFromStep(current) + 1;
+  const arch  = pr.category_choice || 'Conventional';
+  const items = PRODUCT_ITEMS[pid] || ['🔲','🔲','🔲','🔲','🔲'];
+  const letters = ['A','B','C','D','E'];
+
+  body.innerHTML = `
+  <div class="section-card">
+    <span class="section-tag">Product ${pNum} of 6 · Rating — ${arch} Designs</span>
+    <h2 class="section-title">${product.label} <span style="font-size:1rem;color:var(--teal);font-family:'DM Sans',sans-serif;font-weight:400">· ${arch}</span></h2>
+    <p class="section-subtitle">
+      You selected the <strong>${arch}</strong> category.
+      Below are 5 ${product.label.toLowerCase()} designs from that category.
+    </p>
+
+    <!-- 5 ITEM DISPLAY -->
+    <div class="five-item-grid" id="${pid}_itemGrid">
+      ${letters.map((l, i) => `
+      <div class="item-display-card">
+        <div class="item-img-wrap">
+          <span style="font-size:3.5rem">${items[i]}</span>
+        </div>
+        <div class="item-label">${product.label.split(' ')[0]} ${l}</div>
+      </div>`).join('')}
+    </div>
+
+    <!-- Q1: RATING GRID ─────────────────────────────────────── -->
+    <div class="q-block" style="margin-top:2rem">
+      <div class="q-label">
+        <span class="qnum">Q1</span>
+        Rate each ${product.label.toLowerCase()} based on how likely you are to buy it.
+        <span style="color:var(--muted);font-size:0.78rem"> (1 = least likely · 5 = most likely)</span>
+      </div>
+
+      <div class="rating-grid-wrap">
+        <table class="rating-grid">
+          <thead>
+            <tr>
+              <th class="rg-row-head"></th>
+              ${[1,2,3,4,5].map(n=>`<th class="rg-col-head"><div class="rg-col-num">${n}</div><div class="rg-col-lbl">${n===1?'Least':n===5?'Most':''}</div></th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${letters.map((l,i) => `
+            <tr class="rg-row" id="${pid}_row_${l}">
+              <td class="rg-row-head">${product.label.split(' ')[0]} ${l}</td>
+              ${[1,2,3,4,5].map(n=>`
+              <td class="rg-cell">
+                <label class="rg-radio-wrap">
+                  <input type="radio" name="${pid}_rate_${l}" value="${n}"
+                    ${(pr[`rate_${l}`]==n)?'checked':''}
+                    onchange="saveRating('${pid}','${l}',${n})">
+                  <span class="rg-radio"></span>
+                </label>
+              </td>`).join('')}
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="field-error" id="${pid}_q1raterr">Please rate all 5 items before continuing.</div>
+    </div>
+
+    <!-- Q2: MOST LIKELY TO BUY ──────────────────────────────── -->
+    <div class="q-block">
+      <div class="q-label"><span class="qnum">Q2</span> Which ${product.label.toLowerCase()} are you most likely to buy?</div>
+      <div class="radio-group">
+        ${letters.map(l=>`
+        <div class="radio-opt">
+          <input type="radio" name="${pid}_top" id="${pid}_top_${l}" value="${l}"
+            ${pr.top_choice===l?'checked':''}
+            onchange="saveField('${pid}','top_choice','${l}')">
+          <label for="${pid}_top_${l}">
+            <div class="radio-dot"></div>
+            ${product.label.split(' ')[0]} ${l}
+          </label>
+        </div>`).join('')}
+      </div>
+      <div class="field-error" id="${pid}_q2toперr">Please select your top choice.</div>
+    </div>
+
+    <!-- Q3: INFLUENCE ───────────────────────────────────────── -->
+    <div class="q-block">
+      <div class="q-label">
+        <span class="qnum">Q3</span> What influenced your choice the most?
+        <span style="color:var(--muted);font-size:0.78rem">(select all that apply)</span>
+      </div>
+      <div class="check-group">
+        ${INFLUENCE_OPTIONS.map((opt,i)=>`
+        <div class="check-opt">
+          <input type="checkbox" id="${pid}_inf_${i}" value="${opt}"
+            ${(pr.influences||[]).includes(opt)?'checked':''}
+            onchange="toggleInfluence('${pid}','${opt}')">
+          <label for="${pid}_inf_${i}">
+            <div class="check-box"></div>${opt}
+          </label>
+        </div>`).join('')}
+      </div>
+      <div class="field-error" id="${pid}_q3inferr">Please select at least one option.</div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-back" onclick="goBack()">← Back</button>
+      <button class="btn-next" onclick="saveRatingPage('${pid}')">
+        ${current < 12 ? 'Next Product →' : 'Continue →'}
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>`;
+}
+
+function saveRating(pid, letter, val){
   if(!responses[pid]) responses[pid]={};
-  const pr = responses[pid];
-
-  // Remove previous first choice highlight
-  ['A','B','C'].forEach(l=>{
-    const c = document.getElementById(`${pid}_card_${l}`);
-    if(c) c.classList.remove('selected');
-  });
-
-  pr.q1_letter = letter;
-  pr.q1_archetype = ARCHETYPES[archIdx];
-  const card = document.getElementById(`${pid}_card_${letter}`);
-  card.classList.add('selected');
-  document.getElementById(`${pid}_rank_${letter}`).textContent = '#1 ✓';
-
-  // Auto start ranking
-  if(!pr.q2_ranking) pr.q2_ranking = [];
-  const idx = pr.q2_ranking.indexOf(letter);
-  if(idx===-1) pr.q2_ranking.unshift(letter);
-  else { pr.q2_ranking.splice(idx,1); pr.q2_ranking.unshift(letter); }
-  // Prompt for remaining
-  promptRemainingRanks(pid, letter);
-  document.getElementById(`${pid}_q1err`).classList.remove('show');
+  responses[pid][`rate_${letter}`] = val;
+  // Highlight selected row
+  const row = document.getElementById(`${pid}_row_${letter}`);
+  if(row) row.classList.add('rg-rated');
 }
 
-function promptRemainingRanks(pid, firstLetter){
-  const pr = responses[pid];
-  const others = ['A','B','C'].filter(l=>l!==firstLetter);
-  // Reset others
-  others.forEach(l=>{
-    const c = document.getElementById(`${pid}_card_${l}`);
-    if(c){c.classList.remove('ranked-2','ranked-3','selected');}
-    const r = document.getElementById(`${pid}_rank_${l}`);
-    if(r) r.textContent = 'Click to rank';
-    // Add click handlers for 2nd/3rd
-    if(c) c.onclick = ()=>rankSecondary(pid,l,others);
-  });
-}
-
-function rankSecondary(pid, letter, allOthers){
-  const pr = responses[pid];
-  if(!pr.q2_ranking) pr.q2_ranking=[];
-  const existing = pr.q2_ranking.filter(l=>l!==letter);
-  pr.q2_ranking = existing;
-  // Find slot
-  const firstL = pr.q1_letter;
-  const ranked = pr.q2_ranking.filter(l=>l!==firstL);
-  ranked.push(letter);
-  const remaining = allOthers.filter(l=>!ranked.includes(l));
-  pr.q2_ranking = [firstL,...ranked,...remaining];
-  // Re-draw
-  allOthers.forEach(l=>{
-    const idx = pr.q2_ranking.indexOf(l);
-    const c = document.getElementById(`${pid}_card_${l}`);
-    const r = document.getElementById(`${pid}_rank_${l}`);
-    if(!c) return;
-    c.classList.remove('ranked-2','ranked-3');
-    if(idx===1){c.classList.add('ranked-2'); if(r) r.textContent='#2';}
-    else if(idx===2){c.classList.add('ranked-3'); if(r) r.textContent='#3';}
-  });
-  updateRankDisplay(pid, pr.q2_ranking);
-}
-
-function updateRankDisplay(pid, ranking){
-  const el = document.getElementById(`${pid}_rankDisplay`);
-  if(el && ranking) el.textContent = ranking.map((l,i)=>`${i+1}. Option ${l}`).join('  ›  ');
-}
-
-function updateSlider(pid, val){
+function toggleInfluence(pid, val){
   if(!responses[pid]) responses[pid]={};
-  responses[pid].q7_threshold = parseInt(val);
-  document.getElementById(`${pid}_sliderVal`).textContent = val;
-  const pct = ((val-1)/9)*100;
-  document.getElementById(`${pid}_slider`).style.setProperty('--pct', pct+'%');
-}
-
-function toggleMotivation(pid, val){
-  if(!responses[pid]) responses[pid]={};
-  let arr = responses[pid].q6_motivation || [];
+  let arr = responses[pid].influences || [];
   const idx = arr.indexOf(val);
-  if(idx===-1){
-    if(arr.length>=2){
-      // Uncheck oldest
-      const old = arr.shift();
-      const cbs = document.querySelectorAll(`#${pid}_motiveGroup input`);
-      cbs.forEach(cb=>{if(cb.value===old)cb.checked=false;});
-    }
-    arr.push(val);
-  } else { arr.splice(idx,1); }
-  responses[pid].q6_motivation = arr;
+  if(idx === -1) arr.push(val); else arr.splice(idx, 1);
+  responses[pid].influences = arr;
 }
 
-function handleContextChange(pid, val){
-  if(!responses[pid]) responses[pid]={};
-  responses[pid].q8_context = val;
-  const branch = document.getElementById(`${pid}_ctxBranch`);
-  if(val==='context_dependent') branch.classList.add('show');
-  else { branch.classList.remove('show'); responses[pid].q8_contexts=[]; }
-}
-
-function toggleContext(pid, val){
-  if(!responses[pid]) responses[pid]={};
-  let arr = responses[pid].q8_contexts || [];
-  const idx = arr.indexOf(val);
-  if(idx===-1) arr.push(val); else arr.splice(idx,1);
-  responses[pid].q8_contexts = arr;
-}
-
-function saveField(pid, field, val){
-  if(!responses[pid]) responses[pid]={};
-  responses[pid][field] = val;
-}
-
-function saveProductBlock(pid){
+function saveRatingPage(pid){
   const pr = responses[pid] || {};
   let valid = true;
 
-  if(!pr.q1_letter){
-    document.getElementById(`${pid}_q1err`).classList.add('show'); valid=false;
-  }
-  if(!pr.q2_ranking || pr.q2_ranking.length<3){
-    document.getElementById(`${pid}_q2err`).classList.add('show'); valid=false;
-  }
-  // Check likelihoods
-  ['A','B','C'].forEach(l=>{
-    const radio = document.querySelector(`input[name="${pid}_like_${l}"]:checked`);
-    const errEl = document.getElementById(`${pid}_like_${l}_err`);
-    if(!radio){ if(errEl) errEl.classList.add('show'); valid=false; }
-    else { if(errEl) errEl.classList.remove('show'); if(!pr[`like_${l}`]) pr[`like_${l}`]=parseInt(radio.value); }
-  });
-  if(!pr.q6_motivation || pr.q6_motivation.length===0){
-    document.getElementById(`${pid}_q6err`).classList.add('show'); valid=false;
-  }
-  if(!pr.q8_context){
-    document.getElementById(`${pid}_q8err`).classList.add('show'); valid=false;
+  // Check all 5 ratings
+  const letters = ['A','B','C','D','E'];
+  const unrated = letters.filter(l => !pr[`rate_${l}`]);
+  if(unrated.length > 0){
+    document.getElementById(`${pid}_q1raterr`).classList.add('show');
+    // Highlight unrated rows
+    unrated.forEach(l => {
+      const row = document.getElementById(`${pid}_row_${l}`);
+      if(row) row.classList.add('rg-missing');
+    });
+    valid = false;
+  } else {
+    document.getElementById(`${pid}_q1raterr`).classList.remove('show');
   }
 
-  if(!valid){ document.querySelector('.field-error.show')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
-  if(!pr.q7_threshold) pr.q7_threshold = parseInt(document.getElementById(`${pid}_slider`).value);
-  responses[pid] = pr;
+  if(!pr.top_choice){
+    document.getElementById(`${pid}_q2toперr`)?.classList.add('show');
+    valid = false;
+  }
+
+  if(!pr.influences || pr.influences.length === 0){
+    document.getElementById(`${pid}_q3inferr`).classList.add('show');
+    valid = false;
+  }
+
+  if(!valid){
+    document.querySelector('.field-error.show')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
   save(); current++; render();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
 // SECTION 8 — TRAIT SCALE
 // ═══════════════════════════════════════════════════════════════════════
 function renderTraits(body){
   const tr = responses.traits || {};
   body.innerHTML = `
   <div class="section-card">
-    <span class="section-tag">Section 8 of 9</span>
+    <span class="section-tag">Section 14 of 15 · Design Personality</span>
     <h2 class="section-title">Your Design Personality</h2>
     <p class="section-subtitle">Rate how much you agree with each statement below. There are no right or wrong answers — we want your honest instinct.</p>
     <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem">
@@ -949,7 +977,7 @@ function renderClosing(body){
   const cl = responses.closing || {};
   body.innerHTML = `
   <div class="section-card">
-    <span class="section-tag">Section 9 of 9 · Almost done!</span>
+    <span class="section-tag">Section 15 of 15 · Almost done!</span>
     <h2 class="section-title">A few final questions</h2>
     <p class="section-subtitle">These last questions give us an overall picture of your design preferences across all products.</p>
 
@@ -1055,7 +1083,7 @@ function submitSurvey(){
 
   // ── Submit to Google Apps Script (paste your deployment URL below) ───────
   // Instructions: see SETUP.md or the README for how to get this URL.
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0KPhLuBVpSfyND1PyyUvA1acf1MxIxmGF6-TqLuIy0-VQ92qtIj_0XQibz1Msy3ILeA/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
@@ -1081,7 +1109,7 @@ function submitSurvey(){
 }
 
 function goBack(){
-  if(current>0){ current--; render(); }
+  if(current > 0){ current--; render(); }
 }
 
 // ── INIT ──
