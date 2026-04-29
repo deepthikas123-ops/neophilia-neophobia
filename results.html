@@ -474,9 +474,9 @@ chartInstances.push(new Chart(document.getElementById('chartOverall'), {
   data: {
     labels: GENS,
     datasets: [
-      { label:'Conventional', data: GENS.map(g=>d.overallByGen[g][0]), backgroundColor: COLORS.conv+'cc', borderRadius:4 },
-      { label:'Hybrid',       data: GENS.map(g=>d.overallByGen[g][1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
-      { label:'Unconventional',data:GENS.map(g=>d.overallByGen[g][2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
+      { label:'Conventional', data: GENS.map(g=>(d.overallByGen[g]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc', borderRadius:4 },
+      { label:'Hybrid',       data: GENS.map(g=>(d.overallByGen[g]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
+      { label:'Unconventional',data:GENS.map(g=>(d.overallByGen[g]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
     ]
   },
   options: {
@@ -494,14 +494,16 @@ const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
 const chartIds   = ['chartCup','chartWatch','chartPerfume','chartClock','chartLamp','chartBottle'];
 
 productIds.forEach((pid, i) => {
-  // Aggregate across all generations
-  const agg = [0,0,0];
-  GENS.forEach(g => {
-    const row = d.byProduct[pid][g];
-    row.forEach((v,j) => agg[j] += v);
-  });
-  const total = agg.reduce((a,b)=>a+b,0);
-  const pcts  = agg.map(v => Math.round(v/total*100));
+  const raw = d.byProduct[pid];
+  let pcts;
+  if (Array.isArray(raw)) {
+    pcts = raw;
+  } else {
+    const agg = [0,0,0];
+    GENS.forEach(g => { if(raw[g]) raw[g].forEach((v,j) => agg[j] += v); });
+    const total = agg.reduce((a,b)=>a+b,0) || 1;
+    pcts = agg.map(v => Math.round(v/total*100));
+  }
 
   chartInstances.push(new Chart(document.getElementById(chartIds[i]), {
     type:'doughnut',
@@ -531,7 +533,7 @@ chartInstances.push(new Chart(document.getElementById('chartThreshold'), {
     labels: GENS,
     datasets:[{
       label:'Mean Threshold (1–10)',
-      data: GENS.map(g=>d.thresholdByGen[g]),
+      data: GENS.map(g=>d.thresholdByGen[g]||0),
       backgroundColor: GEN_COLORS.map(c=>c+'cc'),
       borderRadius:6,
     }]
@@ -554,7 +556,7 @@ chartInstances.push(new Chart(document.getElementById('chartTrait'), {
     labels:['Gen X','Gen Y','Gen Z','Gen Alpha'],
     datasets:[{
       label:'Neophilia Trait Score',
-      data: GENS.map(g=>d.traitByGen[g]),
+      data: GENS.map(g=>d.traitByGen[g]||0),
       backgroundColor:'rgba(13,138,122,0.1)',
       borderColor:'var(--teal)',
       pointBackgroundColor:'var(--teal)',
@@ -581,9 +583,9 @@ chartInstances.push(new Chart(document.getElementById('chartPurchase'), {
   data:{
     labels: GENS,
     datasets:[
-      { label:'Conventional', data:GENS.map(g=>d.purchaseByGen[g][0]), backgroundColor:COLORS.conv+'cc', borderRadius:4 },
-      { label:'Hybrid',       data:GENS.map(g=>d.purchaseByGen[g][1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4 },
-      { label:'Unconventional',data:GENS.map(g=>d.purchaseByGen[g][2]),backgroundColor:COLORS.unconv+'cc', borderRadius:4 },
+      { label:'Conventional', data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc', borderRadius:4 },
+      { label:'Hybrid',       data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4 },
+      { label:'Unconventional',data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[2]),backgroundColor:COLORS.unconv+'cc', borderRadius:4 },
     ]
   },
   options:{
