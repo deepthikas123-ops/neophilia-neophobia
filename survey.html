@@ -1043,7 +1043,7 @@ function renderRatingPage(body, product){
           </label>
         </div>`).join('')}
       </div>
-      <div class="field-error" id="${pid}_q2toперr">Please select your top choice.</div>
+      <div class="field-error" id="${pid}_q2toperr">Please select your top choice.</div>
     </div>
 
     <!-- Q3: INFLUENCE ───────────────────────────────────────── -->
@@ -1112,8 +1112,10 @@ function saveRatingPage(pid){
   }
 
   if(!pr.top_choice){
-    document.getElementById(`${pid}_q2toперr`)?.classList.add('show');
+    document.getElementById(`${pid}_q2toperr`)?.classList.add('show');
     valid = false;
+  } else {
+    document.getElementById(`${pid}_q2toperr`)?.classList.remove('show');
   }
 
   if(!pr.influences || pr.influences.length === 0){
@@ -1297,7 +1299,8 @@ function submitSurvey(){
 
   // ── Submit to Google Apps Script (paste your deployment URL below) ───────
   // Instructions: see SETUP.md or the README for how to get this URL.
-  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec
+';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
