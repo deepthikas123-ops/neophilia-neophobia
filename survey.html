@@ -1304,29 +1304,34 @@ function submitSurvey(){
   localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
   localStorage.removeItem('nn_survey');
 
-  // ── Submit to Google Apps Script (paste your deployment URL below) ───────
-  // Instructions: see SETUP.md or the README for how to get this URL.
+  // ── Submit to Google Apps Script ──────────────────────────────────────
+  // IMPORTANT: Replace the URL below with your Apps Script /exec URL
+  // Get it from: Apps Script editor → Deploy → Manage deployments → copy Web app URL
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
   };
 
-  if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL') {
-    // URL not yet configured — just redirect
-    console.warn('Apps Script URL not set. Response saved locally only.');
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('PASTE_YOUR') || APPS_SCRIPT_URL.includes('YOUR_APPS')) {
+    console.warn('Apps Script URL not configured. Response saved to localStorage only.');
     submitAndRedirect();
     return;
   }
 
+  // Apps Script requires no-cors when called from a different origin (GitHub Pages)
+  // This means we cannot read the response body, but the POST still reaches the script
   fetch(APPS_SCRIPT_URL, {
     method: 'POST',
-    // Note: no Content-Type header — Apps Script requires no-cors or plain text
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(responses),
   })
+  .then(() => {
+    console.log('Submitted to Apps Script successfully');
+  })
   .catch(err => {
-    // Network error — data is safe in localStorage, just redirect
-    console.warn('Apps Script POST failed:', err);
+    console.warn('Apps Script POST failed (data saved locally):', err);
   })
   .finally(submitAndRedirect);
 }
