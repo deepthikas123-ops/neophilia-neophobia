@@ -1036,7 +1036,7 @@ function renderRatingPage(body, product){
         <div class="radio-opt">
           <input type="radio" name="${pid}_top" id="${pid}_top_${l}" value="${l}"
             ${pr.top_choice===l?'checked':''}
-            onchange="saveField('${pid}','top_choice','${l}')">
+            onchange="responses['${pid}']=responses['${pid}']||{};responses['${pid}'].top_choice=this.value;var e=document.getElementById('${pid}_q2toperr');if(e)e.classList.remove('show');">
           <label for="${pid}_top_${l}">
             <div class="radio-dot"></div>
             ${product.label.split(' ')[0]} ${l}
@@ -1111,11 +1111,18 @@ function saveRatingPage(pid){
     document.getElementById(`${pid}_q1raterr`).classList.remove('show');
   }
 
-  if(!pr.top_choice){
-    document.getElementById(`${pid}_q2toperr`)?.classList.add('show');
+  // Read top choice directly from DOM — more reliable than responses cache
+  const topRadio = document.querySelector(`input[name="${pid}_top"]:checked`);
+  const topErrEl = document.getElementById(`${pid}_q2toperr`);
+  if(!topRadio && !pr.top_choice){
+    if(topErrEl) topErrEl.classList.add('show');
     valid = false;
   } else {
-    document.getElementById(`${pid}_q2toperr`)?.classList.remove('show');
+    if(topErrEl) topErrEl.classList.remove('show');
+    // Ensure responses is updated from DOM in case saveField was missed
+    if(topRadio && !pr.top_choice){
+      responses[pid].top_choice = topRadio.value;
+    }
   }
 
   if(!pr.influences || pr.influences.length === 0){
@@ -1299,8 +1306,7 @@ function submitSurvey(){
 
   // ── Submit to Google Apps Script (paste your deployment URL below) ───────
   // Instructions: see SETUP.md or the README for how to get this URL.
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec
-';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
