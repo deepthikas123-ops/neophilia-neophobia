@@ -391,12 +391,57 @@ input[type=range]::-webkit-slider-thumb{
 // DATA
 // ═══════════════════════════════════════════════════════════════════════
 const PRODUCTS = [
-  { id:'cup',       label:'Cup / Mug',       icon:'☕', icons:['☕','🍵','🫙'] },
-  { id:'watch',     label:'Wrist Watch',      icon:'⌚', icons:['⌚','🕐','⏱'] },
-  { id:'perfume',   label:'Perfume Bottle',   icon:'🧴', icons:['🧴','💊','🫧'] },
-  { id:'clock',     label:'Desk Clock',       icon:'🕐', icons:['🕐','⏰','⏲'] },
-  { id:'lamp',      label:'Table Lamp',       icon:'💡', icons:['💡','🪔','🔦'] },
-  { id:'bottle',    label:'Water Bottle',     icon:'🫗', icons:['🫗','🧃','🫙'] },
+  { id:'cup', label:'Cup / Mug', icon:'☕',
+    icons:[
+      // ── CUP: 3 CATEGORY IMAGES (Page 1) ──────────────────────────────
+      // index 0 = Conventional  ↓ paste path below
+      'assets/images/products/cup/conventional.png',
+      // index 1 = Hybrid        ↓ paste path below
+      'assets/images/products/cup/hybrid.png',
+      // index 2 = Unconventional ↓ paste path below
+      'assets/images/products/cup/unconventional.png',
+    ]
+  },
+  { id:'watch', label:'Wrist Watch', icon:'⌚',
+    icons:[
+      // ── WATCH: 3 CATEGORY IMAGES (Page 1) ────────────────────────────
+      'assets/images/products/watch/conventional.png',
+      'assets/images/products/watch/hybrid.png',
+      'assets/images/products/watch/unconventional.png',
+    ]
+  },
+  { id:'perfume', label:'Perfume Bottle', icon:'🧴',
+    icons:[
+      // ── PERFUME: 3 CATEGORY IMAGES (Page 1) ──────────────────────────
+      'assets/images/products/perfume/conventional.png',
+      'assets/images/products/perfume/hybrid.png',
+      'assets/images/products/perfume/unconventional.png',
+    ]
+  },
+  { id:'clock', label:'Desk Clock', icon:'🕐',
+    icons:[
+      // ── CLOCK: 3 CATEGORY IMAGES (Page 1) ────────────────────────────
+      'assets/images/products/clock/conventional.png',
+      'assets/images/products/clock/hybrid.png',
+      'assets/images/products/clock/unconventional.png',
+    ]
+  },
+  { id:'lamp', label:'Table Lamp', icon:'💡',
+    icons:[
+      // ── LAMP: 3 CATEGORY IMAGES (Page 1) ─────────────────────────────
+      'assets/images/products/lamp/conventional.png',
+      'assets/images/products/lamp/hybrid.png',
+      'assets/images/products/lamp/unconventional.png',
+    ]
+  },
+  { id:'bottle', label:'Water Bottle', icon:'🫗',
+    icons:[
+      // ── BOTTLE: 3 CATEGORY IMAGES (Page 1) ───────────────────────────
+      'assets/images/products/bottle/conventional.png',
+      'assets/images/products/bottle/hybrid.png',
+      'assets/images/products/bottle/unconventional.png',
+    ]
+  },
 ];
 
 const ARCHETYPES = ['Conventional','Hybrid','Unconventional'];
@@ -648,12 +693,169 @@ function saveDemographics(){
 // ═══════════════════════════════════════════════════════════════════════
 
 const PRODUCT_ITEMS = {
-  cup:     ['☕','🍵','🫙','🧋','🥤'],
-  watch:   ['⌚','🕐','⏱','⌚','🕰'],
-  perfume: ['🧴','💊','🫧','🧴','💐'],
-  clock:   ['🕐','⏰','⏲','⏰','🕰'],
-  lamp:    ['💡','🪔','🔦','💡','🪩'],
-  bottle:  ['🫗','🧃','🫙','🥤','🍶'],
+
+  // ════════════════════════════════════════════════════════════════════
+  // CUP — 15 rating images (Page 2): 5 per category
+  // ════════════════════════════════════════════════════════════════════
+  cup: {
+    Conventional: [
+      'assets/images/products/cup/conv_1.png',   // Cup A
+      'assets/images/products/cup/conv_2.png',   // Cup B
+      'assets/images/products/cup/conv_3.png',   // Cup C
+      'assets/images/products/cup/conv_4.png',   // Cup D
+      'assets/images/products/cup/conv_5.png',   // Cup E
+    ],
+    Hybrid: [
+      'assets/images/products/cup/hybrid_1.png',
+      'assets/images/products/cup/hybrid_2.png',
+      'assets/images/products/cup/hybrid_3.png',
+      'assets/images/products/cup/hybrid_4.png',
+      'assets/images/products/cup/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/cup/unconv_1.png',
+      'assets/images/products/cup/unconv_2.png',
+      'assets/images/products/cup/unconv_3.png',
+      'assets/images/products/cup/unconv_4.png',
+      'assets/images/products/cup/unconv_5.png',
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════════
+  // WATCH — 15 rating images (Page 2)
+  // ════════════════════════════════════════════════════════════════════
+  watch: {
+    Conventional: [
+      'assets/images/products/watch/conv_1.png',
+      'assets/images/products/watch/conv_2.png',
+      'assets/images/products/watch/conv_3.png',
+      'assets/images/products/watch/conv_4.png',
+      'assets/images/products/watch/conv_5.png',
+    ],
+    Hybrid: [
+      'assets/images/products/watch/hybrid_1.png',
+      'assets/images/products/watch/hybrid_2.png',
+      'assets/images/products/watch/hybrid_3.png',
+      'assets/images/products/watch/hybrid_4.png',
+      'assets/images/products/watch/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/watch/unconv_1.png',
+      'assets/images/products/watch/unconv_2.png',
+      'assets/images/products/watch/unconv_3.png',
+      'assets/images/products/watch/unconv_4.png',
+      'assets/images/products/watch/unconv_5.png',
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════════
+  // PERFUME — 15 rating images (Page 2)
+  // ════════════════════════════════════════════════════════════════════
+  perfume: {
+    Conventional: [
+      'assets/images/products/perfume/conv_1.png',
+      'assets/images/products/perfume/conv_2.png',
+      'assets/images/products/perfume/conv_3.png',
+      'assets/images/products/perfume/conv_4.png',
+      'assets/images/products/perfume/conv_5.png',
+    ],
+    Hybrid: [
+      'assets/images/products/perfume/hybrid_1.png',
+      'assets/images/products/perfume/hybrid_2.png',
+      'assets/images/products/perfume/hybrid_3.png',
+      'assets/images/products/perfume/hybrid_4.png',
+      'assets/images/products/perfume/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/perfume/unconv_1.png',
+      'assets/images/products/perfume/unconv_2.png',
+      'assets/images/products/perfume/unconv_3.png',
+      'assets/images/products/perfume/unconv_4.png',
+      'assets/images/products/perfume/unconv_5.png',
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════════
+  // CLOCK — 15 rating images (Page 2)
+  // ════════════════════════════════════════════════════════════════════
+  clock: {
+    Conventional: [
+      'assets/images/products/clock/conv_1.png',
+      'assets/images/products/clock/conv_2.png',
+      'assets/images/products/clock/conv_3.png',
+      'assets/images/products/clock/conv_4.png',
+      'assets/images/products/clock/conv_5.png',
+    ],
+    Hybrid: [
+      'assets/images/products/clock/hybrid_1.png',
+      'assets/images/products/clock/hybrid_2.png',
+      'assets/images/products/clock/hybrid_3.png',
+      'assets/images/products/clock/hybrid_4.png',
+      'assets/images/products/clock/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/clock/unconv_1.png',
+      'assets/images/products/clock/unconv_2.png',
+      'assets/images/products/clock/unconv_3.png',
+      'assets/images/products/clock/unconv_4.png',
+      'assets/images/products/clock/unconv_5.png',
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════════
+  // LAMP — 15 rating images (Page 2)
+  // ════════════════════════════════════════════════════════════════════
+  lamp: {
+    Conventional: [
+      'assets/images/products/lamp/conv_1.png',
+      'assets/images/products/lamp/conv_2.png',
+      'assets/images/products/lamp/conv_3.png',
+      'assets/images/products/lamp/conv_4.png',
+      'assets/images/products/lamp/conv_5.png',
+    ],
+    Hybrid: [
+      'assets/images/products/lamp/hybrid_1.png',
+      'assets/images/products/lamp/hybrid_2.png',
+      'assets/images/products/lamp/hybrid_3.png',
+      'assets/images/products/lamp/hybrid_4.png',
+      'assets/images/products/lamp/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/lamp/unconv_1.png',
+      'assets/images/products/lamp/unconv_2.png',
+      'assets/images/products/lamp/unconv_3.png',
+      'assets/images/products/lamp/unconv_4.png',
+      'assets/images/products/lamp/unconv_5.png',
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════════════
+  // BOTTLE — 15 rating images (Page 2)
+  // ════════════════════════════════════════════════════════════════════
+  bottle: {
+    Conventional: [
+      'assets/images/products/bottle/conv_1.png',
+      'assets/images/products/bottle/conv_2.png',
+      'assets/images/products/bottle/conv_3.png',
+      'assets/images/products/bottle/conv_4.png',
+      'assets/images/products/bottle/conv_5.png',
+    ],
+    Hybrid: [
+      'assets/images/products/bottle/hybrid_1.png',
+      'assets/images/products/bottle/hybrid_2.png',
+      'assets/images/products/bottle/hybrid_3.png',
+      'assets/images/products/bottle/hybrid_4.png',
+      'assets/images/products/bottle/hybrid_5.png',
+    ],
+    Unconventional: [
+      'assets/images/products/bottle/unconv_1.png',
+      'assets/images/products/bottle/unconv_2.png',
+      'assets/images/products/bottle/unconv_3.png',
+      'assets/images/products/bottle/unconv_4.png',
+      'assets/images/products/bottle/unconv_5.png',
+    ],
+  },
+
 };
 
 const PRODUCT_QUESTIONS = {
@@ -681,7 +883,7 @@ function renderCategoryPage(body, product){
 
   body.innerHTML = `
   <div class="section-card">
-    <span class="section-tag">Product ${pNum} of 6 · Category Selection</span>
+    <span class="section-tag">Product ${pNum} of 6 · Step 1 — Choose a Design</span>
     <h2 class="section-title">${product.label}</h2>
     <p class="section-subtitle">${PRODUCT_QUESTIONS[pid]}</p>
 
@@ -695,9 +897,16 @@ function renderCategoryPage(body, product){
         <div class="img-card ${sel ? 'selected' : ''}"
              id="${pid}_cat_${letter}"
              onclick="selectCategory('${pid}','${archLabel}','${letter}',${archIdx})">
-          <div class="img-placeholder" style="min-height:220px">
-            <span style="font-size:5rem">${icon}</span>
-            <span class="img-placeholder-label">${archLabel}</span>
+          <div class="img-placeholder" style="min-height:220px;padding:0;overflow:hidden;background:#f8f8f8">
+            <img src="${icon}"
+                 alt="Option ${letter}"
+                 style="width:100%;height:220px;object-fit:contain;padding:1rem"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            />
+            <div style="display:none;align-items:center;justify-content:center;height:220px;color:#aaa;font-size:0.8rem;flex-direction:column;gap:0.5rem">
+              <span style="font-size:2.5rem">🖼</span>
+              <span>Image not found</span>
+            </div>
           </div>
           <div class="img-card-footer">
             <span class="img-card-letter">Option ${letter}</span>
@@ -755,24 +964,29 @@ function renderRatingPage(body, product){
   const pr    = responses[pid] || {};
   const pNum  = productIndexFromStep(current) + 1;
   const arch  = pr.category_choice || 'Conventional';
-  const items = PRODUCT_ITEMS[pid] || ['🔲','🔲','🔲','🔲','🔲'];
+  const items = (PRODUCT_ITEMS[pid] && PRODUCT_ITEMS[pid][arch]) || ['','','','',''];
   const letters = ['A','B','C','D','E'];
 
   body.innerHTML = `
   <div class="section-card">
-    <span class="section-tag">Product ${pNum} of 6 · Rating — ${arch} Designs</span>
-    <h2 class="section-title">${product.label} <span style="font-size:1rem;color:var(--teal);font-family:'DM Sans',sans-serif;font-weight:400">· ${arch}</span></h2>
+    <span class="section-tag">Product ${pNum} of 6 · Step 2 — Rate the Designs</span>
+    <h2 class="section-title">${product.label}</h2>
     <p class="section-subtitle">
-      You selected the <strong>${arch}</strong> category.
-      Below are 5 ${product.label.toLowerCase()} designs from that category.
+      Based on your selection, here are 5 ${product.label.toLowerCase()} designs.
+      Rate each one based on how likely you are to buy it.
     </p>
 
     <!-- 5 ITEM DISPLAY -->
     <div class="five-item-grid" id="${pid}_itemGrid">
       ${letters.map((l, i) => `
       <div class="item-display-card">
-        <div class="item-img-wrap">
-          <span style="font-size:3.5rem">${items[i]}</span>
+        <div class="item-img-wrap" style="height:120px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#f8f8f8;border-radius:0.4rem">
+          <img src="${items[i]}"
+               alt="${product.label} ${letters[i]}"
+               style="max-width:100%;max-height:110px;object-fit:contain;padding:0.5rem"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          />
+          <span style="display:none;font-size:0.72rem;color:#aaa;text-align:center;padding:0.5rem">Image<br>not found</span>
         </div>
         <div class="item-label">${product.label.split(' ')[0]} ${l}</div>
       </div>`).join('')}
@@ -1083,7 +1297,7 @@ function submitSurvey(){
 
   // ── Submit to Google Apps Script (paste your deployment URL below) ───────
   // Instructions: see SETUP.md or the README for how to get this URL.
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMzcgOpTTqUX6VmmDebUwZHF6rn6N2jDVXEs36PikQesCtQ03EaYREDR32Dh0I2A7hUw/exec';
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
