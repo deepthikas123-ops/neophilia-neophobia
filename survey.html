@@ -1399,19 +1399,6 @@ document.addEventListener('keydown', e => {
 });
 
 
-// ── LIGHTBOX ──
-function lbOpen(src, caption){
-  document.getElementById('lbImg').src = src;
-  document.getElementById('lbCap').textContent = caption || '';
-  document.getElementById('lightboxOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function lbClose(e){
-  if(e && e.target !== document.getElementById('lightboxOverlay')) return;
-  document.getElementById('lightboxOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if(e.key==='Escape'){ document.getElementById('lightboxOverlay').classList.remove('open'); document.body.style.overflow=''; }});
 
 // ── INIT ──
 render();
