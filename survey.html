@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Survey | Neophilia–Neophobia Study</title>
+<title>Survey | SCALE Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -23,7 +23,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 .survey-header{
   position:sticky;top:0;z-index:100;
   background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
-  padding:0.9rem 2.5rem;
+  padding:0.9rem 3.5rem;
   display:flex;align-items:center;gap:1.5rem;
 }
 .header-brand{
@@ -40,12 +40,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 }
 
 /* ── LAYOUT ── */
-.survey-body{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+.survey-body{max-width:1280px;margin:0 auto;padding:2rem 3rem 5rem}
 
 /* ── SECTION CARD ── */
 .section-card{
   background:#fff;border:1px solid var(--border);
-  border-radius:1rem;padding:2.5rem;
+  border-radius:1rem;padding:2.5rem 4rem;
   margin-bottom:1.5rem;
   animation:fadeUp 0.4s ease both;
 }
@@ -69,9 +69,9 @@ label.field-label{
 }
 label.field-label .req{color:var(--err);margin-left:2px}
 input[type=text],input[type=date],select,textarea{
-  width:100%;padding:0.65rem 0.9rem;
-  border:1.5px solid var(--border);border-radius:0.45rem;
-  font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--ink);
+  width:100%;padding:0.75rem 1rem;
+  border:1.5px solid var(--border);border-radius:0.5rem;
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;color:var(--ink);
   background:#fff;outline:none;transition:border-color 0.2s;
 }
 input:focus,select:focus,textarea:focus{border-color:var(--teal)}
@@ -184,7 +184,7 @@ input[type=range]::-webkit-slider-thumb{
 .product-block-note{font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5}
 
 .image-choice-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:1.5rem
 }
 @media(max-width:600px){.image-choice-grid{grid-template-columns:1fr}}
 
@@ -321,14 +321,14 @@ input[type=range]::-webkit-slider-thumb{
   background:#fff;text-align:center;padding:1rem 0.5rem;
 }
 .item-img-wrap{
-  height:90px;display:flex;align-items:center;justify-content:center;
+  height:140px;display:flex;align-items:center;justify-content:center;
 }
 .item-label{
   font-size:0.78rem;font-weight:500;color:var(--navy);margin-top:0.5rem;
 }
 
 /* ── RATING GRID TABLE ── */
-.rating-grid-wrap{overflow-x:auto;margin-bottom:0.5rem}
+.rating-grid-wrap{overflow-x:auto;margin-bottom:0.5rem;width:100%}
 .rating-grid{
   width:100%;border-collapse:collapse;min-width:360px;
 }
@@ -365,13 +365,47 @@ input[type=range]::-webkit-slider-thumb{
 .rg-radio-wrap input:checked + .rg-radio::after{
   content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block;
 }
+
+/* ── LIGHTBOX MODAL ── */
+.lightbox-overlay{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,0.88);
+  align-items:center;justify-content:center;
+  cursor:zoom-out;
+  animation:lbFadeIn 0.2s ease;
+}
+.lightbox-overlay.open{display:flex}
+@keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+.lightbox-img-wrap{
+  position:relative;max-width:85vw;max-height:85vh;
+  display:flex;flex-direction:column;align-items:center;
+  cursor:default;
+}
+.lightbox-img-wrap img{
+  max-width:85vw;max-height:80vh;
+  object-fit:contain;border-radius:0.5rem;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.lightbox-caption{
+  color:rgba(255,255,255,0.7);font-size:0.85rem;
+  margin-top:0.8rem;letter-spacing:0.06em;
+}
+.lightbox-close{
+  position:absolute;top:-2.5rem;right:0;
+  background:transparent;border:none;color:rgba(255,255,255,0.6);
+  font-size:1.8rem;cursor:pointer;line-height:1;
+  transition:color 0.2s;
+}
+.lightbox-close:hover{color:#fff}
+/* Make all product images show zoom cursor */
+.img-card img,.item-display-card img{cursor:zoom-in}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="survey-header">
-  <div class="header-brand">N<span>&</span>N Study</div>
+  <div class="header-brand">Design Research Study</div>
   <div class="progress-wrap">
     <div class="progress-labels">
       <span id="sectionLabel">Demographics</span>
@@ -391,7 +425,7 @@ input[type=range]::-webkit-slider-thumb{
 // DATA
 // ═══════════════════════════════════════════════════════════════════════
 const PRODUCTS = [
-  { id:'cup', label:'Cup / Mug', icon:'☕',
+  { id:'coffee_mug', label:'Coffee Mug', icon:'☕',
     icons:[
       // ── CUP: 3 CATEGORY IMAGES (Page 1) ──────────────────────────────
       // index 0 = Conventional  ↓ paste path below
@@ -572,7 +606,7 @@ function renderDemographics(body){
         <label class="field-label" for="p3">Gender <span class="req">*</span></label>
         <select id="p3">
           <option value="">Select…</option>
-          ${['Male','Female','Non-binary','Prefer not to say','Other'].map(g=>`<option value="${g}" ${d.gender===g?'selected':''}>${g}</option>`).join('')}
+          ${['Male','Female','Non-binary','Other'].map(g=>`<option value="${g}" ${d.gender===g?'selected':''}>${g}</option>`).join('')}
         </select>
         <div class="field-error" id="p3err">Please select your gender.</div>
       </div>
@@ -614,7 +648,7 @@ function renderDemographics(body){
       <label class="field-label" for="p7">Monthly Income Range <span class="req">*</span></label>
       <select id="p7">
         <option value="">Select…</option>
-        ${['Below ₹50,000','₹50,000 – ₹1.5 Lakh','₹1.5 – ₹3 Lakh','₹3 – ₹6 Lakh','Above ₹6 Lakh','Prefer not to say'].map(i=>`<option value="${i}" ${d.income===i?'selected':''}>${i}</option>`).join('')}
+        ${['Below ₹50,000','₹50,000 – ₹1.5 Lakh','₹1.5 – ₹3 Lakh','₹3 – ₹6 Lakh','Above ₹6 Lakh'].map(i=>`<option value="${i}" ${d.income===i?'selected':''}>${i}</option>`).join('')}
       </select>
       <div class="field-error" id="p7err">Please select your income range.</div>
     </div>
@@ -859,7 +893,7 @@ const PRODUCT_ITEMS = {
 };
 
 const PRODUCT_QUESTIONS = {
-  cup:     'If you were buying a cup or mug today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
+  cup:     'If you were buying a coffee mug today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
   watch:   'If you were buying a wrist watch today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
   perfume: 'If you were buying a perfume bottle today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
   clock:   'If you were buying a desk clock today, and all options have the same functionality, which category would you choose first based only on design or appearance?',
@@ -902,6 +936,7 @@ function renderCategoryPage(body, product){
                  alt="Option ${letter}"
                  style="width:100%;height:220px;object-fit:contain;padding:1rem"
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                 onclick="event.stopPropagation();openLightbox(this.src,'Option ${letter}')"
             />
             <div style="display:none;align-items:center;justify-content:center;height:220px;color:#aaa;font-size:0.8rem;flex-direction:column;gap:0.5rem">
               <span style="font-size:2.5rem">🖼</span>
@@ -985,6 +1020,7 @@ function renderRatingPage(body, product){
                alt="${product.label} ${letters[i]}"
                style="max-width:100%;max-height:110px;object-fit:contain;padding:0.5rem"
                onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+               onclick="openLightbox(this.src,'${product.label.split(\' \')[0]} ${letters[i]}')"
           />
           <span style="display:none;font-size:0.72rem;color:#aaa;text-align:center;padding:0.5rem">Image<br>not found</span>
         </div>
@@ -1340,8 +1376,54 @@ function goBack(){
   if(current > 0){ current--; render(); }
 }
 
+
+// ── LIGHTBOX ─────────────────────────────────────────────────────────
+function openLightbox(src, caption) {
+  const overlay = document.getElementById('lightboxOverlay');
+  const img     = document.getElementById('lightboxImg');
+  const cap     = document.getElementById('lightboxCaption');
+  img.src       = src;
+  img.alt       = caption || '';
+  cap.textContent = caption || '';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightboxOverlay') &&
+      !document.querySelector('.lightbox-close').contains(e.target)) return;
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+
+// ── LIGHTBOX ──
+function lbOpen(src, caption){
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbCap').textContent = caption || '';
+  document.getElementById('lightboxOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose(e){
+  if(e && e.target !== document.getElementById('lightboxOverlay')) return;
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ document.getElementById('lightboxOverlay').classList.remove('open'); document.body.style.overflow=''; }});
+
 // ── INIT ──
 render();
 </script>
+
+<!-- LIGHTBOX MODAL -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox(event)">
+  <div class="lightbox-img-wrap" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt=""/>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
 </body>
 </html>

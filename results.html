@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Results | Neophilia–Neophobia Study</title>
+<title>Results | SCALE Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -64,7 +64,7 @@ nav{
 .notice-text strong{color:var(--ink)}
 
 /* LAYOUT */
-.page-body{max-width:1100px;margin:0 auto;padding:3rem 2rem 5rem}
+.page-body{max-width:1400px;margin:0 auto;padding:3rem 2rem 5rem}
 
 /* SECTION HEADING */
 .sec-head{margin-bottom:2rem}
@@ -175,12 +175,11 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <div class="nav-brand">N<span>&</span>N Study</div>
+  <div class="nav-brand">Design Research Study</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#consent">Participate</a></li>
     <li><a href="results.html" class="active">Results</a></li>
-    <li><a href="about.html">About</a></li>
   </ul>
 </nav>
 
@@ -266,7 +265,7 @@ footer{
 
   <div class="chart-grid-3">
     <div class="chart-card">
-      <div class="chart-title">☕ Cup / Mug</div>
+      <div class="chart-title">☕ Coffee Mug</div>
       <div class="chart-sub">First-choice distribution</div>
       <div class="chart-wrap" style="height:220px"><canvas id="chartCup"></canvas></div>
     </div>
@@ -313,7 +312,7 @@ footer{
       <div class="chart-wrap" style="height:280px"><canvas id="chartThreshold"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Neophilia–Neophobia Trait Score</div>
+      <div class="chart-title">Design Personality Trait Score</div>
       <div class="chart-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic)</div>
       <div class="chart-wrap" style="height:280px"><canvas id="chartTrait"></canvas></div>
     </div>
@@ -395,12 +394,12 @@ footer{
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-brand">N<span>&</span>N Study</div>
+    <div class="footer-brand">Design Research Study</div>
     <div style="font-size:0.72rem;margin-top:0.2rem">IISc Bangalore · Dept. of Design &amp; Manufacturing</div>
   </div>
   <div class="footer-links">
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
+    
     <a href="index.html#consent">Participate</a>
   </div>
   <div style="font-size:0.72rem">© 2025 Academic Research · All data anonymised</div>
@@ -490,7 +489,7 @@ chartInstances.push(new Chart(document.getElementById('chartOverall'), {
 }));
 
 // ── CHARTS: PER PRODUCT (doughnut) ────────────────────────────────────
-const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
+const productIds = ['coffee_mug','watch','perfume','clock','lamp','bottle'];
 const chartIds   = ['chartCup','chartWatch','chartPerfume','chartClock','chartLamp','chartBottle'];
 
 productIds.forEach((pid, i) => {
