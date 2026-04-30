@@ -35,7 +35,7 @@ nav{
 
 /* HERO */
 .results-hero{
-  background:var(--ink);padding:5rem 6rem 4rem;
+  background:var(--ink);padding:4rem 3rem 3rem;
   display:grid;grid-template-columns:1fr auto;align-items:end;gap:3rem;
 }
 .hero-tag{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
@@ -57,14 +57,14 @@ nav{
 /* COLLECTION NOTICE */
 .collection-notice{
   background:#fff;border-bottom:3px solid var(--gold);
-  padding:1.2rem 6rem;display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 3rem;display:flex;align-items:center;gap:1rem;
 }
 .notice-icon{font-size:1.3rem;flex-shrink:0}
 .notice-text{font-size:0.88rem;color:var(--muted);line-height:1.5}
 .notice-text strong{color:var(--ink)}
 
 /* LAYOUT */
-.page-body{max-width:1400px;margin:0 auto;padding:3rem 2rem 5rem}
+.page-body{width:100%;padding:2.5rem 3rem 5rem}
 
 /* SECTION HEADING */
 .sec-head{margin-bottom:2rem}
@@ -146,7 +146,7 @@ nav{
 /* FOOTER */
 footer{
   background:var(--ink);color:rgba(255,255,255,0.4);
-  padding:2.5rem 6rem;display:flex;align-items:center;
+  padding:2rem 3rem;display:flex;align-items:center;
   justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
   border-top:1px solid rgba(255,255,255,0.06);
 }
@@ -256,6 +256,50 @@ footer{
 
   <div class="divider"></div>
 
+  <!-- SECTION A2: GENDER -->
+  <div class="sec-head">
+    <span class="sec-tag">Section A2</span>
+    <div class="sec-title">Design Preference <em>by Gender</em></div>
+    <div class="sec-sub">First-choice category selection across all 6 products, broken down by gender.</div>
+  </div>
+
+  <div class="chart-card wide">
+    <div class="chart-title">Design Archetype Preference — By Gender</div>
+    <div class="chart-sub">% of first-choice selections per archetype, by gender (preliminary)</div>
+    <div class="chart-wrap" style="height:300px">
+      <canvas id="chartGender"></canvas>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--unconv)"></div>Unconventional</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION A3: INCOME -->
+  <div class="sec-head">
+    <span class="sec-tag">Section A3</span>
+    <div class="sec-title">Design Preference <em>by Income Range</em></div>
+    <div class="sec-sub">First-choice category selection across all 6 products, broken down by monthly income bracket.</div>
+  </div>
+
+  <div class="chart-card wide">
+    <div class="chart-title">Design Archetype Preference — By Monthly Income</div>
+    <div class="chart-sub">% of first-choice selections per archetype, by income bracket (preliminary)</div>
+    <div class="chart-wrap" style="height:320px">
+      <canvas id="chartIncome"></canvas>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--unconv)"></div>Unconventional</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
   <!-- SECTION B: PER PRODUCT -->
   <div class="sec-head">
     <span class="sec-tag">Section B</span>
@@ -298,24 +342,17 @@ footer{
 
   <div class="divider"></div>
 
-  <!-- SECTION C: NEOPHOBIA THRESHOLD -->
+  <!-- SECTION C: TRAIT SCORE -->
   <div class="sec-head">
     <span class="sec-tag">Section C</span>
-    <div class="sec-title">Neophobia Threshold <em>by Generation</em></div>
-    <div class="sec-sub">Average self-reported "too unconventional to buy" threshold (Q7 slider, 1–10 scale) per product and generation.</div>
+    <div class="sec-title">Design Personality <em>Trait Score</em></div>
+    <div class="sec-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic) — by generation.</div>
   </div>
 
-  <div class="chart-grid-2">
-    <div class="chart-card">
-      <div class="chart-title">Mean Neophobia Threshold — All Products</div>
-      <div class="chart-sub">Higher score = tolerates more unconventionality before aversion</div>
-      <div class="chart-wrap" style="height:280px"><canvas id="chartThreshold"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Design Personality Trait Score</div>
-      <div class="chart-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic)</div>
-      <div class="chart-wrap" style="height:280px"><canvas id="chartTrait"></canvas></div>
-    </div>
+  <div class="chart-card wide">
+    <div class="chart-title">Design Personality Trait Score — By Generation</div>
+    <div class="chart-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic)</div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartTrait"></canvas></div>
   </div>
 
   <div class="divider"></div>
@@ -427,6 +464,14 @@ const FALLBACK_DATA = {
   thresholdByGen:{'Gen X':5,'Gen Y':5,'Gen Z':5,'Gen Alpha':5},
   traitByGen:{'Gen X':3,'Gen Y':3,'Gen Z':3,'Gen Alpha':3},
   purchaseByGen:{'Gen X':[3,3,3],'Gen Y':[3,3,3],'Gen Z':[3,3,3],'Gen Alpha':[3,3,3]},
+  byGender:{'Male':[34,33,33],'Female':[33,34,33],'Non-binary':[33,33,34],'Other':[34,33,33]},
+  byIncome:{
+    'Below ₹50,000':[34,33,33],
+    '₹50,000 – ₹1.5 Lakh':[33,34,33],
+    '₹1.5 – ₹3 Lakh':[33,33,34],
+    '₹3 – ₹6 Lakh':[34,33,33],
+    'Above ₹6 Lakh':[33,34,33],
+  },
 };
 
 let RESULTS_DATA = FALLBACK_DATA;
@@ -525,29 +570,6 @@ productIds.forEach((pid, i) => {
   }));
 });
 
-// ── CHART: THRESHOLD BY GENERATION (horizontal bar) ───────────────────
-chartInstances.push(new Chart(document.getElementById('chartThreshold'), {
-  type:'bar',
-  data:{
-    labels: GENS,
-    datasets:[{
-      label:'Mean Threshold (1–10)',
-      data: GENS.map(g=>d.thresholdByGen[g]||0),
-      backgroundColor: GEN_COLORS.map(c=>c+'cc'),
-      borderRadius:6,
-    }]
-  },
-  options:{
-    indexAxis:'y',
-    responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ display:false } },
-    scales:{
-      x:{ min:0, max:10, grid:{ color:'#e8eff7' } },
-      y:{ grid:{ display:false } }
-    }
-  }
-}));
-
 // ── CHART: TRAIT SCORE BY GENERATION (radar) ──────────────────────────
 chartInstances.push(new Chart(document.getElementById('chartTrait'), {
   type:'radar',
@@ -575,6 +597,60 @@ chartInstances.push(new Chart(document.getElementById('chartTrait'), {
     plugins:{ legend:{ display:false } }
   }
 }));
+
+// ── CHART: GENDER PREFERENCE (grouped bar) ───────────────────────────
+const GENDERS = Object.keys(d.byGender || {}).filter(g => {
+  const arr = d.byGender[g];
+  return arr && arr.some(v => v > 0);
+});
+if(GENDERS.length > 0){
+  chartInstances.push(new Chart(document.getElementById('chartGender'), {
+    type: 'bar',
+    data: {
+      labels: GENDERS,
+      datasets: [
+        { label:'Conventional',  data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc',   borderRadius:4 },
+        { label:'Hybrid',        data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
+        { label:'Unconventional',data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ grid:{ display:false } },
+        y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
+      }
+    }
+  }));
+}
+
+// ── CHART: INCOME PREFERENCE (grouped bar) ────────────────────────────
+const INCOME_BRACKETS = Object.keys(d.byIncome || {}).filter(k => {
+  const arr = d.byIncome[k];
+  return arr && arr.some(v => v > 0);
+});
+if(INCOME_BRACKETS.length > 0){
+  chartInstances.push(new Chart(document.getElementById('chartIncome'), {
+    type: 'bar',
+    data: {
+      labels: INCOME_BRACKETS,
+      datasets: [
+        { label:'Conventional',  data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc',   borderRadius:4 },
+        { label:'Hybrid',        data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
+        { label:'Unconventional',data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ grid:{ display:false }, ticks:{ maxRotation:30, minRotation:0 } },
+        y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
+      }
+    }
+  }));
+}
 
 // ── CHART: PURCHASE INTENTION (grouped bar) ───────────────────────────
 chartInstances.push(new Chart(document.getElementById('chartPurchase'), {
