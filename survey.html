@@ -508,10 +508,10 @@ input[type=range]::-webkit-slider-thumb{
 
 /* ── VERTICAL RATING CARDS ── */
 .vrate-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
   margin-bottom:0.5rem;
 }
-@media(max-width:640px){.vrate-grid{grid-template-columns:repeat(3,1fr);gap:0.6rem}}
+@media(max-width:640px){.vrate-grid{grid-template-columns:repeat(2,1fr);gap:0.6rem}}
 @media(max-width:380px){.vrate-grid{grid-template-columns:repeat(2,1fr)}}
 
 .vrate-card{
@@ -646,142 +646,45 @@ input[type=range]::-webkit-slider-thumb{
 // ═══════════════════════════════════════════════════════════════════════
 const PRODUCTS = [
   { id:'cup', label:'Coffee Mug', icon:'☕',
-    // ── CUP CATEGORY IMAGES: 4 per archetype for 2×2 grid ──────────────
-    // Replace each path with your actual images
     gridIcons: {
-      Conventional: [
-        'assets/images/products/cup/conventional.png',
-        'assets/images/products/cup/conv_1.png',
-        'assets/images/products/cup/conv_2.png',
-        'assets/images/products/cup/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/cup/hybrid.png',
-        'assets/images/products/cup/hybrid_1.png',
-        'assets/images/products/cup/hybrid_2.png',
-        'assets/images/products/cup/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/cup/unconventional.png',
-        'assets/images/products/cup/unconv_1.png',
-        'assets/images/products/cup/unconv_2.png',
-        'assets/images/products/cup/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/cup/conv_1.png','assets/images/products/cup/conv_2.png','assets/images/products/cup/conv_3.png','assets/images/products/cup/conv_4.png'],
+      Hybrid:         ['assets/images/products/cup/hybrid_1.png','assets/images/products/cup/hybrid_2.png','assets/images/products/cup/hybrid_3.png','assets/images/products/cup/hybrid_4.png'],
+      Unconventional: ['assets/images/products/cup/unconv_1.png','assets/images/products/cup/unconv_2.png','assets/images/products/cup/unconv_3.png','assets/images/products/cup/unconv_4.png'],
     }
   },
-  { id:'watch', label:'Wrist Watch', icon:'⌚',
-    // ── WATCH CATEGORY IMAGES ────────────────────────────────────────────
+    { id:'watch', label:'Wrist Watch', icon:'⌚',
     gridIcons: {
-      Conventional: [
-        'assets/images/products/watch/conventional.png',
-        'assets/images/products/watch/conv_1.png',
-        'assets/images/products/watch/conv_2.png',
-        'assets/images/products/watch/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/watch/hybrid.png',
-        'assets/images/products/watch/hybrid_1.png',
-        'assets/images/products/watch/hybrid_2.png',
-        'assets/images/products/watch/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/watch/unconventional.png',
-        'assets/images/products/watch/unconv_1.png',
-        'assets/images/products/watch/unconv_2.png',
-        'assets/images/products/watch/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/watch/conv_1.png','assets/images/products/watch/conv_2.png','assets/images/products/watch/conv_3.png','assets/images/products/watch/conv_4.png'],
+      Hybrid:         ['assets/images/products/watch/hybrid_1.png','assets/images/products/watch/hybrid_2.png','assets/images/products/watch/hybrid_3.png','assets/images/products/watch/hybrid_4.png'],
+      Unconventional: ['assets/images/products/watch/unconv_1.png','assets/images/products/watch/unconv_2.png','assets/images/products/watch/unconv_3.png','assets/images/products/watch/unconv_4.png'],
     }
   },
-  { id:'perfume', label:'Perfume Bottle', icon:'🧴',
-    // ── PERFUME CATEGORY IMAGES ──────────────────────────────────────────
+    { id:'perfume', label:'Perfume Bottle', icon:'🧴',
     gridIcons: {
-      Conventional: [
-        'assets/images/products/perfume/conventional.png',
-        'assets/images/products/perfume/conv_1.png',
-        'assets/images/products/perfume/conv_2.png',
-        'assets/images/products/perfume/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/perfume/hybrid.png',
-        'assets/images/products/perfume/hybrid_1.png',
-        'assets/images/products/perfume/hybrid_2.png',
-        'assets/images/products/perfume/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/perfume/unconventional.png',
-        'assets/images/products/perfume/unconv_1.png',
-        'assets/images/products/perfume/unconv_2.png',
-        'assets/images/products/perfume/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/perfume/conv_1.png','assets/images/products/perfume/conv_2.png','assets/images/products/perfume/conv_3.png','assets/images/products/perfume/conv_4.png'],
+      Hybrid:         ['assets/images/products/perfume/hybrid_1.png','assets/images/products/perfume/hybrid_2.png','assets/images/products/perfume/hybrid_3.png','assets/images/products/perfume/hybrid_4.png'],
+      Unconventional: ['assets/images/products/perfume/unconv_1.png','assets/images/products/perfume/unconv_2.png','assets/images/products/perfume/unconv_3.png','assets/images/products/perfume/unconv_4.png'],
     }
   },
-  { id:'clock', label:'Desk Clock', icon:'🕐',
-    // ── CLOCK CATEGORY IMAGES ────────────────────────────────────────────
+    { id:'clock', label:'Desk Clock', icon:'🕐',
     gridIcons: {
-      Conventional: [
-        'assets/images/products/clock/conventional.png',
-        'assets/images/products/clock/conv_1.png',
-        'assets/images/products/clock/conv_2.png',
-        'assets/images/products/clock/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/clock/hybrid.png',
-        'assets/images/products/clock/hybrid_1.png',
-        'assets/images/products/clock/hybrid_2.png',
-        'assets/images/products/clock/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/clock/unconventional.png',
-        'assets/images/products/clock/unconv_1.png',
-        'assets/images/products/clock/unconv_2.png',
-        'assets/images/products/clock/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/clock/conv_1.png','assets/images/products/clock/conv_2.png','assets/images/products/clock/conv_3.png','assets/images/products/clock/conv_4.png'],
+      Hybrid:         ['assets/images/products/clock/hybrid_1.png','assets/images/products/clock/hybrid_2.png','assets/images/products/clock/hybrid_3.png','assets/images/products/clock/hybrid_4.png'],
+      Unconventional: ['assets/images/products/clock/unconv_1.png','assets/images/products/clock/unconv_2.png','assets/images/products/clock/unconv_3.png','assets/images/products/clock/unconv_4.png'],
     }
   },
-  { id:'lamp', label:'Table Lamp', icon:'💡',
-    // ── LAMP CATEGORY IMAGES ─────────────────────────────────────────────
+    { id:'lamp', label:'Table Lamp', icon:'💡',
     gridIcons: {
-      Conventional: [
-        'assets/images/products/lamp/conventional.png',
-        'assets/images/products/lamp/conv_1.png',
-        'assets/images/products/lamp/conv_2.png',
-        'assets/images/products/lamp/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/lamp/hybrid.png',
-        'assets/images/products/lamp/hybrid_1.png',
-        'assets/images/products/lamp/hybrid_2.png',
-        'assets/images/products/lamp/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/lamp/unconventional.png',
-        'assets/images/products/lamp/unconv_1.png',
-        'assets/images/products/lamp/unconv_2.png',
-        'assets/images/products/lamp/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/lamp/conv_1.png','assets/images/products/lamp/conv_2.png','assets/images/products/lamp/conv_3.png','assets/images/products/lamp/conv_4.png'],
+      Hybrid:         ['assets/images/products/lamp/hybrid_1.png','assets/images/products/lamp/hybrid_2.png','assets/images/products/lamp/hybrid_3.png','assets/images/products/lamp/hybrid_4.png'],
+      Unconventional: ['assets/images/products/lamp/unconv_1.png','assets/images/products/lamp/unconv_2.png','assets/images/products/lamp/unconv_3.png','assets/images/products/lamp/unconv_4.png'],
     }
   },
-  { id:'bottle', label:'Water Bottle', icon:'🫗',
-    // ── BOTTLE CATEGORY IMAGES ───────────────────────────────────────────
+    { id:'bottle', label:'Water Bottle', icon:'🫗',
     gridIcons: {
-      Conventional: [
-        'assets/images/products/bottle/conventional.png',
-        'assets/images/products/bottle/conv_1.png',
-        'assets/images/products/bottle/conv_2.png',
-        'assets/images/products/bottle/conv_3.png',
-      ],
-      Hybrid: [
-        'assets/images/products/bottle/hybrid.png',
-        'assets/images/products/bottle/hybrid_1.png',
-        'assets/images/products/bottle/hybrid_2.png',
-        'assets/images/products/bottle/hybrid_3.png',
-      ],
-      Unconventional: [
-        'assets/images/products/bottle/unconventional.png',
-        'assets/images/products/bottle/unconv_1.png',
-        'assets/images/products/bottle/unconv_2.png',
-        'assets/images/products/bottle/unconv_3.png',
-      ],
+      Conventional:   ['assets/images/products/bottle/conv_1.png','assets/images/products/bottle/conv_2.png','assets/images/products/bottle/conv_3.png','assets/images/products/bottle/conv_4.png'],
+      Hybrid:         ['assets/images/products/bottle/hybrid_1.png','assets/images/products/bottle/hybrid_2.png','assets/images/products/bottle/hybrid_3.png','assets/images/products/bottle/hybrid_4.png'],
+      Unconventional: ['assets/images/products/bottle/unconv_1.png','assets/images/products/bottle/unconv_2.png','assets/images/products/bottle/unconv_3.png','assets/images/products/bottle/unconv_4.png'],
     }
   },
 ];
@@ -1063,169 +966,36 @@ function saveDemographics(){
 // ═══════════════════════════════════════════════════════════════════════
 
 const PRODUCT_ITEMS = {
-
-  // ════════════════════════════════════════════════════════════════════
-  // CUP — 15 rating images (Page 2): 5 per category
-  // ════════════════════════════════════════════════════════════════════
   cup: {
-    Conventional: [
-      'assets/images/products/cup/conv_1.png',   // Cup A
-      'assets/images/products/cup/conv_2.png',   // Cup B
-      'assets/images/products/cup/conv_3.png',   // Cup C
-      'assets/images/products/cup/conv_4.png',   // Cup D
-      'assets/images/products/cup/conv_5.png',   // Cup E
-    ],
-    Hybrid: [
-      'assets/images/products/cup/hybrid_1.png',
-      'assets/images/products/cup/hybrid_2.png',
-      'assets/images/products/cup/hybrid_3.png',
-      'assets/images/products/cup/hybrid_4.png',
-      'assets/images/products/cup/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/cup/unconv_1.png',
-      'assets/images/products/cup/unconv_2.png',
-      'assets/images/products/cup/unconv_3.png',
-      'assets/images/products/cup/unconv_4.png',
-      'assets/images/products/cup/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/cup/conv_1.png','assets/images/products/cup/conv_2.png','assets/images/products/cup/conv_3.png','assets/images/products/cup/conv_4.png'],
+    Hybrid:         ['assets/images/products/cup/hybrid_1.png','assets/images/products/cup/hybrid_2.png','assets/images/products/cup/hybrid_3.png','assets/images/products/cup/hybrid_4.png'],
+    Unconventional: ['assets/images/products/cup/unconv_1.png','assets/images/products/cup/unconv_2.png','assets/images/products/cup/unconv_3.png','assets/images/products/cup/unconv_4.png'],
   },
-
-  // ════════════════════════════════════════════════════════════════════
-  // WATCH — 15 rating images (Page 2)
-  // ════════════════════════════════════════════════════════════════════
   watch: {
-    Conventional: [
-      'assets/images/products/watch/conv_1.png',
-      'assets/images/products/watch/conv_2.png',
-      'assets/images/products/watch/conv_3.png',
-      'assets/images/products/watch/conv_4.png',
-      'assets/images/products/watch/conv_5.png',
-    ],
-    Hybrid: [
-      'assets/images/products/watch/hybrid_1.png',
-      'assets/images/products/watch/hybrid_2.png',
-      'assets/images/products/watch/hybrid_3.png',
-      'assets/images/products/watch/hybrid_4.png',
-      'assets/images/products/watch/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/watch/unconv_1.png',
-      'assets/images/products/watch/unconv_2.png',
-      'assets/images/products/watch/unconv_3.png',
-      'assets/images/products/watch/unconv_4.png',
-      'assets/images/products/watch/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/watch/conv_1.png','assets/images/products/watch/conv_2.png','assets/images/products/watch/conv_3.png','assets/images/products/watch/conv_4.png'],
+    Hybrid:         ['assets/images/products/watch/hybrid_1.png','assets/images/products/watch/hybrid_2.png','assets/images/products/watch/hybrid_3.png','assets/images/products/watch/hybrid_4.png'],
+    Unconventional: ['assets/images/products/watch/unconv_1.png','assets/images/products/watch/unconv_2.png','assets/images/products/watch/unconv_3.png','assets/images/products/watch/unconv_4.png'],
   },
-
-  // ════════════════════════════════════════════════════════════════════
-  // PERFUME — 15 rating images (Page 2)
-  // ════════════════════════════════════════════════════════════════════
   perfume: {
-    Conventional: [
-      'assets/images/products/perfume/conv_1.png',
-      'assets/images/products/perfume/conv_2.png',
-      'assets/images/products/perfume/conv_3.png',
-      'assets/images/products/perfume/conv_4.png',
-      'assets/images/products/perfume/conv_5.png',
-    ],
-    Hybrid: [
-      'assets/images/products/perfume/hybrid_1.png',
-      'assets/images/products/perfume/hybrid_2.png',
-      'assets/images/products/perfume/hybrid_3.png',
-      'assets/images/products/perfume/hybrid_4.png',
-      'assets/images/products/perfume/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/perfume/unconv_1.png',
-      'assets/images/products/perfume/unconv_2.png',
-      'assets/images/products/perfume/unconv_3.png',
-      'assets/images/products/perfume/unconv_4.png',
-      'assets/images/products/perfume/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/perfume/conv_1.png','assets/images/products/perfume/conv_2.png','assets/images/products/perfume/conv_3.png','assets/images/products/perfume/conv_4.png'],
+    Hybrid:         ['assets/images/products/perfume/hybrid_1.png','assets/images/products/perfume/hybrid_2.png','assets/images/products/perfume/hybrid_3.png','assets/images/products/perfume/hybrid_4.png'],
+    Unconventional: ['assets/images/products/perfume/unconv_1.png','assets/images/products/perfume/unconv_2.png','assets/images/products/perfume/unconv_3.png','assets/images/products/perfume/unconv_4.png'],
   },
-
-  // ════════════════════════════════════════════════════════════════════
-  // CLOCK — 15 rating images (Page 2)
-  // ════════════════════════════════════════════════════════════════════
   clock: {
-    Conventional: [
-      'assets/images/products/clock/conv_1.png',
-      'assets/images/products/clock/conv_2.png',
-      'assets/images/products/clock/conv_3.png',
-      'assets/images/products/clock/conv_4.png',
-      'assets/images/products/clock/conv_5.png',
-    ],
-    Hybrid: [
-      'assets/images/products/clock/hybrid_1.png',
-      'assets/images/products/clock/hybrid_2.png',
-      'assets/images/products/clock/hybrid_3.png',
-      'assets/images/products/clock/hybrid_4.png',
-      'assets/images/products/clock/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/clock/unconv_1.png',
-      'assets/images/products/clock/unconv_2.png',
-      'assets/images/products/clock/unconv_3.png',
-      'assets/images/products/clock/unconv_4.png',
-      'assets/images/products/clock/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/clock/conv_1.png','assets/images/products/clock/conv_2.png','assets/images/products/clock/conv_3.png','assets/images/products/clock/conv_4.png'],
+    Hybrid:         ['assets/images/products/clock/hybrid_1.png','assets/images/products/clock/hybrid_2.png','assets/images/products/clock/hybrid_3.png','assets/images/products/clock/hybrid_4.png'],
+    Unconventional: ['assets/images/products/clock/unconv_1.png','assets/images/products/clock/unconv_2.png','assets/images/products/clock/unconv_3.png','assets/images/products/clock/unconv_4.png'],
   },
-
-  // ════════════════════════════════════════════════════════════════════
-  // LAMP — 15 rating images (Page 2)
-  // ════════════════════════════════════════════════════════════════════
   lamp: {
-    Conventional: [
-      'assets/images/products/lamp/conv_1.png',
-      'assets/images/products/lamp/conv_2.png',
-      'assets/images/products/lamp/conv_3.png',
-      'assets/images/products/lamp/conv_4.png',
-      'assets/images/products/lamp/conv_5.png',
-    ],
-    Hybrid: [
-      'assets/images/products/lamp/hybrid_1.png',
-      'assets/images/products/lamp/hybrid_2.png',
-      'assets/images/products/lamp/hybrid_3.png',
-      'assets/images/products/lamp/hybrid_4.png',
-      'assets/images/products/lamp/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/lamp/unconv_1.png',
-      'assets/images/products/lamp/unconv_2.png',
-      'assets/images/products/lamp/unconv_3.png',
-      'assets/images/products/lamp/unconv_4.png',
-      'assets/images/products/lamp/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/lamp/conv_1.png','assets/images/products/lamp/conv_2.png','assets/images/products/lamp/conv_3.png','assets/images/products/lamp/conv_4.png'],
+    Hybrid:         ['assets/images/products/lamp/hybrid_1.png','assets/images/products/lamp/hybrid_2.png','assets/images/products/lamp/hybrid_3.png','assets/images/products/lamp/hybrid_4.png'],
+    Unconventional: ['assets/images/products/lamp/unconv_1.png','assets/images/products/lamp/unconv_2.png','assets/images/products/lamp/unconv_3.png','assets/images/products/lamp/unconv_4.png'],
   },
-
-  // ════════════════════════════════════════════════════════════════════
-  // BOTTLE — 15 rating images (Page 2)
-  // ════════════════════════════════════════════════════════════════════
   bottle: {
-    Conventional: [
-      'assets/images/products/bottle/conv_1.png',
-      'assets/images/products/bottle/conv_2.png',
-      'assets/images/products/bottle/conv_3.png',
-      'assets/images/products/bottle/conv_4.png',
-      'assets/images/products/bottle/conv_5.png',
-    ],
-    Hybrid: [
-      'assets/images/products/bottle/hybrid_1.png',
-      'assets/images/products/bottle/hybrid_2.png',
-      'assets/images/products/bottle/hybrid_3.png',
-      'assets/images/products/bottle/hybrid_4.png',
-      'assets/images/products/bottle/hybrid_5.png',
-    ],
-    Unconventional: [
-      'assets/images/products/bottle/unconv_1.png',
-      'assets/images/products/bottle/unconv_2.png',
-      'assets/images/products/bottle/unconv_3.png',
-      'assets/images/products/bottle/unconv_4.png',
-      'assets/images/products/bottle/unconv_5.png',
-    ],
+    Conventional:   ['assets/images/products/bottle/conv_1.png','assets/images/products/bottle/conv_2.png','assets/images/products/bottle/conv_3.png','assets/images/products/bottle/conv_4.png'],
+    Hybrid:         ['assets/images/products/bottle/hybrid_1.png','assets/images/products/bottle/hybrid_2.png','assets/images/products/bottle/hybrid_3.png','assets/images/products/bottle/hybrid_4.png'],
+    Unconventional: ['assets/images/products/bottle/unconv_1.png','assets/images/products/bottle/unconv_2.png','assets/images/products/bottle/unconv_3.png','assets/images/products/bottle/unconv_4.png'],
   },
-
 };
 
 const PRODUCT_QUESTIONS = {
@@ -1332,8 +1102,8 @@ function renderRatingPage(body, product){
   const pr    = responses[pid] || {};
   const pNum  = productIndexFromStep(current) + 1;
   const arch  = pr.category_choice || 'Conventional';
-  const items = (PRODUCT_ITEMS[pid] && PRODUCT_ITEMS[pid][arch]) || ['','','','',''];
-  const letters = ['A','B','C','D','E'];
+  const items = (PRODUCT_ITEMS[pid] && PRODUCT_ITEMS[pid][arch]) || ['','','',''];
+  const letters = ['A','B','C','D'];
 
   body.innerHTML = `
   <div class="section-card">
@@ -1465,7 +1235,7 @@ function saveRatingPage(pid){
   let valid = true;
 
   // Check all 5 ratings
-  const letters = ['A','B','C','D','E'];
+  const letters = ['A','B','C','D'];
   const unrated = letters.filter(l => !pr[`rate_${l}`]);
   if(unrated.length > 0){
     document.getElementById(`${pid}_q1raterr`).classList.add('show');
