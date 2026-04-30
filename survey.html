@@ -847,10 +847,15 @@ function renderDemographics(body){
     <div class="two-col">
       <div class="field">
         <label class="field-label" for="p4">Occupation <span class="req">*</span></label>
-        <select id="p4">
+        <select id="p4" onchange="toggleOccOther(this.value)">
           <option value="">Select…</option>
-          ${['Student','Employed – medical & related field','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
+          ${['Student','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
         </select>
+        
+        <div id="p4otherWrap" style="margin-top:0.6rem;display:none">
+          <input type="text" id="p4other"
+                 placeholder="Please specify your occupation">
+        </div>
         <div class="field-error" id="p4err">Please select your occupation.</div>
       </div>
       <div class="field">
@@ -893,18 +898,26 @@ function renderDemographics(body){
     </div>
 
     <div class="field">
-      <label class="field-label">When you look at or choose a product, how often do you pay attention to how it looks (such as its shape, style, or appearance)? <span class="req">*</span></label>
-      <div class="likert-wrap" id="p8wrap">
-        ${[1,2,3,4,5].map(n=>`
-        <div class="likert-opt">
+      <label class="field-label">When choosing or comparing products, how often do you pay attention to how they look (such as shape or style)? <span class="req">*</span></label>
+      <div class="radio-group" id="p8wrap">
+        ${[
+          {n:1, label:'Never'},
+          {n:2, label:'Rarely'},
+          {n:3, label:'Sometimes'},
+          {n:4, label:'Often'},
+          {n:5, label:'Always'},
+        ].map(({n, label})=>`
+        <div class="radio-opt">
           <input type="radio" name="p8" id="p8_${n}" value="${n}" ${d.design_awareness==n?'checked':''}>
           <label for="p8_${n}">
-            <span class="likert-num">${n}</span>
-            <span>${n===1?'Not aware':n===5?'Highly aware':''}</span>
+            <div class="radio-dot"></div>
+            <span style="font-weight:600;color:var(--navy);min-width:1.2rem">${n}</span>
+            <span>${label}</span>
           </label>
         </div>`).join('')}
       </div>
-      <div class="field-error" id="p8err">Please rate your design awareness.</div>
+      <div class="field-error" id="p8err">Please select one option.</div>
+    </div>
     </div>
 
     <div class="nav-buttons">
@@ -922,7 +935,11 @@ function saveDemographics(){
   const fields = [
     {id:'p2', errId:'p2err', check:v=>v},
     {id:'p3', errId:'p3err', check:v=>v},
-    {id:'p4', errId:'p4err', check:v=>v},
+    {id:'p4', errId:'p4err', check:v=>{
+      if(!v) return false;
+      if(v==='Other') return !!(document.getElementById('p4other')?.value?.trim());
+      return true;
+    }},
     {id:'p5', errId:'p5err', check:v=>v},
     {id:'p6c',errId:'p6cerr',check:v=>v.trim()},
     {id:'p6n',errId:'p6nerr',check:v=>v},
@@ -951,7 +968,10 @@ function saveDemographics(){
     dob: document.getElementById('p2').value,
     birth_year: year, generation: gen,
     gender: document.getElementById('p3').value,
-    occupation: document.getElementById('p4').value,
+    occupation: document.getElementById('p4').value === 'Other'
+      ? (document.getElementById('p4other')?.value?.trim() || 'Other')
+      : document.getElementById('p4').value,
+    occupation_other: document.getElementById('p4other')?.value?.trim() || '',
     education: document.getElementById('p5').value,
     city: document.getElementById('p6c').value,
     country: document.getElementById('p6n').value,
@@ -1472,6 +1492,13 @@ function submitSurvey(){
     console.warn('Apps Script POST failed (data saved locally):', err);
   })
   .finally(submitAndRedirect);
+}
+
+function toggleOccOther(val){
+  const wrap = document.getElementById('p4otherWrap');
+  if(wrap) wrap.style.display = val === 'Other' ? 'block' : 'none';
+  const inp = document.getElementById('p4other');
+  if(inp && val !== 'Other') inp.value = '';
 }
 
 function goBack(){
