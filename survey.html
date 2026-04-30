@@ -1134,11 +1134,15 @@ function renderRatingPage(body, product){
   <div class="section-card">
     <span class="section-tag">Product ${pNum} of 6 · Step 2 — Rate the Designs</span>
     <h2 class="section-title">${product.label}</h2>
+    <p class="section-subtitle">
+      Based on your selection, here are 5 ${product.label.toLowerCase()} designs.
+      Rate each one based on how likely you are to buy it.
+    </p>
 
     <!-- Q1 LABEL — above the images -->
     <div class="q-label" style="margin-bottom:1rem;font-size:1rem;font-weight:700">
       <span class="qnum">Q1</span>
-      Based on your selection, here are 5 ${product.label.toLowerCase()} designs.Rate each one based on how likely you are to buy it.
+      Rate each ${product.label.toLowerCase()} based on how likely you are to buy it.
       <span style="color:var(--muted);font-size:0.8rem;font-weight:400"> &nbsp;(1 = least likely · 5 = most likely)</span>
     </div>
 
@@ -1446,7 +1450,13 @@ function updateCharCount(el, countId){
   document.getElementById(countId).textContent = el.value.length+'/500';
 }
 
+// Guard: prevent any possibility of double-submission
+let _submitFired = false;
+
 function submitSurvey(){
+  // ── Hard guard: never submit more than once ───────────────────────
+  if (_submitFired) return;
+
   const cl = responses.closing || {};
   let valid = true;
   ['c1','c2','c3','c4'].forEach(f=>{
@@ -1456,43 +1466,52 @@ function submitSurvey(){
   });
   if(!valid){ document.querySelector('.field-error.show')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
-  responses.closing.c5 = document.getElementById('c5input')?.value || '';
-  responses.submitted_at = new Date().toISOString();
+  // Lock immediately — before any async work
+  _submitFired = true;
 
-  // ── ALWAYS save locally FIRST — thank-you page reads from here ──────────
+  responses.closing.c5 = document.getElementById('c5input')?.value || '';
+  // Use a stable key: name + dob so deduplication in Apps Script is rock-solid
+  const dem = responses.demographics || {};
+  responses.submitted_at = (dem.name||'anon') + '_' + (dem.dob||'') + '_' + Date.now();
+
+  // ── Save locally FIRST — thank-you page reads from here ─────────────
   localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
   localStorage.removeItem('nn_survey');
 
-  // ── Submit to Google Apps Script ──────────────────────────────────────
-  // IMPORTANT: Replace the URL below with your Apps Script /exec URL
-  // Get it from: Apps Script editor → Deploy → Manage deployments → copy Web app URL
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJJrHNBPWgm2vWxBDewWrlZB9d_ID2bNRH1E01LoAizxCmViru3Fzvnz4SbcuFqJ5sTQ/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6cJaYgvfPkxXdXKkvTnA0hNtZzVCVdu8fO7dERwCwckmGrJFPkDNoQIWQqg9e_3N5Q/exec';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
   };
 
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('PASTE_YOUR') || APPS_SCRIPT_URL.includes('YOUR_APPS')) {
-    console.warn('Apps Script URL not configured. Response saved to localStorage only.');
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('PASTE_YOUR')) {
     submitAndRedirect();
     return;
   }
 
-  // Apps Script requires no-cors when called from a different origin (GitHub Pages)
-  // This means we cannot read the response body, but the POST still reaches the script
-  fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(responses),
-  })
-  .then(() => {
-    console.log('Submitted to Apps Script successfully');
-  })
-  .catch(err => {
-    console.warn('Apps Script POST failed (data saved locally):', err);
-  })
-  .finally(submitAndRedirect);
+  // Use sendBeacon — fires exactly once, no retries, browser handles it
+  // Falls back to fetch if sendBeacon unavailable
+  const payload = JSON.stringify(responses);
+  const blob = new Blob([payload], { type: 'text/plain' });
+
+  let sent = false;
+  if (navigator.sendBeacon) {
+    sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+  }
+
+  if (!sent) {
+    // Fallback: fetch with keepalive — keepalive prevents request abandonment on navigation
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: payload,
+      keepalive: true,
+    }).catch(err => console.warn('Submit fetch failed (data saved locally):', err));
+  }
+
+  // Redirect after short delay to give beacon time to fire
+  setTimeout(submitAndRedirect, 400);
 }
 
 function toggleOccOther(val){
