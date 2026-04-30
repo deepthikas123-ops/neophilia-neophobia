@@ -852,9 +852,11 @@ function renderDemographics(body){
           ${['Student','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
         </select>
         
-        <div id="p4otherWrap" style="margin-top:0.6rem;display:none">
+        <div id="p4otherWrap" style="margin-top:0.6rem;display:${d.occupation==='Other'?'block':'none'}">
+          <label class="field-label" for="p4other" style="font-size:0.78rem;color:var(--muted);margin-bottom:0.3rem">Please specify your occupation <span class="req">*</span></label>
           <input type="text" id="p4other"
-                 placeholder="Please specify your occupation">
+                 placeholder="e.g. Architect, Nurse, Teacher…"
+                 value="${d.occupation_other||''}">
         </div>
         <div class="field-error" id="p4err">Please select your occupation.</div>
       </div>
