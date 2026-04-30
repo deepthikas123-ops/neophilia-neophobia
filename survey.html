@@ -1031,7 +1031,7 @@ function renderCategoryPage(body, product){
       ${order.map((archIdx, slot) => {
         const letter    = String.fromCharCode(65 + slot);
         const archLabel = ARCHETYPES[archIdx];
-        const icon      = product.icons[archIdx];
+        const icon      = (product.gridIcons[archLabel] || [])[0] || '';
         const sel       = pr.category_choice === archLabel;
         return `
         <div class="img-card ${sel ? 'selected' : ''}"
