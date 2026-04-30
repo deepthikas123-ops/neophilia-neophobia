@@ -1143,6 +1143,13 @@ function renderRatingPage(body, product){
       ${letters.map((l, i) => `
       <div class="vrate-card" id="${pid}_vcard_${l}">
 
+        <!-- Letter label -->
+        <div style="background:var(--navy);color:#fff;font-family:'Cormorant Garamond',serif;
+                    font-size:0.85rem;font-weight:600;letter-spacing:0.06em;
+                    padding:0.3rem 0.7rem;text-align:center;">
+          Option ${l}
+        </div>
+
         <!-- Image -->
         <div class="vrate-img-wrap" onclick="openLightbox('${items[i]}','${product.label} ${l}')">
           <img src="${items[i]}"
@@ -1184,7 +1191,7 @@ function renderRatingPage(body, product){
             onchange="responses['${pid}']=responses['${pid}']||{};responses['${pid}'].top_choice=this.value;var e=document.getElementById('${pid}_q2toperr');if(e)e.classList.remove('show');">
           <label for="${pid}_top_${l}">
             <div class="radio-dot"></div>
-            ${product.label.split(' ')[0]} ${l}
+            ${product.label} ${l}
           </label>
         </div>`).join('')}
       </div>
