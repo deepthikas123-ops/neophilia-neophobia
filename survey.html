@@ -294,12 +294,12 @@ input[type=range]::-webkit-slider-thumb{
 /* ── QUESTION BLOCK ── */
 .q-block{margin-bottom:1.6rem}
 .q-label{
-  font-size:0.88rem;font-weight:500;color:var(--ink);
-  margin-bottom:0.7rem;line-height:1.5
+  font-size:1rem;font-weight:700;color:var(--ink);
+  margin-bottom:0.8rem;line-height:1.5
 }
 .q-label .qnum{
   font-family:'Cormorant Garamond',serif;
-  font-size:1rem;color:var(--teal);margin-right:0.4rem;font-weight:600
+  font-size:1.15rem;color:var(--teal);margin-right:0.5rem;font-weight:700
 }
 
 /* ── BRANCHING ── */
@@ -1047,7 +1047,10 @@ function renderCategoryPage(body, product){
   <div class="section-card">
     <span class="section-tag">Product ${pNum} of 6 · Step 1 — Choose a Design</span>
     <h2 class="section-title">${product.label}</h2>
-    <p class="section-subtitle">${PRODUCT_QUESTIONS[pid]}</p>
+    <div class="q-label" style="margin-bottom:1.8rem;font-size:1rem;font-weight:700">
+      <span class="qnum">Q1</span>
+      ${PRODUCT_QUESTIONS[pid]}
+    </div>
 
     <div class="image-choice-grid" id="${pid}_catGrid">
       ${order.map((archIdx, slot) => {
@@ -1137,10 +1140,10 @@ function renderRatingPage(body, product){
     </p>
 
     <!-- Q1 LABEL — above the images -->
-    <div class="q-label" style="margin-bottom:1rem">
+    <div class="q-label" style="margin-bottom:1rem;font-size:1rem;font-weight:700">
       <span class="qnum">Q1</span>
       Rate each ${product.label.toLowerCase()} based on how likely you are to buy it.
-      <span style="color:var(--muted);font-size:0.78rem"> (1 = least likely · 5 = most likely)</span>
+      <span style="color:var(--muted);font-size:0.8rem;font-weight:400"> &nbsp;(1 = least likely · 5 = most likely)</span>
     </div>
 
     <!-- VERTICAL RATING CARDS — image + scale per item -->
