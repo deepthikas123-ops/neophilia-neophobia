@@ -445,6 +445,70 @@ input[type=range]::-webkit-slider-thumb{
 }
 .sc-cancel:hover{color:#0e1c2f}
 
+
+/* ── VERTICAL RATING CARDS ── */
+.vrate-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;
+  margin-bottom:0.5rem;
+}
+@media(max-width:640px){.vrate-grid{grid-template-columns:repeat(3,1fr);gap:0.6rem}}
+@media(max-width:380px){.vrate-grid{grid-template-columns:repeat(2,1fr)}}
+
+.vrate-card{
+  border:1.5px solid var(--border);border-radius:0.75rem;
+  background:#fff;text-align:center;
+  overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;
+}
+.vrate-card.rated{border-color:var(--teal);box-shadow:0 0 0 2px rgba(13,138,122,0.12)}
+.vrate-card.missing{border-color:var(--err);box-shadow:0 0 0 2px rgba(192,57,43,0.08)}
+
+.vrate-img-wrap{
+  width:100%;background:#f8f8f8;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;padding:0.75rem;
+  aspect-ratio:1;
+  cursor:zoom-in;
+}
+.vrate-img-wrap img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  transition:transform 0.2s;
+}
+.vrate-img-wrap img:hover{transform:scale(1.04)}
+
+.vrate-scale{
+  padding:0.6rem 0.4rem;
+  border-top:1px solid var(--border);
+  background:#fff;
+}
+.vrate-lbl-top{
+  font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--muted);margin-bottom:0.4rem;
+}
+.vrate-rows{display:flex;flex-direction:column;gap:0.25rem}
+.vrate-row{
+  display:flex;align-items:center;justify-content:center;gap:0.45rem;
+  padding:0.2rem 0;cursor:pointer;
+}
+.vrate-row:hover .vrate-radio{border-color:var(--navy)}
+.vrate-num{font-size:0.82rem;font-weight:500;color:var(--muted);width:14px;text-align:right}
+.vrate-radio{
+  width:17px;height:17px;border-radius:50%;
+  border:2px solid var(--border);flex-shrink:0;
+  transition:all 0.15s;background:#fff;
+}
+.vrate-row input{display:none}
+.vrate-row input:checked ~ .vrate-num{color:var(--teal);font-weight:600}
+.vrate-row input:checked + .vrate-radio{
+  border-color:var(--teal);background:var(--teal);
+}
+.vrate-row input:checked + .vrate-radio::after{
+  content:'';display:block;width:6px;height:6px;
+  border-radius:50%;background:#fff;margin:3.5px auto;
+}
+.vrate-lbl-bot{
+  font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--muted);margin-top:0.4rem;
+}
 </style>
 </head>
 <body>
@@ -1065,59 +1129,47 @@ function renderRatingPage(body, product){
       Rate each one based on how likely you are to buy it.
     </p>
 
-    <!-- 5 ITEM DISPLAY -->
-    <div class="five-item-grid" id="${pid}_itemGrid">
+    <!-- Q1 LABEL — above the images -->
+    <div class="q-label" style="margin-bottom:1rem">
+      <span class="qnum">Q1</span>
+      Rate each ${product.label.toLowerCase()} based on how likely you are to buy it.
+      <span style="color:var(--muted);font-size:0.78rem"> (1 = least likely · 5 = most likely)</span>
+    </div>
+
+    <!-- VERTICAL RATING CARDS — image + scale per item -->
+    <div class="vrate-grid" id="${pid}_itemGrid">
       ${letters.map((l, i) => `
-      <div class="item-display-card">
-        <div class="item-img-wrap" style="height:120px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#f8f8f8;border-radius:0.4rem">
+      <div class="vrate-card" id="${pid}_vcard_${l}">
+
+        <!-- Image -->
+        <div class="vrate-img-wrap" onclick="openLightbox('${items[i]}','${product.label} ${l}')">
           <img src="${items[i]}"
                alt="${product.label} ${l}"
                data-caption="${product.label} ${l}"
-               style="max-width:100%;max-height:110px;object-fit:contain;padding:0.5rem;cursor:zoom-in"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-               onclick="openLightbox(this.src,this.dataset.caption)"
+               onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\'font-size:0.7rem;color:#aaa\'>Image not found</span>'"
           />
-          <span style="display:none;font-size:0.72rem;color:#aaa;text-align:center;padding:0.5rem">Image<br>not found</span>
         </div>
-        <div class="item-label">${product.label.split(' ')[0]} ${l}</div>
+
+        <!-- Vertical scale -->
+        <div class="vrate-scale">
+          <div class="vrate-lbl-top">Least likely</div>
+          <div class="vrate-rows">
+            ${[1,2,3,4,5].map(n=>`
+            <label class="vrate-row">
+              <input type="radio" name="${pid}_rate_${l}" value="${n}"
+                     ${(pr['rate_'+l]==n)?'checked':''}
+                     onchange="saveRating('${pid}','${l}',${n})">
+              <span class="vrate-radio"></span>
+              <span class="vrate-num">${n}</span>
+            </label>`).join('')}
+          </div>
+          <div class="vrate-lbl-bot">Most likely</div>
+        </div>
+
       </div>`).join('')}
     </div>
 
-    <!-- Q1: RATING GRID ─────────────────────────────────────── -->
-    <div class="q-block" style="margin-top:2rem">
-      <div class="q-label">
-        <span class="qnum">Q1</span>
-        Rate each ${product.label.toLowerCase()} based on how likely you are to buy it.
-        <span style="color:var(--muted);font-size:0.78rem"> (1 = least likely · 5 = most likely)</span>
-      </div>
-
-      <div class="rating-grid-wrap">
-        <table class="rating-grid">
-          <thead>
-            <tr>
-              <th class="rg-row-head"></th>
-              ${[1,2,3,4,5].map(n=>`<th class="rg-col-head"><div class="rg-col-num">${n}</div><div class="rg-col-lbl">${n===1?'Least':n===5?'Most':''}</div></th>`).join('')}
-            </tr>
-          </thead>
-          <tbody>
-            ${letters.map((l,i) => `
-            <tr class="rg-row" id="${pid}_row_${l}">
-              <td class="rg-row-head">${product.label.split(' ')[0]} ${l}</td>
-              ${[1,2,3,4,5].map(n=>`
-              <td class="rg-cell">
-                <label class="rg-radio-wrap">
-                  <input type="radio" name="${pid}_rate_${l}" value="${n}"
-                    ${(pr[`rate_${l}`]==n)?'checked':''}
-                    onchange="saveRating('${pid}','${l}',${n})">
-                  <span class="rg-radio"></span>
-                </label>
-              </td>`).join('')}
-            </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>
-      <div class="field-error" id="${pid}_q1raterr">Please rate all 5 items before continuing.</div>
-    </div>
+    <div class="field-error" id="${pid}_q1raterr">Please rate all 5 items before continuing.</div>
 
     <!-- Q2: MOST LIKELY TO BUY ──────────────────────────────── -->
     <div class="q-block">
@@ -1169,10 +1221,13 @@ function renderRatingPage(body, product){
 
 function saveRating(pid, letter, val){
   if(!responses[pid]) responses[pid]={};
-  responses[pid][`rate_${letter}`] = val;
-  // Highlight selected row
-  const row = document.getElementById(`${pid}_row_${letter}`);
-  if(row) row.classList.add('rg-rated');
+  responses[pid]['rate_'+letter] = val;
+  // Highlight the vrate card
+  const card = document.getElementById(pid+'_vcard_'+letter);
+  if(card){
+    card.classList.add('rated');
+    card.classList.remove('missing');
+  }
 }
 
 function toggleInfluence(pid, val){
@@ -1194,8 +1249,8 @@ function saveRatingPage(pid){
     document.getElementById(`${pid}_q1raterr`).classList.add('show');
     // Highlight unrated rows
     unrated.forEach(l => {
-      const row = document.getElementById(`${pid}_row_${l}`);
-      if(row) row.classList.add('rg-missing');
+      const card = document.getElementById(pid+'_vcard_'+l);
+      if(card){ card.classList.add('missing'); card.classList.remove('rated'); }
     });
     valid = false;
   } else {
