@@ -253,6 +253,7 @@ input[type=range]::-webkit-slider-thumb{
   transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;
   background:#f0f0f0;
   display:flex;flex-direction:column;
+  /* height determined by 1:1 grid + footer */
 }
 .img-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
 .img-card.selected{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,138,122,0.15)}
@@ -569,6 +570,30 @@ input[type=range]::-webkit-slider-thumb{
   font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;
   color:var(--muted);margin-top:0.4rem;
 }
+
+/* ── CATEGORY 2×2 IMAGE GRID ── */
+.cat-img-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:4px;
+  width:100%;
+  aspect-ratio:1;
+  background:#f0f0f0;
+  overflow:hidden;
+}
+.cat-img-cell{
+  overflow:hidden;
+  position:relative;
+  background:#e8e8e8;
+}
+.cat-img-cell img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.2s;
+}
+.cat-img-grid:hover .cat-img-cell img{transform:scale(1.03)}
 </style>
 </head>
 <body>
@@ -621,55 +646,143 @@ input[type=range]::-webkit-slider-thumb{
 // ═══════════════════════════════════════════════════════════════════════
 const PRODUCTS = [
   { id:'cup', label:'Coffee Mug', icon:'☕',
-    icons:[
-      // ── CUP: 3 CATEGORY IMAGES (Page 1) ──────────────────────────────
-      // index 0 = Conventional  ↓ paste path below
-      'assets/images/products/cup/conventional.png',
-      // index 1 = Hybrid        ↓ paste path below
-      'assets/images/products/cup/hybrid.png',
-      // index 2 = Unconventional ↓ paste path below
-      'assets/images/products/cup/unconventional.png',
-    ]
+    // ── CUP CATEGORY IMAGES: 4 per archetype for 2×2 grid ──────────────
+    // Replace each path with your actual images
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/cup/conventional.png',
+        'assets/images/products/cup/conv_1.png',
+        'assets/images/products/cup/conv_2.png',
+        'assets/images/products/cup/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/cup/hybrid.png',
+        'assets/images/products/cup/hybrid_1.png',
+        'assets/images/products/cup/hybrid_2.png',
+        'assets/images/products/cup/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/cup/unconventional.png',
+        'assets/images/products/cup/unconv_1.png',
+        'assets/images/products/cup/unconv_2.png',
+        'assets/images/products/cup/unconv_3.png',
+      ],
+    }
   },
   { id:'watch', label:'Wrist Watch', icon:'⌚',
-    icons:[
-      // ── WATCH: 3 CATEGORY IMAGES (Page 1) ────────────────────────────
-      'assets/images/products/watch/conventional.png',
-      'assets/images/products/watch/hybrid.png',
-      'assets/images/products/watch/unconventional.png',
-    ]
+    // ── WATCH CATEGORY IMAGES ────────────────────────────────────────────
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/watch/conventional.png',
+        'assets/images/products/watch/conv_1.png',
+        'assets/images/products/watch/conv_2.png',
+        'assets/images/products/watch/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/watch/hybrid.png',
+        'assets/images/products/watch/hybrid_1.png',
+        'assets/images/products/watch/hybrid_2.png',
+        'assets/images/products/watch/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/watch/unconventional.png',
+        'assets/images/products/watch/unconv_1.png',
+        'assets/images/products/watch/unconv_2.png',
+        'assets/images/products/watch/unconv_3.png',
+      ],
+    }
   },
   { id:'perfume', label:'Perfume Bottle', icon:'🧴',
-    icons:[
-      // ── PERFUME: 3 CATEGORY IMAGES (Page 1) ──────────────────────────
-      'assets/images/products/perfume/conventional.png',
-      'assets/images/products/perfume/hybrid.png',
-      'assets/images/products/perfume/unconventional.png',
-    ]
+    // ── PERFUME CATEGORY IMAGES ──────────────────────────────────────────
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/perfume/conventional.png',
+        'assets/images/products/perfume/conv_1.png',
+        'assets/images/products/perfume/conv_2.png',
+        'assets/images/products/perfume/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/perfume/hybrid.png',
+        'assets/images/products/perfume/hybrid_1.png',
+        'assets/images/products/perfume/hybrid_2.png',
+        'assets/images/products/perfume/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/perfume/unconventional.png',
+        'assets/images/products/perfume/unconv_1.png',
+        'assets/images/products/perfume/unconv_2.png',
+        'assets/images/products/perfume/unconv_3.png',
+      ],
+    }
   },
   { id:'clock', label:'Desk Clock', icon:'🕐',
-    icons:[
-      // ── CLOCK: 3 CATEGORY IMAGES (Page 1) ────────────────────────────
-      'assets/images/products/clock/conventional.png',
-      'assets/images/products/clock/hybrid.png',
-      'assets/images/products/clock/unconventional.png',
-    ]
+    // ── CLOCK CATEGORY IMAGES ────────────────────────────────────────────
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/clock/conventional.png',
+        'assets/images/products/clock/conv_1.png',
+        'assets/images/products/clock/conv_2.png',
+        'assets/images/products/clock/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/clock/hybrid.png',
+        'assets/images/products/clock/hybrid_1.png',
+        'assets/images/products/clock/hybrid_2.png',
+        'assets/images/products/clock/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/clock/unconventional.png',
+        'assets/images/products/clock/unconv_1.png',
+        'assets/images/products/clock/unconv_2.png',
+        'assets/images/products/clock/unconv_3.png',
+      ],
+    }
   },
   { id:'lamp', label:'Table Lamp', icon:'💡',
-    icons:[
-      // ── LAMP: 3 CATEGORY IMAGES (Page 1) ─────────────────────────────
-      'assets/images/products/lamp/conventional.png',
-      'assets/images/products/lamp/hybrid.png',
-      'assets/images/products/lamp/unconventional.png',
-    ]
+    // ── LAMP CATEGORY IMAGES ─────────────────────────────────────────────
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/lamp/conventional.png',
+        'assets/images/products/lamp/conv_1.png',
+        'assets/images/products/lamp/conv_2.png',
+        'assets/images/products/lamp/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/lamp/hybrid.png',
+        'assets/images/products/lamp/hybrid_1.png',
+        'assets/images/products/lamp/hybrid_2.png',
+        'assets/images/products/lamp/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/lamp/unconventional.png',
+        'assets/images/products/lamp/unconv_1.png',
+        'assets/images/products/lamp/unconv_2.png',
+        'assets/images/products/lamp/unconv_3.png',
+      ],
+    }
   },
   { id:'bottle', label:'Water Bottle', icon:'🫗',
-    icons:[
-      // ── BOTTLE: 3 CATEGORY IMAGES (Page 1) ───────────────────────────
-      'assets/images/products/bottle/conventional.png',
-      'assets/images/products/bottle/hybrid.png',
-      'assets/images/products/bottle/unconventional.png',
-    ]
+    // ── BOTTLE CATEGORY IMAGES ───────────────────────────────────────────
+    gridIcons: {
+      Conventional: [
+        'assets/images/products/bottle/conventional.png',
+        'assets/images/products/bottle/conv_1.png',
+        'assets/images/products/bottle/conv_2.png',
+        'assets/images/products/bottle/conv_3.png',
+      ],
+      Hybrid: [
+        'assets/images/products/bottle/hybrid.png',
+        'assets/images/products/bottle/hybrid_1.png',
+        'assets/images/products/bottle/hybrid_2.png',
+        'assets/images/products/bottle/hybrid_3.png',
+      ],
+      Unconventional: [
+        'assets/images/products/bottle/unconventional.png',
+        'assets/images/products/bottle/unconv_1.png',
+        'assets/images/products/bottle/unconv_2.png',
+        'assets/images/products/bottle/unconv_3.png',
+      ],
+    }
   },
 ];
 
@@ -833,7 +946,7 @@ function renderDemographics(body){
         <label class="field-label" for="p4">Occupation <span class="req">*</span></label>
         <select id="p4">
           <option value="">Select…</option>
-          ${['Student','Employed – medical & related field','Employed – design field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
+          ${['Student','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
         </select>
         <div class="field-error" id="p4err">Please select your occupation.</div>
       </div>
@@ -1154,18 +1267,14 @@ function renderCategoryPage(body, product){
         <div class="img-card ${sel ? 'selected' : ''}"
              id="${pid}_cat_${letter}"
              onclick="selectCategory('${pid}','${archLabel}','${letter}',${archIdx})">
-          <div class="img-placeholder" style="height:320px">
-            <img src="${icon}"
-                 alt="Option ${letter}"
-                 data-caption="Option ${letter}"
-                 style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;display:block"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-                 onclick="event.stopPropagation();openLightbox(this.src,this.dataset.caption)"
-            />
-            <div style="display:none;align-items:center;justify-content:center;height:320px;color:#aaa;font-size:0.8rem;flex-direction:column;gap:0.5rem;width:100%">
-              <span style="font-size:2.5rem">🖼</span>
-              <span>Image not found</span>
-            </div>
+          <div class="cat-img-grid">
+            ${(product.gridIcons[archLabel]||[archLabel,archLabel,archLabel,archLabel].map(()=>icon)).map((src,gi)=>`
+            <div class="cat-img-cell">
+              <img src="${src}"
+                   alt="Option ${letter} image ${gi+1}"
+                   onerror="this.style.opacity='0'"
+              />
+            </div>`).join('')}
           </div>
           <div class="img-card-footer">
             <span class="img-card-letter">Option ${letter}</span>
