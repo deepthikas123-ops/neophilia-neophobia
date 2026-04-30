@@ -833,7 +833,7 @@ function renderDemographics(body){
         <label class="field-label" for="p4">Occupation <span class="req">*</span></label>
         <select id="p4">
           <option value="">Select…</option>
-          ${['Student','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
+          ${['Student','Employed – medical & related field','Employed – design field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
         </select>
         <div class="field-error" id="p4err">Please select your occupation.</div>
       </div>
