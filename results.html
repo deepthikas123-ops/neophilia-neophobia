@@ -18,68 +18,42 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink)}
-
-/* NAV */
 nav{
   position:sticky;top:0;z-index:100;
   background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
   padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid rgba(255,255,255,0.07);
 }
-.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;}
-.nav-brand span{color:var(--gold)}
-.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff}
+.nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:0.78rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;
-  text-decoration:none;color:rgba(255,255,255,0.55);transition:color 0.2s;}
+  text-decoration:none;color:rgba(255,255,255,0.55);transition:color 0.2s}
 .nav-links a:hover,.nav-links a.active{color:#fff}
-
-/* HERO */
 .results-hero{
   background:var(--ink);padding:4rem 3rem 3rem;
   display:grid;grid-template-columns:1fr auto;align-items:end;gap:3rem;
 }
-.hero-tag{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--teal);margin-bottom:1rem;display:block;}
-.results-hero h1{
-  font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);
-  font-weight:300;color:#fff;line-height:1.1;
-}
+.hero-tag{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:block}
+.results-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;color:#fff;line-height:1.1}
 .results-hero h1 em{font-style:italic;color:rgba(255,255,255,0.45)}
 .results-hero p{font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:50ch;margin-top:1rem;line-height:1.7}
-.status-badge{
-  background:rgba(200,146,42,0.15);border:1px solid rgba(200,146,42,0.4);
-  border-radius:0.5rem;padding:1.2rem 1.8rem;text-align:center;white-space:nowrap;flex-shrink:0;
-}
+.status-badge{background:rgba(200,146,42,0.15);border:1px solid rgba(200,146,42,0.4);border-radius:0.5rem;padding:1.2rem 1.8rem;text-align:center;white-space:nowrap;flex-shrink:0}
 .status-badge-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem}
 .status-badge-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:#fff;line-height:1}
 .status-badge-sub{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem}
-
-/* COLLECTION NOTICE */
-.collection-notice{
-  background:#fff;border-bottom:3px solid var(--gold);
-  padding:1.2rem 3rem;display:flex;align-items:center;gap:1rem;
-}
+.collection-notice{background:#fff;border-bottom:3px solid var(--gold);padding:1.2rem 3rem;display:flex;align-items:center;gap:1rem}
 .notice-icon{font-size:1.3rem;flex-shrink:0}
 .notice-text{font-size:0.88rem;color:var(--muted);line-height:1.5}
 .notice-text strong{color:var(--ink)}
-
-/* LAYOUT */
 .page-body{width:100%;padding:2.5rem 3rem 5rem}
-
-/* SECTION HEADING */
 .sec-head{margin-bottom:2rem}
 .sec-tag{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.5rem}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--ink)}
 .sec-title em{font-style:italic;color:var(--navy)}
 .sec-sub{font-size:0.85rem;color:var(--muted);margin-top:0.4rem;line-height:1.6}
 .divider{height:1px;background:var(--border);margin:3.5rem 0}
-
-/* STAT CARDS ROW */
 .stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:3rem}
-.stat-card{
-  background:#fff;border:1px solid var(--border);border-radius:0.75rem;
-  padding:1.5rem;position:relative;overflow:hidden;
-}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:0.75rem;padding:1.5rem;position:relative;overflow:hidden}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .stat-card.s1::before{background:var(--teal)}
 .stat-card.s2::before{background:var(--gold)}
@@ -88,102 +62,76 @@ nav{
 .stat-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--navy);line-height:1}
 .stat-lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-top:0.3rem}
 .stat-sub{font-size:0.78rem;color:var(--muted);margin-top:0.4rem}
-
-/* CHART CARDS */
 .chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
 .chart-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
-.chart-card{
-  background:#fff;border:1px solid var(--border);border-radius:0.9rem;
-  padding:1.8rem;
-}
+.chart-card{background:#fff;border:1px solid var(--border);border-radius:0.9rem;padding:1.8rem}
 .chart-card.wide{grid-column:1/-1}
 .chart-title{font-size:0.88rem;font-weight:500;color:var(--navy);margin-bottom:0.3rem}
 .chart-sub{font-size:0.75rem;color:var(--muted);margin-bottom:1.2rem}
 .chart-wrap{position:relative;width:100%}
 .chart-wrap canvas{width:100%!important}
-
-/* LEGEND */
 .legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1rem}
 .legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--muted)}
 .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-
-/* KEY FINDINGS */
 .findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
-.finding-card{
-  background:#fff;border:1px solid var(--border);border-radius:0.75rem;
-  padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;
-}
+.finding-card{background:#fff;border:1px solid var(--border);border-radius:0.75rem;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
 .finding-icon{font-size:1.6rem;flex-shrink:0;margin-top:0.1rem}
 .finding-title{font-size:0.88rem;font-weight:500;color:var(--navy);margin-bottom:0.3rem}
 .finding-text{font-size:0.82rem;color:var(--muted);line-height:1.6}
-
-/* IN PROGRESS OVERLAY */
-.in-progress{
-  background:var(--light);border:1px dashed var(--border);
-  border-radius:0.75rem;padding:3rem;text-align:center;
-  margin-top:1.5rem;
-}
-.in-progress-icon{font-size:2.5rem;margin-bottom:0.8rem}
-.in-progress-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.4rem}
-.in-progress-text{font-size:0.85rem;color:var(--muted);max-width:45ch;margin:0 auto}
-
-/* CTA */
-.results-cta{
-  background:var(--ink);border-radius:1rem;padding:3rem;
-  display:flex;align-items:center;justify-content:space-between;gap:2rem;
-  margin-top:3.5rem;flex-wrap:wrap;
-}
+.results-cta{background:var(--ink);border-radius:1rem;padding:3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3.5rem;flex-wrap:wrap}
 .cta-text h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#fff;margin-bottom:0.4rem}
 .cta-text p{font-size:0.88rem;color:rgba(255,255,255,0.5);max-width:45ch}
-.btn-gold{
-  display:inline-flex;align-items:center;gap:0.6rem;
-  background:var(--gold);color:#fff;padding:0.9rem 2rem;
-  border-radius:0.5rem;font-size:0.88rem;font-weight:500;
-  text-decoration:none;white-space:nowrap;transition:opacity 0.2s,transform 0.15s;
-}
+.btn-gold{display:inline-flex;align-items:center;gap:0.6rem;background:var(--gold);color:#fff;padding:0.9rem 2rem;border-radius:0.5rem;font-size:0.88rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:opacity 0.2s,transform 0.15s}
 .btn-gold:hover{opacity:0.9;transform:translateY(-1px)}
-
-/* FOOTER */
-footer{
-  background:var(--ink);color:rgba(255,255,255,0.4);
-  padding:2rem 3rem;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:1.5rem;
-  border-top:1px solid rgba(255,255,255,0.06);
-}
+footer{background:var(--ink);color:rgba(255,255,255,0.4);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(255,255,255,0.06)}
 .footer-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,0.7)}
-.footer-brand span{color:var(--gold)}
 .footer-links{display:flex;gap:1.5rem}
 .footer-links a{font-size:0.75rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
 .footer-links a:hover{color:rgba(255,255,255,0.8)}
-
-/* RESPONSIVE */
 @media(max-width:900px){
-  .results-hero{grid-template-columns:1fr;padding:4rem 2rem 3rem}
+  .results-hero{grid-template-columns:1fr;padding:3rem 1.5rem 2rem}
   .status-badge{display:none}
-  .collection-notice{padding:1rem 2rem}
   .stat-cards{grid-template-columns:1fr 1fr}
   .chart-grid-2,.chart-grid-3{grid-template-columns:1fr}
   .findings-grid{grid-template-columns:1fr}
   .results-cta{flex-direction:column}
   nav{padding:1rem 1.5rem}
   .nav-links{display:none}
-  footer{padding:2rem;flex-direction:column;gap:1rem}
+  footer{padding:1.5rem;flex-direction:column;gap:1rem}
+  .page-body{padding:1.5rem 1rem 4rem}
 }
+
+/* ── SECRET CODE MODAL ── */
+.sc-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(14,28,47,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.sc-overlay.open{display:flex}
+.sc-card{background:#fff;border-radius:1rem;padding:2.5rem 2rem;max-width:380px;width:90%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3);animation:scPop 0.25s cubic-bezier(0.34,1.56,0.64,1) both}
+@keyframes scPop{from{opacity:0;transform:scale(0.88)}to{opacity:1;transform:scale(1)}}
+@keyframes scShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.sc-card.shake{animation:scShake 0.4s ease}
+.sc-icon{font-size:2rem;margin-bottom:0.8rem}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#0e1c2f;margin-bottom:0.3rem}
+.sc-sub{font-size:0.82rem;color:#6b7c8d;margin-bottom:1.5rem;line-height:1.5}
+.sc-input{width:100%;padding:0.75rem 1rem;text-align:center;font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:500;letter-spacing:0.15em;border:2px solid #d0dce8;border-radius:0.5rem;outline:none;transition:border-color 0.2s;color:#0e1c2f}
+.sc-input:focus{border-color:#0d8a7a}
+.sc-input.err{border-color:#c0392b;background:rgba(192,57,43,0.04)}
+.sc-err{font-size:0.75rem;color:#c0392b;margin-top:0.4rem;min-height:1rem}
+.sc-btn{width:100%;margin-top:1rem;padding:0.85rem;background:#1a3a5c;color:#fff;border:none;border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:background 0.2s}
+.sc-btn:hover{background:#1e5fa8}
+.sc-cancel{display:block;margin-top:0.8rem;font-size:0.78rem;color:#6b7c8d;cursor:pointer;text-decoration:none;transition:color 0.2s}
+.sc-cancel:hover{color:#0e1c2f}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-brand">Design Research Study</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="index.html#consent">Participate</a></li>
+    <li><a href="index.html">Participate</a></li>
     <li><a href="results.html" class="active">Results</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="results-hero">
   <div>
     <span class="hero-tag">Study Results · Live Dashboard</span>
@@ -197,56 +145,35 @@ footer{
   </div>
 </div>
 
-<!-- COLLECTION NOTICE -->
 <div class="collection-notice">
   <div class="notice-icon">📊</div>
   <div class="notice-text">
     <strong>Data collection is currently in progress.</strong>
-    The charts below show preliminary results and will update as more participants complete the survey.
-    Charts marked <em>"preliminary"</em> should be interpreted with caution until n ≥ 50 per generation is reached.
+    Charts show preliminary results and update as more participants complete the survey.
+    Interpret with caution until n ≥ 50 per group is reached.
   </div>
 </div>
 
-<!-- BODY -->
 <div class="page-body">
 
-  <!-- OVERVIEW STATS -->
+  <!-- STAT CARDS -->
   <div class="stat-cards">
-    <div class="stat-card s1">
-      <div class="stat-val" id="sc1">—</div>
-      <div class="stat-lbl">Total Responses</div>
-      <div class="stat-sub">Across all generations</div>
-    </div>
-    <div class="stat-card s2">
-      <div class="stat-val" id="sc2">—</div>
-      <div class="stat-lbl">Countries Represented</div>
-      <div class="stat-sub">Global reach</div>
-    </div>
-    <div class="stat-card s3">
-      <div class="stat-val" id="sc3">—</div>
-      <div class="stat-lbl">Avg. Completion Time</div>
-      <div class="stat-sub">Minutes per participant</div>
-    </div>
-    <div class="stat-card s4">
-      <div class="stat-val" id="sc4">—</div>
-      <div class="stat-lbl">Design Awareness</div>
-      <div class="stat-sub">Mean self-rating (1–5)</div>
-    </div>
+    <div class="stat-card s1"><div class="stat-val" id="sc1">—</div><div class="stat-lbl">Total Responses</div><div class="stat-sub">Across all generations</div></div>
+    <div class="stat-card s2"><div class="stat-val" id="sc2">—</div><div class="stat-lbl">Countries Represented</div><div class="stat-sub">Global reach</div></div>
+    <div class="stat-card s3"><div class="stat-val" id="sc3">—</div><div class="stat-lbl">Avg. Completion Time</div><div class="stat-sub">Minutes per participant</div></div>
+    <div class="stat-card s4"><div class="stat-val" id="sc4">—</div><div class="stat-lbl">Design Awareness</div><div class="stat-sub">Mean self-rating (1–5)</div></div>
   </div>
 
-  <!-- SECTION A: PRIMARY PREFERENCE -->
+  <!-- SECTION A: GENERATION -->
   <div class="sec-head">
     <span class="sec-tag">Section A</span>
     <div class="sec-title">Overall Design Preference <em>by Generation</em></div>
     <div class="sec-sub">First-choice selection across all 6 product categories, split by generational cohort.</div>
   </div>
-
   <div class="chart-card wide">
     <div class="chart-title">Design Archetype Preference — All Products Combined</div>
     <div class="chart-sub">% of first-choice selections per archetype, by generation (preliminary)</div>
-    <div class="chart-wrap" style="height:320px">
-      <canvas id="chartOverall"></canvas>
-    </div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartOverall"></canvas></div>
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
@@ -262,13 +189,10 @@ footer{
     <div class="sec-title">Design Preference <em>by Gender</em></div>
     <div class="sec-sub">First-choice category selection across all 6 products, broken down by gender.</div>
   </div>
-
   <div class="chart-card wide">
     <div class="chart-title">Design Archetype Preference — By Gender</div>
     <div class="chart-sub">% of first-choice selections per archetype, by gender (preliminary)</div>
-    <div class="chart-wrap" style="height:300px">
-      <canvas id="chartGender"></canvas>
-    </div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartGender"></canvas></div>
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
@@ -284,13 +208,10 @@ footer{
     <div class="sec-title">Design Preference <em>by Income Range</em></div>
     <div class="sec-sub">First-choice category selection across all 6 products, broken down by monthly income bracket.</div>
   </div>
-
   <div class="chart-card wide">
     <div class="chart-title">Design Archetype Preference — By Monthly Income</div>
     <div class="chart-sub">% of first-choice selections per archetype, by income bracket (preliminary)</div>
-    <div class="chart-wrap" style="height:320px">
-      <canvas id="chartIncome"></canvas>
-    </div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartIncome"></canvas></div>
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--conv)"></div>Conventional</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--hybrid)"></div>Hybrid</div>
@@ -306,38 +227,13 @@ footer{
     <div class="sec-title">Preference <em>by Product Category</em></div>
     <div class="sec-sub">How design archetype preference varies across the six product types.</div>
   </div>
-
   <div class="chart-grid-3">
-    <div class="chart-card">
-      <div class="chart-title">☕ Coffee Mug</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartCup"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">⌚ Wrist Watch</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartWatch"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">🧴 Perfume Bottle</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartPerfume"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">🕐 Desk Clock</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartClock"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">💡 Table Lamp</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartLamp"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">🫗 Water Bottle</div>
-      <div class="chart-sub">First-choice distribution</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="chartBottle"></canvas></div>
-    </div>
+    <div class="chart-card"><div class="chart-title">☕ Coffee Mug</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartCup"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">⌚ Wrist Watch</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartWatch"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">🧴 Perfume Bottle</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartPerfume"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">🕐 Desk Clock</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartClock"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">💡 Table Lamp</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartLamp"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">🫗 Water Bottle</div><div class="chart-sub">First-choice distribution</div><div class="chart-wrap" style="height:220px"><canvas id="chartBottle"></canvas></div></div>
   </div>
 
   <div class="divider"></div>
@@ -346,13 +242,12 @@ footer{
   <div class="sec-head">
     <span class="sec-tag">Section C</span>
     <div class="sec-title">Design Personality <em>Trait Score</em></div>
-    <div class="sec-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic) — by generation.</div>
+    <div class="sec-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic) by generation. Neophobia items (G2, G4, G6, G8) are reverse-scored before averaging.</div>
   </div>
-
   <div class="chart-card wide">
     <div class="chart-title">Design Personality Trait Score — By Generation</div>
     <div class="chart-sub">Composite score from G1–G8 trait statements (1 = strongly neophobic, 5 = strongly neophilic)</div>
-    <div class="chart-wrap" style="height:320px"><canvas id="chartTrait"></canvas></div>
+    <div class="chart-wrap" style="height:340px"><canvas id="chartTrait"></canvas></div>
   </div>
 
   <div class="divider"></div>
@@ -361,9 +256,8 @@ footer{
   <div class="sec-head">
     <span class="sec-tag">Section D</span>
     <div class="sec-title">Purchase Intention <em>by Archetype</em></div>
-    <div class="sec-sub">Mean likelihood-to-purchase rating (1–5 Likert) per design archetype, broken down by generation.</div>
+    <div class="sec-sub">Mean likelihood-to-purchase rating (1–5) per design archetype, broken down by generation.</div>
   </div>
-
   <div class="chart-card wide">
     <div class="chart-title">Mean Purchase Likelihood — Conventional vs Hybrid vs Unconventional</div>
     <div class="chart-sub">By generational cohort · Scale: 1 (definitely not) to 5 (definitely yes)</div>
@@ -383,52 +277,23 @@ footer{
     <div class="sec-title">Preliminary <em>Key Findings</em></div>
     <div class="sec-sub">Patterns emerging from early responses. Will be updated as sample size grows.</div>
   </div>
-
   <div class="findings-grid">
-    <div class="finding-card">
-      <div class="finding-icon">📉</div>
-      <div>
-        <div class="finding-title">Score compression in AI pipeline</div>
-        <div class="finding-text">Our pipeline scores cluster in 0.37–0.64, making Hybrid the dominant prediction. Combined with LLM scores (50/50 weighted average) improves classification accuracy to ~67%.</div>
-      </div>
-    </div>
-    <div class="finding-card">
-      <div class="finding-icon">🔄</div>
-      <div>
-        <div class="finding-title">Complementary pipeline errors</div>
-        <div class="finding-text">Our pipeline underscores Unconventional items; the LLM overshoots Unconventional for Hybrid items. The errors are complementary — combining both signals outperforms either alone.</div>
-      </div>
-    </div>
-    <div class="finding-card">
-      <div class="finding-icon">🎯</div>
-      <div>
-        <div class="finding-title">Hybrid class hardest to detect</div>
-        <div class="finding-text">The 50/50 combined model achieves 100% recall for Unconventional but only 18% for Hybrid — the H/U boundary is the primary classification challenge across all product types.</div>
-      </div>
-    </div>
-    <div class="finding-card">
-      <div class="finding-icon">⚖️</div>
-      <div>
-        <div class="finding-title">Optimal weighting: 50/50</div>
-        <div class="finding-text">Across tested product categories (table lamps, desk clocks), equal weighting of our pipeline and LLM scores achieves the highest combined accuracy at 67% against human ground truth.</div>
-      </div>
-    </div>
+    <div class="finding-card"><div class="finding-icon">📉</div><div><div class="finding-title">Score compression in AI pipeline</div><div class="finding-text">Our pipeline scores cluster in 0.37–0.64, making Hybrid the dominant prediction. Combined with LLM scores (50/50 weighted average) improves classification accuracy to ~67%.</div></div></div>
+    <div class="finding-card"><div class="finding-icon">🔄</div><div><div class="finding-title">Complementary pipeline errors</div><div class="finding-text">Our pipeline underscores Unconventional items; the LLM overshoots Unconventional for Hybrid items. Combining both signals outperforms either alone.</div></div></div>
+    <div class="finding-card"><div class="finding-icon">🎯</div><div><div class="finding-title">Hybrid class hardest to detect</div><div class="finding-text">The 50/50 combined model achieves 100% recall for Unconventional but only 18% for Hybrid — the H/U boundary is the primary classification challenge.</div></div></div>
+    <div class="finding-card"><div class="finding-icon">⚖️</div><div><div class="finding-title">Optimal weighting: 50/50</div><div class="finding-text">Across tested product categories (table lamps, desk clocks), equal weighting achieves the highest combined accuracy at 67% against human ground truth.</div></div></div>
   </div>
 
-  <!-- CTA -->
   <div class="results-cta">
     <div class="cta-text">
       <h3>Haven't participated yet?</h3>
       <p>Your response takes ~8 minutes and directly contributes to the findings shown on this page.</p>
     </div>
-    <a href="index.html#consent" class="btn-gold">
-      Take the Survey →
-    </a>
+    <a href="index.html" class="btn-gold">Take the Survey →</a>
   </div>
 
-</div><!-- /page-body -->
+</div>
 
-<!-- FOOTER -->
 <footer>
   <div>
     <div class="footer-brand">Design Research Study</div>
@@ -436,245 +301,194 @@ footer{
   </div>
   <div class="footer-links">
     <a href="index.html">Home</a>
-    
-    <a href="index.html#consent">Participate</a>
+    <a href="index.html">Participate</a>
   </div>
-  <div style="font-size:0.72rem">© 2025 Academic Research · All data anonymised</div>
+  <div style="font-size:0.72rem;display:flex;gap:1.5rem;align-items:center">
+    <a href="#" onclick="scOpen();return false;" style="color:rgba(255,255,255,0.4);text-decoration:none;opacity:0.6;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">Results Access</a>
+    <span>© 2025 Academic Research · All data anonymised</span>
+  </div>
 </footer>
 
+<!-- SECRET CODE MODAL -->
+<div class="sc-overlay" id="scOverlay" onclick="scClose(event)">
+  <div class="sc-card" id="scCard">
+    <div class="sc-icon">🔒</div>
+    <div class="sc-title">Access Results</div>
+    <div class="sc-sub">Enter the access code to view the study results dashboard.</div>
+    <input class="sc-input" id="scInput" type="text" maxlength="10" placeholder="Enter code" autocomplete="off" onkeydown="if(event.key==='Enter')scSubmit()">
+    <div class="sc-err" id="scErr"></div>
+    <button class="sc-btn" onclick="scSubmit()">Access Results →</button>
+    <a class="sc-cancel" onclick="scClose()">Cancel</a>
+  </div>
+</div>
+
 <script>
-// ── APPS SCRIPT URL — paste your deployment URL here ────────────────────
-// Same URL you put in survey.html
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyuAe6uLAkBnpDE8f3F-CUKKcAs0ChuKQGFaiWEwiqJUZZ4UhUIQA0QoNqfgJb6kVDUPQ/exec';
+// ── CONFIG ────────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6cJaYgvfPkxXdXKkvTnA0hNtZzVCVdu8fO7dERwCwckmGrJFPkDNoQIWQqg9e_3N5Q/exec';
 
-// ── FALLBACK DATA shown while loading or if fetch fails ──────────────────
-const FALLBACK_DATA = {
-  totalResponses: 0, countries: 0, avgTime: '—', avgDesignAwareness: '—',
-  overallByGen: {
-    'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]
-  },
-  byProduct: {
-    cup:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-    watch:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-    perfume:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-    clock:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-    lamp:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-    bottle:{'Gen X':[34,33,33],'Gen Y':[33,34,33],'Gen Z':[33,33,34],'Gen Alpha':[33,34,33]},
-  },
-  thresholdByGen:{'Gen X':5,'Gen Y':5,'Gen Z':5,'Gen Alpha':5},
-  traitByGen:{'Gen X':3,'Gen Y':3,'Gen Z':3,'Gen Alpha':3},
-  purchaseByGen:{'Gen X':[3,3,3],'Gen Y':[3,3,3],'Gen Z':[3,3,3],'Gen Alpha':[3,3,3]},
-  byGender:{'Male':[34,33,33],'Female':[33,34,33],'Non-binary':[33,33,34],'Other':[34,33,33]},
-  byIncome:{
-    'Below ₹50,000':[34,33,33],
-    '₹50,000 – ₹1.5 Lakh':[33,34,33],
-    '₹1.5 – ₹3 Lakh':[33,33,34],
-    '₹3 – ₹6 Lakh':[34,33,33],
-    'Above ₹6 Lakh':[33,34,33],
-  },
-};
-
-let RESULTS_DATA = FALLBACK_DATA;
-
-const GENS   = ['Gen X','Gen Y','Gen Z','Gen Alpha'];
+// ── CHART CONSTANTS ───────────────────────────────────────────────────
+const GENS   = ['Gen X','Gen Y (Millennials)','Gen Z','Gen Alpha'];
 const COLORS = { conv:'#6b7c8d', hybrid:'#0d8a7a', unconv:'#c8922a' };
 const GEN_COLORS = ['#6366f1','#0d8a7a','#c8922a','#e54d4d'];
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.color = '#6b7c8d';
 
-// ── FETCH LIVE DATA FROM APPS SCRIPT THEN RENDER ──────────────────────
+// ── LOAD & RENDER ─────────────────────────────────────────────────────
+let chartInstances = [];
+function destroyCharts(){ chartInstances.forEach(c=>c.destroy()); chartInstances=[]; }
+
 async function loadAndRender() {
-  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
-    try {
-      const res  = await fetch(APPS_SCRIPT_URL + '?action=stats');
-      const live = await res.json();
-      if (live && live.totalResponses !== undefined) {
-        RESULTS_DATA = { ...FALLBACK_DATA, ...live };
-      }
-    } catch(e) {
-      console.warn('Could not fetch live data, using fallback.', e);
-    }
+  let data = null;
+  try {
+    const res  = await fetch(APPS_SCRIPT_URL + '?action=stats');
+    const live = await res.json();
+    if (live && live.totalResponses !== undefined) data = live;
+  } catch(e) { console.warn('Fetch failed', e); }
+
+  if (!data) {
+    // Show empty state — no fallback fake data
+    data = {
+      totalResponses:0, countries:0, avgTime:'—', avgDesignAwareness:'—',
+      overallByGen:{}, byProduct:{cup:[],watch:[],perfume:[],clock:[],lamp:[],bottle:[]},
+      traitByGen:{}, purchaseByGen:{}, byGender:{}, byIncome:{},
+    };
   }
-  renderAll();
+  renderAll(data);
 }
 
-let chartInstances = [];
-function destroyCharts() { chartInstances.forEach(ch => ch.destroy()); chartInstances = []; }
-
-function renderAll() {
+function renderAll(d) {
   destroyCharts();
 
-// ── UPDATE STAT CARDS ──────────────────────────────────────────────────
-const d = RESULTS_DATA;
-document.getElementById('totalResponses').textContent = d.totalResponses || '—';
-document.getElementById('sc1').textContent = d.totalResponses || '—';
-document.getElementById('sc2').textContent = d.countries || '—';
-document.getElementById('sc3').textContent = d.avgTime;
-document.getElementById('sc4').textContent = d.avgDesignAwareness;
+  // Stat cards
+  document.getElementById('totalResponses').textContent = d.totalResponses || '—';
+  document.getElementById('sc1').textContent = d.totalResponses || '—';
+  document.getElementById('sc2').textContent = d.countries || '—';
+  document.getElementById('sc3').textContent = d.avgTime || '—';
+  document.getElementById('sc4').textContent = d.avgDesignAwareness || '—';
 
-// ── CHART: OVERALL PREFERENCE BY GENERATION (grouped bar) ─────────────
-chartInstances.push(new Chart(document.getElementById('chartOverall'), {
-  type: 'bar',
-  data: {
-    labels: GENS,
-    datasets: [
-      { label:'Conventional', data: GENS.map(g=>(d.overallByGen[g]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc', borderRadius:4 },
-      { label:'Hybrid',       data: GENS.map(g=>(d.overallByGen[g]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
-      { label:'Unconventional',data:GENS.map(g=>(d.overallByGen[g]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
-    ]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ display:false } },
-    scales:{
-      x:{ grid:{ display:false } },
-      y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
-    }
-  }
-}));
-
-// ── CHARTS: PER PRODUCT (doughnut) ────────────────────────────────────
-const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
-const chartIds   = ['chartCup','chartWatch','chartPerfume','chartClock','chartLamp','chartBottle'];
-
-productIds.forEach((pid, i) => {
-  const raw = d.byProduct[pid];
-  let pcts;
-  if (Array.isArray(raw)) {
-    pcts = raw;
-  } else {
-    const agg = [0,0,0];
-    GENS.forEach(g => { if(raw[g]) raw[g].forEach((v,j) => agg[j] += v); });
-    const total = agg.reduce((a,b)=>a+b,0) || 1;
-    pcts = agg.map(v => Math.round(v/total*100));
+  // ── Section A: Overall by Generation ─────────────────────────────
+  const genLabels = GENS.filter(g => (d.overallByGen[g]||[]).some(v=>v>0));
+  if (genLabels.length) {
+    chartInstances.push(new Chart(document.getElementById('chartOverall'), {
+      type:'bar',
+      data:{ labels:genLabels, datasets:[
+        {label:'Conventional',  data:genLabels.map(g=>(d.overallByGen[g]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc',   borderRadius:4},
+        {label:'Hybrid',        data:genLabels.map(g=>(d.overallByGen[g]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4},
+        {label:'Unconventional',data:genLabels.map(g=>(d.overallByGen[g]||[0,0,0])[2]), backgroundColor:COLORS.unconv+'cc', borderRadius:4},
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{x:{grid:{display:false}},y:{max:100,ticks:{callback:v=>v+'%'},grid:{color:'#e8eff7'}}}}
+    }));
   }
 
-  chartInstances.push(new Chart(document.getElementById(chartIds[i]), {
-    type:'doughnut',
-    data:{
-      labels:['Conventional','Hybrid','Unconventional'],
-      datasets:[{
-        data: pcts,
+  // ── Section A2: By Gender ─────────────────────────────────────────
+  const genderKeys = Object.keys(d.byGender||{}).filter(g=>(d.byGender[g]||[]).some(v=>v>0));
+  if (genderKeys.length) {
+    chartInstances.push(new Chart(document.getElementById('chartGender'), {
+      type:'bar',
+      data:{ labels:genderKeys, datasets:[
+        {label:'Conventional',  data:genderKeys.map(g=>(d.byGender[g]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc',   borderRadius:4},
+        {label:'Hybrid',        data:genderKeys.map(g=>(d.byGender[g]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4},
+        {label:'Unconventional',data:genderKeys.map(g=>(d.byGender[g]||[0,0,0])[2]), backgroundColor:COLORS.unconv+'cc', borderRadius:4},
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{x:{grid:{display:false}},y:{max:100,ticks:{callback:v=>v+'%'},grid:{color:'#e8eff7'}}}}
+    }));
+  }
+
+  // ── Section A3: By Income ─────────────────────────────────────────
+  const incomeKeys = Object.keys(d.byIncome||{}).filter(k=>(d.byIncome[k]||[]).some(v=>v>0));
+  if (incomeKeys.length) {
+    chartInstances.push(new Chart(document.getElementById('chartIncome'), {
+      type:'bar',
+      data:{ labels:incomeKeys, datasets:[
+        {label:'Conventional',  data:incomeKeys.map(k=>(d.byIncome[k]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc',   borderRadius:4},
+        {label:'Hybrid',        data:incomeKeys.map(k=>(d.byIncome[k]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4},
+        {label:'Unconventional',data:incomeKeys.map(k=>(d.byIncome[k]||[0,0,0])[2]), backgroundColor:COLORS.unconv+'cc', borderRadius:4},
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{x:{grid:{display:false},ticks:{maxRotation:20}},y:{max:100,ticks:{callback:v=>v+'%'},grid:{color:'#e8eff7'}}}}
+    }));
+  }
+
+  // ── Section B: Per Product Doughnuts ─────────────────────────────
+  const productIds = ['cup','watch','perfume','clock','lamp','bottle'];
+  const chartIds   = ['chartCup','chartWatch','chartPerfume','chartClock','chartLamp','chartBottle'];
+  productIds.forEach((pid,i) => {
+    const raw = d.byProduct[pid];
+    if (!raw || !raw.some(v=>v>0)) return;
+    chartInstances.push(new Chart(document.getElementById(chartIds[i]), {
+      type:'doughnut',
+      data:{labels:['Conventional','Hybrid','Unconventional'],datasets:[{
+        data: raw,
         backgroundColor:[COLORS.conv+'dd',COLORS.hybrid+'dd',COLORS.unconv+'dd'],
         borderWidth:2, borderColor:'#fff',
-      }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      cutout:'65%',
-      plugins:{
-        legend:{ position:'bottom', labels:{ boxWidth:10, padding:10, font:{size:11} } },
-        tooltip:{ callbacks:{ label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
-      }
-    }
-  }));
-});
+      }]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
+        plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10,font:{size:11}}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.parsed}%`}}}}
+    }));
+  });
 
-// ── CHART: TRAIT SCORE BY GENERATION (radar) ──────────────────────────
-chartInstances.push(new Chart(document.getElementById('chartTrait'), {
-  type:'radar',
-  data:{
-    labels:['Gen X','Gen Y','Gen Z','Gen Alpha'],
-    datasets:[{
-      label:'Neophilia Trait Score',
-      data: GENS.map(g=>d.traitByGen[g]||0),
-      backgroundColor:'rgba(13,138,122,0.1)',
-      borderColor:'var(--teal)',
-      pointBackgroundColor:'var(--teal)',
-      pointRadius:4,
-    }]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    scales:{
-      r:{
-        min:1, max:5,
-        ticks:{ stepSize:1, font:{size:10} },
-        grid:{ color:'#e8eff7' },
-        pointLabels:{ font:{size:11} }
-      }
-    },
-    plugins:{ legend:{ display:false } }
+  // ── Section C: Trait Score Radar ──────────────────────────────────
+  const traitData = GENS.map(g=>d.traitByGen[g]||0);
+  if (traitData.some(v=>v>0)) {
+    chartInstances.push(new Chart(document.getElementById('chartTrait'), {
+      type:'radar',
+      data:{labels:['Gen X','Gen Y','Gen Z','Gen Alpha'],datasets:[{
+        label:'Neophilia Trait Score',
+        data:traitData,
+        backgroundColor:'rgba(13,138,122,0.1)',
+        borderColor:'#0d8a7a',
+        pointBackgroundColor:'#0d8a7a',
+        pointRadius:4,
+      }]},
+      options:{responsive:true,maintainAspectRatio:false,
+        scales:{r:{min:1,max:5,ticks:{stepSize:1,font:{size:10}},grid:{color:'#e8eff7'},pointLabels:{font:{size:11}}}},
+        plugins:{legend:{display:false}}}
+    }));
   }
-}));
 
-// ── CHART: GENDER PREFERENCE (grouped bar) ───────────────────────────
-const GENDERS = Object.keys(d.byGender || {}).filter(g => {
-  const arr = d.byGender[g];
-  return arr && arr.some(v => v > 0);
-});
-if(GENDERS.length > 0){
-  chartInstances.push(new Chart(document.getElementById('chartGender'), {
-    type: 'bar',
-    data: {
-      labels: GENDERS,
-      datasets: [
-        { label:'Conventional',  data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc',   borderRadius:4 },
-        { label:'Hybrid',        data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
-        { label:'Unconventional',data: GENDERS.map(g=>(d.byGender[g]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ display:false } },
-      scales:{
-        x:{ grid:{ display:false } },
-        y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
-      }
-    }
-  }));
-}
-
-// ── CHART: INCOME PREFERENCE (grouped bar) ────────────────────────────
-const INCOME_BRACKETS = Object.keys(d.byIncome || {}).filter(k => {
-  const arr = d.byIncome[k];
-  return arr && arr.some(v => v > 0);
-});
-if(INCOME_BRACKETS.length > 0){
-  chartInstances.push(new Chart(document.getElementById('chartIncome'), {
-    type: 'bar',
-    data: {
-      labels: INCOME_BRACKETS,
-      datasets: [
-        { label:'Conventional',  data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[0]), backgroundColor: COLORS.conv+'cc',   borderRadius:4 },
-        { label:'Hybrid',        data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[1]), backgroundColor: COLORS.hybrid+'cc', borderRadius:4 },
-        { label:'Unconventional',data: INCOME_BRACKETS.map(k=>(d.byIncome[k]||[0,0,0])[2]), backgroundColor: COLORS.unconv+'cc', borderRadius:4 },
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ display:false } },
-      scales:{
-        x:{ grid:{ display:false }, ticks:{ maxRotation:30, minRotation:0 } },
-        y:{ max:100, ticks:{ callback:v=>v+'%' }, grid:{ color:'#e8eff7' } }
-      }
-    }
-  }));
-}
-
-// ── CHART: PURCHASE INTENTION (grouped bar) ───────────────────────────
-chartInstances.push(new Chart(document.getElementById('chartPurchase'), {
-  type:'bar',
-  data:{
-    labels: GENS,
-    datasets:[
-      { label:'Conventional', data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc', borderRadius:4 },
-      { label:'Hybrid',       data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4 },
-      { label:'Unconventional',data:GENS.map(g=>(d.purchaseByGen[g]||[0,0,0])[2]),backgroundColor:COLORS.unconv+'cc', borderRadius:4 },
-    ]
-  },
-  options:{
-    responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{ display:false } },
-    scales:{
-      x:{ grid:{ display:false } },
-      y:{ min:1, max:5, ticks:{ stepSize:0.5 }, grid:{ color:'#e8eff7' } }
-    }
+  // ── Section D: Purchase Intention ─────────────────────────────────
+  const purchLabels = GENS.filter(g=>(d.purchaseByGen[g]||[]).some(v=>v>0));
+  if (purchLabels.length) {
+    chartInstances.push(new Chart(document.getElementById('chartPurchase'), {
+      type:'bar',
+      data:{labels:purchLabels,datasets:[
+        {label:'Conventional',  data:purchLabels.map(g=>(d.purchaseByGen[g]||[0,0,0])[0]), backgroundColor:COLORS.conv+'cc',   borderRadius:4},
+        {label:'Hybrid',        data:purchLabels.map(g=>(d.purchaseByGen[g]||[0,0,0])[1]), backgroundColor:COLORS.hybrid+'cc', borderRadius:4},
+        {label:'Unconventional',data:purchLabels.map(g=>(d.purchaseByGen[g]||[0,0,0])[2]), backgroundColor:COLORS.unconv+'cc', borderRadius:4},
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{x:{grid:{display:false}},y:{min:1,max:5,ticks:{stepSize:0.5},grid:{color:'#e8eff7'}}}}
+    }));
   }
-}));
-} // end renderAll
+}
 
 loadAndRender();
+
+// ── SECRET CODE ───────────────────────────────────────────────────────
+function scOpen(){
+  document.getElementById('scOverlay').classList.add('open');
+  document.getElementById('scInput').value='';
+  document.getElementById('scErr').textContent='';
+  document.getElementById('scInput').classList.remove('err');
+  setTimeout(()=>document.getElementById('scInput').focus(),80);
+}
+function scClose(e){
+  if(e && e.target!==document.getElementById('scOverlay')) return;
+  document.getElementById('scOverlay').classList.remove('open');
+}
+function scSubmit(){
+  const val = document.getElementById('scInput').value.trim().toUpperCase();
+  if(val==='SC4L3X9'){ window.location.href='results.html'; return; }
+  const card=document.getElementById('scCard');
+  document.getElementById('scInput').classList.add('err');
+  document.getElementById('scErr').textContent='Incorrect code. Please try again.';
+  card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+  document.getElementById('scInput').select();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('scOverlay').classList.remove('open')});
 </script>
 </body>
 </html>
