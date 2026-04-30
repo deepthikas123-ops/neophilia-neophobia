@@ -23,21 +23,79 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 .survey-header{
   position:sticky;top:0;z-index:100;
   background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
-  padding:0.9rem 2.5rem;
-  display:flex;align-items:center;gap:1.5rem;
+  padding:0.75rem 2.5rem 0.85rem;
 }
 .header-brand{
   font-family:'Cormorant Garamond',serif;
-  font-size:1rem;color:#fff;white-space:nowrap;flex-shrink:0;
+  font-size:1rem;color:#fff;white-space:nowrap;
 }
 .header-brand span{color:var(--gold)}
-.progress-wrap{flex:1;display:flex;flex-direction:column;gap:0.3rem}
-.progress-labels{display:flex;justify-content:space-between;font-size:0.7rem;color:rgba(255,255,255,0.45)}
-.progress-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--teal);border-radius:2px;transition:width 0.4s ease}
-.header-counter{
-  font-size:0.75rem;color:rgba(255,255,255,0.5);white-space:nowrap;flex-shrink:0
+
+/* ── TOP ROW: brand + step label ── */
+.header-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:0.55rem;
 }
+.header-step-label{
+  font-size:0.72rem;font-weight:500;color:var(--teal);
+  letter-spacing:0.04em;
+}
+.header-step-name{
+  color:rgba(255,255,255,0.6);font-weight:400;
+}
+
+/* ── SEGMENTED PROGRESS BAR ── */
+.progress-track-wrap{position:relative;margin-bottom:0.5rem}
+
+/* Percentage bubble */
+.progress-pct-bubble{
+  position:absolute;top:-1.6rem;
+  transform:translateX(-50%);
+  background:var(--teal);color:#fff;
+  font-size:0.68rem;font-weight:600;
+  padding:0.2rem 0.55rem;border-radius:2rem;
+  white-space:nowrap;pointer-events:none;
+  transition:left 0.4s ease;
+  display:flex;align-items:center;gap:0.3rem;
+}
+.progress-pct-bubble::after{
+  content:'';position:absolute;bottom:-4px;left:50%;
+  transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:var(--teal);
+  border-bottom:none;
+}
+
+/* Segmented bar: 15 pill segments */
+.seg-bar{
+  display:flex;gap:3px;align-items:center;height:10px;
+}
+.seg{
+  flex:1;height:10px;border-radius:5px;
+  background:rgba(255,255,255,0.15);
+  transition:background 0.3s ease;
+}
+.seg.done{background:var(--teal)}
+.seg.active{background:var(--teal);opacity:0.7}
+
+/* Milestone labels */
+.progress-milestones{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-top:0.35rem;
+}
+.milestone{
+  display:flex;flex-direction:column;align-items:center;
+  gap:0.1rem;
+}
+.milestone-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.85rem;font-weight:600;color:#fff;line-height:1;
+}
+.milestone-lbl{
+  font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;
+  color:rgba(255,255,255,0.4);
+}
+.milestone.right{align-items:flex-end}
+.milestone.center{align-items:center}
 
 /* ── LAYOUT ── */
 .survey-body{width:100%;padding:1.5rem 2.5rem 5rem}
@@ -517,15 +575,40 @@ input[type=range]::-webkit-slider-thumb{
 
 <!-- HEADER -->
 <header class="survey-header">
-  <div class="header-brand">Design Research Study</div>
-  <div class="progress-wrap">
-    <div class="progress-labels">
-      <span id="sectionLabel">Demographics</span>
-      <span id="sectionOf">Section 1 of 9</span>
+  <!-- Top row: brand + step label -->
+  <div class="header-top">
+    <div class="header-brand">Design Research Study</div>
+    <div class="header-step-label">
+      Step <span id="stepNum">1</span> of 15 &mdash;
+      <span class="header-step-name" id="sectionLabel">Demographics</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:11%"></div></div>
   </div>
-  <div class="header-counter" id="timeEst">~8 min remaining</div>
+
+  <!-- Segmented progress bar -->
+  <div class="progress-track-wrap" style="padding-top:1.4rem">
+    <div class="progress-pct-bubble" id="pctBubble" style="left:7%">
+      <span id="pctText">7%</span> Complete
+    </div>
+    <div class="seg-bar" id="segBar">
+      <!-- 15 segments injected by JS -->
+    </div>
+  </div>
+
+  <!-- Milestones -->
+  <div class="progress-milestones">
+    <div class="milestone">
+      <span class="milestone-num">1</span>
+      <span class="milestone-lbl">Start</span>
+    </div>
+    <div class="milestone center">
+      <span class="milestone-num">8</span>
+      <span class="milestone-lbl">Halfway there</span>
+    </div>
+    <div class="milestone right">
+      <span class="milestone-num">15</span>
+      <span class="milestone-lbl">Finish</span>
+    </div>
+  </div>
 </header>
 
 <main class="survey-body" id="surveyBody"></main>
@@ -671,12 +754,33 @@ function save(){
 }
 
 function updateHeader(){
-  const pct = Math.round(((current+1)/SECTIONS.length)*100);
-  document.getElementById('progressFill').style.width = pct+'%';
+  const total = SECTIONS.length; // 15
+  const step  = current + 1;
+  const pct   = Math.round((current / (total - 1)) * 100);
+
+  // Update step label
+  document.getElementById('stepNum').textContent   = step;
   document.getElementById('sectionLabel').textContent = SECTIONS[current];
-  document.getElementById('sectionOf').textContent = `Section ${current+1} of ${SECTIONS.length}`;
-  const mins = Math.max(1, Math.round(10*(1-(current/SECTIONS.length))));
-  document.getElementById('timeEst').textContent = `~${mins} min remaining`;
+
+  // Build segmented bar
+  const bar = document.getElementById('segBar');
+  if(bar){
+    bar.innerHTML = '';
+    for(let i = 0; i < total; i++){
+      const seg = document.createElement('div');
+      seg.className = 'seg' + (i < current ? ' done' : i === current ? ' active' : '');
+      bar.appendChild(seg);
+    }
+  }
+
+  // Move percentage bubble
+  const bubble = document.getElementById('pctBubble');
+  const pctText = document.getElementById('pctText');
+  if(bubble && pctText){
+    const leftPct = Math.max(4, Math.min(96, (current / (total - 1)) * 100));
+    bubble.style.left = leftPct + '%';
+    pctText.textContent = pct + '%';
+  }
 }
 
 function render(){
