@@ -578,7 +578,7 @@ input[type=range]::-webkit-slider-thumb{
   grid-template-rows:1fr 1fr;
   gap:4px;
   width:100%;
-  aspect-ratio:1;
+  aspect-ratio:1/1;
   background:#f0f0f0;
   overflow:hidden;
 }
@@ -586,7 +586,9 @@ input[type=range]::-webkit-slider-thumb{
   overflow:hidden;
   position:relative;
   background:#e8e8e8;
+  aspect-ratio:1/1;
 }
+/* cat-img-cell defined above */
 .cat-img-cell img{
   width:100%;height:100%;
   object-fit:cover;
@@ -753,6 +755,57 @@ input[type=range]::-webkit-slider-thumb{
     aspect-ratio:16/9 !important;
   }
 }
+
+/* ── GRID ZOOM LIGHTBOX ── */
+.grid-zoom-overlay{
+  display:none;position:fixed;inset:0;z-index:10000;
+  background:rgba(0,0,0,0.92);
+  align-items:center;justify-content:center;
+  cursor:zoom-out;
+  animation:lbFadeIn 0.2s ease;
+}
+.grid-zoom-overlay.open{display:flex}
+.grid-zoom-inner{
+  position:relative;
+  width:min(90vw, 90vh);
+  max-width:600px;
+  cursor:default;
+}
+.grid-zoom-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:6px;
+  width:100%;
+  aspect-ratio:1/1;
+  background:#111;
+  border-radius:0.5rem;
+  overflow:hidden;
+}
+.grid-zoom-cell{
+  overflow:hidden;
+  background:#222;
+}
+.grid-zoom-cell img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+.grid-zoom-label{
+  text-align:center;
+  color:rgba(255,255,255,0.7);
+  font-size:0.85rem;
+  margin-top:0.7rem;
+  letter-spacing:0.06em;
+  font-family:'Cormorant Garamond',serif;
+}
+.grid-zoom-close{
+  position:absolute;top:-2.2rem;right:0;
+  background:transparent;border:none;
+  color:rgba(255,255,255,0.6);
+  font-size:1.8rem;cursor:pointer;line-height:1;
+  transition:color 0.2s;
+}
+.grid-zoom-close:hover{color:#fff}
 </style>
 </head>
 <body>
@@ -763,8 +816,7 @@ input[type=range]::-webkit-slider-thumb{
   <div class="header-top">
     <div class="header-brand">Design Research Study</div>
     <div class="header-step-label">
-      Step <span id="stepNum">1</span> of 15 &mdash;
-      <span class="header-step-name" id="sectionLabel">Demographics</span>
+      Step <span id="stepNum">1</span> of 15
     </div>
   </div>
 
@@ -934,8 +986,7 @@ function updateHeader(){
   const pct   = Math.round((current / (total - 1)) * 100);
 
   // Update step label
-  document.getElementById('stepNum').textContent   = step;
-  document.getElementById('sectionLabel').textContent = SECTIONS[current];
+  document.getElementById('stepNum').textContent = step;
 
   // Build segmented bar
   const bar = document.getElementById('segBar');
@@ -1220,7 +1271,9 @@ function renderCategoryPage(body, product){
         <div class="img-card ${sel ? 'selected' : ''}"
              id="${pid}_cat_${letter}"
              onclick="selectCategory('${pid}','${archLabel}','${letter}',${archIdx})">
-          <div class="cat-img-grid">
+          <div class="cat-img-grid"
+               ondblclick="event.stopPropagation();openGridZoom(${JSON.stringify(product.gridIcons[archLabel]||[])},'Option ${letter} — ${archLabel}')"
+               title="Double-tap to zoom">
             ${(product.gridIcons[archLabel]||[archLabel,archLabel,archLabel,archLabel].map(()=>icon)).map((src,gi)=>`
             <div class="cat-img-cell">
               <img src="${src}"
@@ -1679,6 +1732,29 @@ function toggleOccOther(val){
   if(inp && val !== 'Other') inp.value = '';
 }
 
+function openGridZoom(srcs, label){
+  const grid = document.getElementById('gridZoomGrid');
+  const lbl  = document.getElementById('gridZoomLabel');
+  grid.innerHTML = srcs.map(src =>
+    `<div class="grid-zoom-cell"><img src="${src}" alt="${label}"/></div>`
+  ).join('');
+  lbl.textContent = label;
+  document.getElementById('gridZoomOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGridZoom(e){
+  if(e && e.target !== document.getElementById('gridZoomOverlay') &&
+     !document.querySelector('.grid-zoom-close')?.contains(e.target)) return;
+  document.getElementById('gridZoomOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    closeGridZoom();
+    closeLightbox();
+  }
+});
+
 function goBack(){
   if(current > 0){ current--; render(); }
 }
@@ -1701,9 +1777,7 @@ function closeLightbox(e) {
   document.getElementById('lightboxOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeLightbox();
-});
+// Escape handled in combined listener above
 
 
 
@@ -1717,6 +1791,15 @@ render();
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightboxImg" src="" alt=""/>
     <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<!-- GRID ZOOM MODAL -->
+<div class="grid-zoom-overlay" id="gridZoomOverlay" onclick="closeGridZoom(event)">
+  <div class="grid-zoom-inner" onclick="event.stopPropagation()">
+    <button class="grid-zoom-close" onclick="closeGridZoom()">✕</button>
+    <div class="grid-zoom-grid" id="gridZoomGrid"></div>
+    <div class="grid-zoom-label" id="gridZoomLabel"></div>
   </div>
 </div>
 
