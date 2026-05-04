@@ -19,7 +19,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min-height:100vh}
 
-/* ── HEADER ── */
+/* -- HEADER -- */
 .survey-header{
   position:sticky;top:0;z-index:100;
   background:rgba(14,28,47,0.96);backdrop-filter:blur(12px);
@@ -31,7 +31,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 }
 .header-brand span{color:var(--gold)}
 
-/* ── TOP ROW: brand + step label ── */
+/* -- TOP ROW: brand + step label -- */
 .header-top{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:0.35rem;
@@ -44,7 +44,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
   color:rgba(255,255,255,0.6);font-weight:400;
 }
 
-/* ── SEGMENTED PROGRESS BAR ── */
+/* -- SEGMENTED PROGRESS BAR -- */
 .progress-track-wrap{position:relative;margin-bottom:0.5rem}
 
 /* Percentage bubble */
@@ -97,10 +97,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 .milestone.right{align-items:flex-end}
 .milestone.center{align-items:center}
 
-/* ── LAYOUT ── */
+/* -- LAYOUT -- */
 .survey-body{width:100%;padding:1.5rem 2.5rem 5rem}
 
-/* ── SECTION CARD ── */
+/* -- SECTION CARD -- */
 .section-card{
   background:#fff;border:1px solid var(--border);
   border-radius:1rem;padding:2rem 3.5rem;
@@ -119,7 +119,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);min
 }
 .section-subtitle{font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:1.8rem}
 
-/* ── FORM FIELDS ── */
+/* -- FORM FIELDS -- */
 .field{margin-bottom:1.4rem}
 label.field-label{
   display:block;font-size:0.82rem;font-weight:500;
@@ -141,7 +141,7 @@ input.err,select.err,textarea.err{border-color:var(--err)}
 .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 @media(max-width:600px){.two-col,.three-col{grid-template-columns:1fr}}
 
-/* ── LIKERT ── */
+/* -- LIKERT -- */
 .likert-wrap{display:flex;gap:0.5rem;flex-wrap:wrap}
 .likert-opt{flex:1;min-width:3rem}
 .likert-opt input{display:none}
@@ -159,7 +159,7 @@ input.err,select.err,textarea.err{border-color:var(--err)}
 .likert-opt label:hover{border-color:var(--navy);color:var(--navy)}
 .likert-num{font-size:1.1rem;font-weight:600;color:inherit}
 
-/* ── RADIO PILLS ── */
+/* -- RADIO PILLS -- */
 .radio-group{display:flex;flex-direction:column;gap:0.5rem}
 .radio-opt input{display:none}
 .radio-opt label{
@@ -180,7 +180,7 @@ input.err,select.err,textarea.err{border-color:var(--err)}
   border-color:var(--teal);background:var(--teal)
 }
 
-/* ── CHECKBOX PILLS ── */
+/* -- CHECKBOX PILLS -- */
 .check-group{display:flex;flex-direction:column;gap:0.45rem}
 .check-opt input{display:none}
 .check-opt label{
@@ -204,7 +204,7 @@ input.err,select.err,textarea.err{border-color:var(--err)}
   content:'✓';color:#fff;font-size:9px;font-weight:700
 }
 
-/* ── SLIDER ── */
+/* -- SLIDER -- */
 .slider-wrap{padding:0.5rem 0}
 .slider-labels{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-bottom:0.4rem}
 input[type=range]{
@@ -222,7 +222,7 @@ input[type=range]::-webkit-slider-thumb{
   font-size:1.8rem;font-weight:600;color:var(--teal)
 }
 
-/* ── PRODUCT IMAGE CARDS ── */
+/* -- PRODUCT IMAGE CARDS -- */
 .product-block{
   background:var(--off);border:1px solid var(--border);
   border-radius:1rem;padding:2rem;margin-bottom:2rem
@@ -284,14 +284,14 @@ input[type=range]::-webkit-slider-thumb{
 }
 .img-card.selected .img-card-rank{background:rgba(13,138,122,0.1);color:var(--teal)}
 
-/* ── RANK INSTRUCTION ── */
+/* -- RANK INSTRUCTION -- */
 .rank-instruction{
   font-size:0.8rem;color:var(--muted);margin-bottom:0.8rem;
   padding:0.6rem 1rem;background:var(--light);border-radius:0.45rem;
   display:flex;align-items:center;gap:0.5rem
 }
 
-/* ── QUESTION BLOCK ── */
+/* -- QUESTION BLOCK -- */
 .q-block{margin-bottom:1.6rem}
 .q-label{
   font-size:1rem;font-weight:700;color:var(--ink);
@@ -302,11 +302,11 @@ input[type=range]::-webkit-slider-thumb{
   font-size:1.15rem;color:var(--teal);margin-right:0.5rem;font-weight:700
 }
 
-/* ── BRANCHING ── */
+/* -- BRANCHING -- */
 .branch-reveal{display:none;margin-top:0.8rem;padding:1rem;background:var(--light);border-radius:0.5rem}
 .branch-reveal.show{display:block}
 
-/* ── NAV BUTTONS ── */
+/* -- NAV BUTTONS -- */
 .nav-buttons{
   display:flex;justify-content:space-between;align-items:center;
   margin-top:2rem;gap:1rem;flex-wrap:wrap
@@ -329,7 +329,7 @@ input[type=range]::-webkit-slider-thumb{
 .btn-submit{background:var(--teal)}
 .btn-submit:hover{background:#0a7a6c}
 
-/* ── TRAIT SCALE ── */
+/* -- TRAIT SCALE -- */
 .trait-row{
   display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;
   padding:1rem 0;border-bottom:1px solid var(--border)
@@ -345,7 +345,7 @@ input[type=range]::-webkit-slider-thumb{
 .trait-btn:hover{border-color:var(--navy);color:var(--navy)}
 .trait-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:500}
 
-/* ── SAVED NOTICE ── */
+/* -- SAVED NOTICE -- */
 .saved-notice{
   position:fixed;bottom:1.5rem;right:1.5rem;
   background:var(--ink);color:#fff;padding:0.6rem 1.2rem;
@@ -354,7 +354,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 .saved-notice.show{opacity:1}
 
-/* ── SECTION DIVIDER ── */
+/* -- SECTION DIVIDER -- */
 .section-divider{
   display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.5rem;
   font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)
@@ -363,13 +363,13 @@ input[type=range]::-webkit-slider-thumb{
   content:'';flex:1;height:1px;background:var(--border)
 }
 
-/* ── CHAR COUNT ── */
+/* -- CHAR COUNT -- */
 .char-count{font-size:0.72rem;color:var(--muted);text-align:right;margin-top:0.3rem}
 
-/* ── HIDDEN ── */
+/* -- HIDDEN -- */
 .hidden{display:none!important}
 
-/* ── 5-ITEM DISPLAY GRID ── */
+/* -- 5-ITEM DISPLAY GRID -- */
 .five-item-grid{
   display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;
   margin-bottom:0.5rem;
@@ -387,7 +387,7 @@ input[type=range]::-webkit-slider-thumb{
   font-size:0.78rem;font-weight:500;color:var(--navy);margin-top:0.5rem;
 }
 
-/* ── RATING GRID TABLE ── */
+/* -- RATING GRID TABLE -- */
 .rating-grid-wrap{overflow-x:auto;margin-bottom:0.5rem;width:100%}
 .rating-grid{
   width:100%;border-collapse:collapse;min-width:360px;
@@ -426,7 +426,7 @@ input[type=range]::-webkit-slider-thumb{
   content:'';width:7px;height:7px;border-radius:50%;background:#fff;display:block;
 }
 
-/* ── LIGHTBOX MODAL ── */
+/* -- LIGHTBOX MODAL -- */
 .lightbox-overlay{
   display:none;position:fixed;inset:0;z-index:9999;
   background:rgba(0,0,0,0.88);
@@ -460,7 +460,7 @@ input[type=range]::-webkit-slider-thumb{
 /* Make all product images show zoom cursor */
 .img-card img,.item-display-card img{cursor:zoom-in;width:100%;height:100%;object-fit:cover;display:block}
 
-/* ── SECRET CODE MODAL ── */
+/* -- SECRET CODE MODAL -- */
 .sc-overlay{
   display:none;position:fixed;inset:0;z-index:9999;
   background:rgba(14,28,47,0.85);backdrop-filter:blur(8px);
@@ -506,7 +506,7 @@ input[type=range]::-webkit-slider-thumb{
 .sc-cancel:hover{color:#0e1c2f}
 
 
-/* ── VERTICAL RATING CARDS ── */
+/* -- VERTICAL RATING CARDS -- */
 .vrate-grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
   margin-bottom:0.5rem;
@@ -571,7 +571,7 @@ input[type=range]::-webkit-slider-thumb{
   color:var(--muted);margin-top:0.4rem;
 }
 
-/* ── CATEGORY 2×2 IMAGE GRID ── */
+/* -- CATEGORY 2×2 IMAGE GRID -- */
 .cat-img-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -594,6 +594,165 @@ input[type=range]::-webkit-slider-thumb{
   transition:transform 0.2s;
 }
 .cat-img-grid:hover .cat-img-cell img{transform:scale(1.03)}
+
+/* ======================================================
+   MOBILE RESPONSIVE OVERRIDES  (<= 480px)
+   ====================================================== */
+@media(max-width:480px){
+
+  /* -- Progress bar: tighter, no overflow -- */
+  .survey-header{
+    padding:0.5rem 1rem 0.6rem;
+  }
+  .header-top{
+    margin-bottom:0.25rem;
+  }
+  .header-brand{
+    font-size:0.82rem;
+  }
+  .header-step-label{
+    font-size:0.62rem;
+    max-width:55vw;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .progress-track-wrap{
+    padding-top:0.8rem !important;
+    margin-bottom:0.3rem;
+  }
+  .progress-pct-bubble{
+    font-size:0.6rem;
+    padding:0.15rem 0.4rem;
+    top:-1rem;
+  }
+  .seg-bar{
+    gap:2px;
+    height:8px;
+  }
+  .seg{
+    height:8px;
+    border-radius:4px;
+  }
+  .progress-milestones{
+    margin-top:0.25rem;
+  }
+  .milestone-num{
+    font-size:0.72rem;
+  }
+  .milestone-lbl{
+    font-size:0.5rem;
+  }
+
+  /* -- Survey body padding -- */
+  .survey-body{
+    padding:1rem 0.75rem 4rem;
+  }
+
+  /* -- Section card -- */
+  .section-card{
+    padding:1.25rem 1rem;
+    border-radius:0.75rem;
+  }
+
+  /* -- Q1 question text -- */
+  .q-label{
+    font-size:0.88rem !important;
+  }
+  .q-label .qnum{
+    font-size:1rem !important;
+  }
+
+  /* -- Rating cards: single column, preserve exact card structure -- */
+  .vrate-grid{
+    grid-template-columns:1fr !important;
+    gap:1.2rem !important;
+  }
+
+  /* -- Category choice grid: single column -- */
+  .image-choice-grid{
+    grid-template-columns:1fr !important;
+    gap:1rem !important;
+  }
+  .cat-img-grid{
+    aspect-ratio:16/9 !important;
+  }
+  .img-card-footer{
+    padding:0.6rem 0.8rem;
+  }
+  .img-card-letter{
+    font-size:1rem;
+  }
+
+  /* -- Nav buttons -- */
+  .nav-buttons{
+    gap:0.6rem;
+  }
+  .btn-back{
+    padding:0.7rem 1.2rem;
+    font-size:0.82rem;
+  }
+  .btn-next{
+    padding:0.7rem 1.2rem;
+    font-size:0.82rem;
+  }
+
+  /* -- Demographics two-col → single col -- */
+  .two-col,.three-col{
+    grid-template-columns:1fr !important;
+  }
+
+  /* -- Trait rows: stack vertically -- */
+  .trait-row{
+    grid-template-columns:1fr;
+    gap:0.6rem;
+  }
+  .trait-scale{
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    gap:0.4rem;
+  }
+  .trait-btn{
+    width:36px;
+    height:36px;
+  }
+
+  /* -- Closing radio options -- */
+  .radio-opt label{
+    font-size:0.82rem;
+    padding:0.6rem 0.75rem;
+  }
+  .check-opt label{
+    font-size:0.8rem;
+    padding:0.5rem 0.75rem;
+  }
+}
+
+/* ======================================================
+   TABLET RESPONSIVE OVERRIDES  (481px to 768px)
+   ====================================================== */
+@media(min-width:481px) and (max-width:768px){
+  .survey-header{
+    padding:0.55rem 1.5rem 0.65rem;
+  }
+  .survey-body{
+    padding:1.2rem 1.5rem 4rem;
+  }
+  .section-card{
+    padding:1.5rem 1.5rem;
+  }
+  .vrate-grid{
+    grid-template-columns:1fr !important;
+    gap:1.2rem !important;
+  }
+  .image-choice-grid{
+    grid-template-columns:1fr !important;
+    gap:1.2rem !important;
+  }
+  .cat-img-grid{
+    aspect-ratio:16/9 !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -641,9 +800,9 @@ input[type=range]::-webkit-slider-thumb{
 <div class="saved-notice" id="savedNotice">✓ Progress saved</div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // DATA
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 const PRODUCTS = [
   { id:'cup', label:'Coffee Mug', icon:'☕',
     gridIcons: {
@@ -739,9 +898,9 @@ function productIndexFromStep(step){
 function isCategoryPage(step){ return step >= 1 && step <= 12 && (step % 2 === 1); }
 function isRatingPage(step){   return step >= 2 && step <= 12 && (step % 2 === 0); }
 
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // STATE
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 let current = 0;
 let responses = JSON.parse(localStorage.getItem('nn_survey') || '{}');
 // Randomise archetype order per product (seeded to session)
@@ -757,9 +916,9 @@ if (!productOrders) {
   sessionStorage.setItem(ORDER_KEY, JSON.stringify(productOrders));
 }
 
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // HELPERS
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 function uid(prefix){ return prefix+'_'+Math.random().toString(36).slice(2,7); }
 
 function save(){
@@ -812,9 +971,9 @@ function render(){
   else if(current === 14)          renderClosing(body);
 }
 
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // SECTION 1 — DEMOGRAPHICS
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 function renderDemographics(body){
   const d = responses.demographics || {};
   body.innerHTML = `
@@ -849,7 +1008,7 @@ function renderDemographics(body){
         <label class="field-label" for="p4">Occupation <span class="req">*</span></label>
         <select id="p4" onchange="toggleOccOther(this.value)">
           <option value="">Select…</option>
-          ${['Student','Employed – medical & related field','Employed – technical field','Employed – design field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
+          ${['Student','Employed – creative field','Employed – technical field','Employed – business/management','Self-employed','Homemaker','Retired','Unemployed','Other'].map(o=>`<option value="${o}" ${d.occupation===o?'selected':''}>${o}</option>`).join('')}
         </select>
         
         <div id="p4otherWrap" style="margin-top:0.6rem;display:${d.occupation==='Other'?'block':'none'}">
@@ -900,7 +1059,7 @@ function renderDemographics(body){
     </div>
 
     <div class="field">
-      <label class="field-label">Does the way the product looks, influence your decision towards purchasing it? <span class="req">*</span></label>
+      <label class="field-label">When choosing or comparing products, how often do you pay attention to how they look (such as shape or style)? <span class="req">*</span></label>
       <div class="radio-group" id="p8wrap">
         ${[
           {n:1, label:'Never'},
@@ -919,7 +1078,6 @@ function renderDemographics(body){
         </div>`).join('')}
       </div>
       <div class="field-error" id="p8err">Please select one option.</div>
-    </div>
     </div>
 
     <div class="nav-buttons">
@@ -983,9 +1141,9 @@ function saveDemographics(){
   save(); current=1; render();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // SECTIONS 2–12 — PRODUCT CATEGORY + RATING PAGES
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 
 const PRODUCT_ITEMS = {
   cup: {
@@ -1035,7 +1193,7 @@ const INFLUENCE_OPTIONS = [
   'Classic / timeless','Overall appearance',
 ];
 
-// ── PAGE 1: CATEGORY SELECTION ────────────────────────────────────────
+// -- PAGE 1: CATEGORY SELECTION ----------------------------------------
 function renderCategoryPage(body, product){
   const pid    = product.id;
   const order  = productOrders[pid];   // randomised archetype order [0,1,2]
@@ -1121,7 +1279,7 @@ function saveCategoryAndAdvance(pid){
   render();
 }
 
-// ── PAGE 2: RATING WITHIN SELECTED CATEGORY ───────────────────────────
+// -- PAGE 2: RATING WITHIN SELECTED CATEGORY --------------------------─
 function renderRatingPage(body, product){
   const pid   = product.id;
   const pr    = responses[pid] || {};
@@ -1163,7 +1321,7 @@ function renderRatingPage(body, product){
           <img src="${items[i]}"
                alt="${product.label} ${l}"
                data-caption="${product.label} ${l}"
-               onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\'font-size:0.7rem;color:#aaa\'>Image not found</span>'"
+               onerror="this.style.opacity='0'"
           />
         </div>
 
@@ -1188,7 +1346,7 @@ function renderRatingPage(body, product){
 
     <div class="field-error" id="${pid}_q1raterr">Please rate all 5 items before continuing.</div>
 
-    <!-- Q2: MOST LIKELY TO BUY ──────────────────────────────── -->
+    <!-- Q2: MOST LIKELY TO BUY -------------------------------- -->
     <div class="q-block">
       <div class="q-label"><span class="qnum">Q2</span> From the above ${product.label.toLowerCase()} options, if you had to choose one that you would most likely purchase, which one would it be?</div>
       <div class="radio-group">
@@ -1206,7 +1364,7 @@ function renderRatingPage(body, product){
       <div class="field-error" id="${pid}_q2toperr">Please select your top choice.</div>
     </div>
 
-    <!-- Q3: INFLUENCE ───────────────────────────────────────── -->
+    <!-- Q3: INFLUENCE ----------------------------------------─ -->
     <div class="q-block">
       <div class="q-label">
         <span class="qnum">Q3</span> What influenced your choice the most?
@@ -1302,7 +1460,7 @@ function saveRatingPage(pid){
 }
 
 // SECTION 8 — TRAIT SCALE
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 function renderTraits(body){
   const tr = responses.traits || {};
   body.innerHTML = `
@@ -1356,9 +1514,9 @@ function saveTraits(){
   save(); current=14; render();
 }
 
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 // SECTION 9 — CLOSING
-// ═══════════════════════════════════════════════════════════════════════
+// =======================================================================
 function renderClosing(body){
   const cl = responses.closing || {};
   body.innerHTML = `
@@ -1454,7 +1612,7 @@ function updateCharCount(el, countId){
 let _submitFired = false;
 
 function submitSurvey(){
-  // ── Hard guard: never submit more than once ───────────────────────
+  // -- Hard guard: never submit more than once ----------------------─
   if (_submitFired) return;
 
   const cl = responses.closing || {};
@@ -1474,11 +1632,11 @@ function submitSurvey(){
   const dem = responses.demographics || {};
   responses.submitted_at = (dem.name||'anon') + '_' + (dem.dob||'') + '_' + Date.now();
 
-  // ── Save locally FIRST — thank-you page reads from here ─────────────
+  // -- Save locally FIRST — thank-you page reads from here ------------─
   localStorage.setItem('nn_survey_submitted', JSON.stringify(responses));
   localStorage.removeItem('nn_survey');
 
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS6cJaYgvfPkxXdXKkvTnA0hNtZzVCVdu8fO7dERwCwckmGrJFPkDNoQIWQqg9e_3N5Q/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGmWtNJcfCdciJPRKfjKVGpsiYX7w6SbK7T6-8LAyI5T2tVyZS_LqTZb9bCYWzUUVztg/exec';
 
   const submitAndRedirect = () => {
     window.location.href = 'thank-you.html';
@@ -1526,7 +1684,7 @@ function goBack(){
 }
 
 
-// ── LIGHTBOX ─────────────────────────────────────────────────────────
+// -- LIGHTBOX --------------------------------------------------------─
 function openLightbox(src, caption) {
   const overlay = document.getElementById('lightboxOverlay');
   const img     = document.getElementById('lightboxImg');
@@ -1549,7 +1707,7 @@ document.addEventListener('keydown', e => {
 
 
 
-// ── INIT ──
+// -- INIT --
 render();
 </script>
 
@@ -1582,7 +1740,7 @@ render();
   </div>
 </div>
 <script>
-// ── SECRET CODE GATE ──
+// -- SECRET CODE GATE --
 function scOpen(){
   document.getElementById('scOverlay').classList.add('open');
   document.getElementById('scInput').value='';
