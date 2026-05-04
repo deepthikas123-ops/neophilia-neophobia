@@ -243,8 +243,26 @@ input[type=range]::-webkit-slider-thumb{
 
 .image-choice-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-bottom:1.5rem;
-  align-items:stretch;
+  align-items:start;
 }
+/* Make each category card square */
+.image-choice-grid .img-card{
+  aspect-ratio:auto;
+}
+/* The grid (4 images) should be square — use padding-bottom trick for reliability */
+.image-choice-grid .cat-img-grid{
+  position:relative;
+  height:0 !important;
+  padding-bottom:100% !important;
+  flex:none !important;
+}
+.image-choice-grid .cat-img-grid > .cat-img-cell{
+  position:absolute;
+}
+.image-choice-grid .cat-img-grid > .cat-img-cell:nth-child(1){ top:0;left:0;width:calc(50% - 2px);height:calc(50% - 2px); }
+.image-choice-grid .cat-img-grid > .cat-img-cell:nth-child(2){ top:0;right:0;width:calc(50% - 2px);height:calc(50% - 2px); }
+.image-choice-grid .cat-img-grid > .cat-img-cell:nth-child(3){ bottom:0;left:0;width:calc(50% - 2px);height:calc(50% - 2px); }
+.image-choice-grid .cat-img-grid > .cat-img-cell:nth-child(4){ bottom:0;right:0;width:calc(50% - 2px);height:calc(50% - 2px); }
 @media(max-width:600px){.image-choice-grid{grid-template-columns:1fr}}
 
 .img-card{
@@ -253,7 +271,11 @@ input[type=range]::-webkit-slider-thumb{
   transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;
   background:#f0f0f0;
   display:flex;flex-direction:column;
-  /* height determined by 1:1 grid + footer */
+}
+/* The grid inside must be square — use flex-grow:1 so grid fills card */
+.img-card .cat-img-grid{
+  flex:1 1 auto;
+  /* Override aspect-ratio with actual flex fill */
 }
 .img-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
 .img-card.selected{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,138,122,0.15)}
@@ -579,8 +601,20 @@ input[type=range]::-webkit-slider-thumb{
   gap:4px;
   width:100%;
   aspect-ratio:1/1;
+  /* Enforce square: min-height matches width */
+  min-height:0;
   background:#f0f0f0;
   overflow:hidden;
+  flex-shrink:0;
+}
+/* Force square via container query fallback */
+.img-card{
+  container-type:inline-size;
+}
+@container(min-width:0px){
+  .cat-img-grid{
+    height:100cqi;
+  }
 }
 .cat-img-cell{
   overflow:hidden;
@@ -677,7 +711,9 @@ input[type=range]::-webkit-slider-thumb{
     gap:1rem !important;
   }
   .cat-img-grid{
-    aspect-ratio:16/9 !important;
+    aspect-ratio:1/1 !important;
+    height:calc(100vw - 3.5rem) !important;
+    max-height:calc(100vw - 3.5rem) !important;
   }
   .img-card-footer{
     padding:0.6rem 0.8rem;
@@ -752,7 +788,9 @@ input[type=range]::-webkit-slider-thumb{
     gap:1.2rem !important;
   }
   .cat-img-grid{
-    aspect-ratio:16/9 !important;
+    aspect-ratio:1/1 !important;
+    height:calc(100vw - 3.5rem) !important;
+    max-height:calc(100vw - 3.5rem) !important;
   }
 }
 
