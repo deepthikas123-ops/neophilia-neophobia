@@ -1069,7 +1069,7 @@ function renderDemographics(body){
     <p class="section-subtitle">Your details help us group responses by generation, gender, and background. All information is anonymised before analysis.</p>
 
     <div class="field">
-      <label class="field-label" for="p1">Full Name <span style="font-size:0.75rem;color:var(--muted);font-weight:400">(optional — leave blank to stay anonymous)</span></label>
+      <label class="field-label" for="p1">Full Name <span style="font-size:0.75rem;color:var(--muted);font-weight:400"> </span></label>
       <input type="text" id="p1" placeholder="Your name or leave blank" value="${d.name||''}">
     </div>
 
@@ -1109,7 +1109,7 @@ function renderDemographics(body){
         <label class="field-label" for="p5">Educational Background <span class="req">*</span></label>
         <select id="p5">
           <option value="">Select…</option>
-          ${['No formal education','Secondary school','Undergraduate degree','Postgraduate degree','Doctoral degree','Vocational / trade qualification'].map(e=>`<option value="${e}" ${d.education===e?'selected':''}>${e}</option>`).join('')}
+          ${['No formal education','Primary school','Secondary school','Undergraduate degree','Postgraduate degree','Doctoral degree','Vocational / trade qualification'].map(e=>`<option value="${e}" ${d.education===e?'selected':''}>${e}</option>`).join('')}
         </select>
         <div class="field-error" id="p5err">Please select your education level.</div>
       </div>
