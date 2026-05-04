@@ -994,17 +994,14 @@ function isRatingPage(step){   return step >= 2 && step <= 12 && (step % 2 === 0
 let current = 0;
 let responses = JSON.parse(localStorage.getItem('nn_survey') || '{}');
 // Randomise archetype order per product (seeded to session)
-const ORDER_KEY = 'nn_order';
-let productOrders = JSON.parse(sessionStorage.getItem(ORDER_KEY) || 'null');
-if (!productOrders) {
-  productOrders = {};
-  PRODUCTS.forEach(p => {
-    const arr = [0,1,2];
-    for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-    productOrders[p.id] = arr;
-  });
-  sessionStorage.setItem(ORDER_KEY, JSON.stringify(productOrders));
-}
+// Shuffle image sets fresh on every page load
+// Labels (Option A, B, C) stay fixed; image sets are randomly assigned
+const productOrders = {};
+PRODUCTS.forEach(p => {
+  const arr = [0,1,2];
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  productOrders[p.id] = arr;
+});
 
 // =======================================================================
 // HELPERS
